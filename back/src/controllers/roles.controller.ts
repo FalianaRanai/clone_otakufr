@@ -1,5 +1,5 @@
+import { RoleService } from '@/services/roles.service';
 import { Role } from '@interfaces/roles.interface';
-import { RoleService } from '@services/roles.services';
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
 
