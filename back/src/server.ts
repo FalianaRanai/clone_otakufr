@@ -10,6 +10,7 @@ import { MediaGenreRoute } from './routes/media_genres.route';
 import { MediaRoute } from './routes/medias.route';
 import { RealisateurRoute } from './routes/realisateurs.route';
 import { RoleRoute } from './routes/roles.route';
+import { SaisonRoute } from './routes/saisons.route';
 import { StatutRoute } from './routes/statuts.route';
 import { StudioRoute } from './routes/studios.route';
 import { TypeRoute } from './routes/types.route';
@@ -31,6 +32,7 @@ const routes: Routes[] = [
   new MediaGenreRoute(),
   new MediaRoute(),
   new EpisodeRoute(),
+  new SaisonRoute(),
 ];
 
 const app = new App(routes);

@@ -199,3 +199,12 @@ CREATE TABLE "episodes"(
 );
 
 ALTER TABLE "episodes" ADD COLUMN "date_sortie" TIMESTAMP WITHOUT TIME ZONE;
+
+CREATE TABLE "saisons"(
+    "id_saison" SERIAL PRIMARY KEY,
+    "numero" INT NOT NULL,
+    "id_media" INT NOT NULL,
+    "created_at" TIMESTAMP WITHOUT TIME ZONE DEFAULT(NOW() AT TIME ZONE 'utc'),
+    "updated_at" TIMESTAMP WITHOUT TIME ZONE,
+    FOREIGN KEY ("id_media") REFERENCES "medias"("id_media") ON DELETE CASCADE
+);

@@ -43,7 +43,7 @@ export class MediaGenreService {
               "id_media",
               "id_genre"
             )
-          VALUES ($1)
+          VALUES ($1, $2)
           RETURNING "id_media", "id_genre"
           `,
       [id_media, id_genre],
