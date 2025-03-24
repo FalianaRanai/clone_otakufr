@@ -60,4 +60,13 @@ export class MediaGenreController {
       next(error);
     }
   };
+
+  public generate = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const genres: MediaGenre[] = await this.media_genre.generate();
+      res.status(201).json({ data: genres, message: 'created' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

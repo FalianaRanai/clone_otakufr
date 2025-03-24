@@ -1,3 +1,4 @@
+import { Genre } from '@/interfaces/genres.interface';
 import { MediaGenre } from '@/interfaces/media_genres.interface';
 import pg from '@database';
 import { HttpException } from '@exceptions/httpException';
@@ -112,5 +113,68 @@ export class MediaGenreService {
     );
 
     return deleteMediaGenreData;
+  }
+
+  public async generate(): Promise<MediaGenre[]> {
+    const media_genres = [];
+    const genres_ref = ['Action', 'Aventure', 'Comedie', 'Démons', 'Ecchi', 'Fantastique', 'Isekai', 'Psychologique'];
+    const genres: Genre[] = [];
+    try {
+      await pg.query('BEGIN');
+
+      for (let i = 0; i < genres_ref.length; i++) {
+        const { rows: rows_genres } = await pg.query(
+          `
+          SELECT
+            *
+          FROM
+            genres
+          WHERE 
+            LOWER(nom_genre) LIKE LOWER('%' || $1 || '%')
+          `,
+          [genres_ref[i]],
+        );
+        genres.push(rows_genres[0]);
+      }
+
+      // console.log('rows_genre: ', genres);
+
+      for (let i = 0; i < genres.length; i++) {
+        // console.warn('HEIN?', genres[i]);
+        // Vérifier si le genre existe déjà
+        const { rows: rows_verif } = await pg.query(`SELECT COUNT(*) FROM media_genres WHERE id_media = $1 AND id_genre = $2`, [
+          1,
+          genres[i].id_genre,
+        ]);
+
+        if (parseInt(rows_verif[0].count) > 0) {
+          console.warn(`Media_Genre ${genres[i].nom_genre} déjà existant, genre ignoré.`);
+          continue;
+        }
+
+        // console.warn('AAAAAAAAAAAAAA?');
+
+        const { rows: createMediaGenreData } = await pg.query(
+          `
+              INSERT INTO
+                media_genres(
+                  "id_media",
+                  "id_genre"
+                )
+              VALUES ($1, $2)
+              RETURNING "id_media", "id_genre"
+              `,
+          [1, genres[i].id_genre],
+        );
+        media_genres.push(createMediaGenreData[0]);
+      }
+      await pg.query('COMMIT');
+    } catch (error) {
+      await pg.query('ROLLBACK'); // Annulation en cas d'erreur
+      console.error('Erreur lors de l’insertion des media genres :', error);
+      throw new HttpException(500, 'Erreur lors de la création des media genres');
+    }
+
+    return media_genres;
   }
 }
