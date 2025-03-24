@@ -3,10 +3,10 @@ export interface Media {
   titre: string;
   sygnopsis: string;
   autre_nom: string;
-  auteur: string;
-  realisateur: string;
-  studio: string;
-  date_sortie: string;
+  id_auteur: number;
+  id_realisateur: number;
+  id_studio: number;
+  date_sortie: Date;
   duree: string;
   id_type: number;
   id_statut: number;
