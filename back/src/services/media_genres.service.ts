@@ -74,10 +74,11 @@ export class MediaGenreService {
             media_genres
           SET
             "id_media" = $2,
-            "id_genre" = $3
+            "id_genre" = $3,
+            "updated_at" = NOW()
           WHERE
             "id_media_genre" = $1
-          RETURNING "email", "password"
+          RETURNING "id_media", "id_genre"
         `,
       [media_genreId, id_media, id_genre],
     );

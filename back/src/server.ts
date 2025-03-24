@@ -6,6 +6,7 @@ import { Routes } from './interfaces/routes.interface';
 import { AuteurRoute } from './routes/auteurs.route';
 import { GenreRoute } from './routes/genres.route';
 import { MediaGenreRoute } from './routes/media_genres.route';
+import { MediaRoute } from './routes/medias.route';
 import { RealisateurRoute } from './routes/realisateurs.route';
 import { RoleRoute } from './routes/roles.route';
 import { StatutRoute } from './routes/statuts.route';
@@ -27,6 +28,7 @@ const routes: Routes[] = [
   new RealisateurRoute(),
   new StudioRoute(),
   new MediaGenreRoute(),
+  new MediaRoute(),
 ];
 
 const app = new App(routes);

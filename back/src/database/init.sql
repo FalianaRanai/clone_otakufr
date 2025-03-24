@@ -151,3 +151,39 @@ INSERT INTO "medias"(
     1
 );
 
+BEGIN;
+
+ALTER TABLE "users" RENAME COLUMN "createdAt" TO "created_at";
+ALTER TABLE "users" RENAME COLUMN "updatedAt" TO "updated_at";
+
+ALTER TABLE "roles" RENAME COLUMN "createdAt" TO "created_at";
+ALTER TABLE "roles" RENAME COLUMN "updatedAt" TO "updated_at";
+
+ALTER TABLE "user_roles" RENAME COLUMN "createdAt" TO "created_at";
+ALTER TABLE "user_roles" RENAME COLUMN "updatedAt" TO "updated_at";
+
+ALTER TABLE "genres" RENAME COLUMN "createdAt" TO "created_at";
+ALTER TABLE "genres" RENAME COLUMN "updatedAt" TO "updated_at";
+
+ALTER TABLE "statuts" RENAME COLUMN "createdAt" TO "created_at";
+ALTER TABLE "statuts" RENAME COLUMN "updatedAt" TO "updated_at";
+
+ALTER TABLE "types" RENAME COLUMN "createdAt" TO "created_at";
+ALTER TABLE "types" RENAME COLUMN "updatedAt" TO "updated_at";
+
+ALTER TABLE "medias" RENAME COLUMN "createdAt" TO "created_at";
+ALTER TABLE "medias" RENAME COLUMN "updatedAt" TO "updated_at";
+
+ALTER TABLE "media_genres" RENAME COLUMN "createdAt" TO "created_at";
+ALTER TABLE "media_genres" RENAME COLUMN "updatedAt" TO "updated_at";
+
+ALTER TABLE "realisateurs" RENAME COLUMN "createdAt" TO "created_at";
+ALTER TABLE "realisateurs" RENAME COLUMN "updatedAt" TO "updated_at";
+
+ALTER TABLE "auteurs" RENAME COLUMN "createdAt" TO "created_at";
+ALTER TABLE "auteurs" RENAME COLUMN "updatedAt" TO "updated_at";
+
+ALTER TABLE "studios" RENAME COLUMN "createdAt" TO "created_at";
+ALTER TABLE "studios" RENAME COLUMN "updatedAt" TO "updated_at";
+
+COMMIT;

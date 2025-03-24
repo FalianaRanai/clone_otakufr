@@ -71,10 +71,11 @@ export class StudioService {
           UPDATE
             studios
           SET
-            "nom_studio" = $2
+            "nom_studio" = $2,
+            "updated_at" = NOW()
           WHERE
             "id_studio" = $1
-          RETURNING "email", "password"
+          RETURNING "nom_studio"
         `,
       [studioId, nom_studio],
     );

@@ -71,10 +71,11 @@ export class AuteurService {
           UPDATE
             auteurs
           SET
-            "nom_auteur" = $2
+            "nom_auteur" = $2,
+            "updated_at" = NOW()
           WHERE
             "id_auteur" = $1
-          RETURNING "email", "password"
+          RETURNING "nom_auteur"
         `,
       [auteurId, nom_auteur],
     );

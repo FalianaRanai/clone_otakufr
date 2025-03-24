@@ -73,10 +73,11 @@ export class UserRoleService {
             user_roles
           SET
             "id_user" = $2,
-            "id_role" = $3
+            "id_role" = $3,
+            "updated_at" = NOW()
           WHERE
             "id_user_role" = $1
-          RETURNING "email", "password"
+          RETURNING "id_user", "id_role"
         `,
       [user_roleId, id_user, id_role],
     );

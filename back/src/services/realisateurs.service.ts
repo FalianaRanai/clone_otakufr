@@ -71,10 +71,11 @@ export class RealisateurService {
           UPDATE
             realisateurs
           SET
-            "nom_realisateur" = $2
+            "nom_realisateur" = $2,
+            "updated_at" = NOW()
           WHERE
             "id_realisateur" = $1
-          RETURNING "email", "password"
+          RETURNING "nom_realisateur"
         `,
       [realisateurId, nom_realisateur],
     );

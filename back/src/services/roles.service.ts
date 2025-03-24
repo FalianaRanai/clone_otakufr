@@ -71,10 +71,11 @@ export class RoleService {
         UPDATE
           roles
         SET
-          "nom_role" = $2
+          "nom_role" = $2,
+          "updated_at" = NOW()
         WHERE
           "id_role" = $1
-        RETURNING "email", "password"
+        RETURNING "nom_role"
       `,
       [roleId, nom_role],
     );

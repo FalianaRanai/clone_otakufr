@@ -73,10 +73,11 @@ export class StatutService {
         UPDATE
           statuts
         SET
-          "nom_statut" = $2
+          "nom_statut" = $2,
+          "updated_at" = NOW()
         WHERE
           "id_statut" = $1
-        RETURNING "email", "password"
+        RETURNING "nom_statut"
       `,
       [statutId, nom_statut],
     );

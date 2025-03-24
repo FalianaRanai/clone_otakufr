@@ -73,10 +73,11 @@ export class TypeService {
         UPDATE
           types
         SET
-          "nom_type" = $2
+          "nom_type" = $2,
+          "updated_at" = NOW()
         WHERE
           "id_type" = $1
-        RETURNING "email", "password"
+        RETURNING "nom_type"
       `,
       [typeId, nom_type],
     );

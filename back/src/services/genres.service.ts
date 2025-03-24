@@ -96,6 +96,8 @@ export class GenreService {
   }
 
   public async updateGenre(genreId: number, genreData: Genre): Promise<Genre[]> {
+    console.log('on parle bien de cette fonction là?', genreData);
+
     const { rows: findGenre } = await pg.query(
       `
         SELECT EXISTS(
@@ -116,10 +118,11 @@ export class GenreService {
         UPDATE
           genres
         SET
-          "nom_genre" = $2
+          "nom_genre" = $2,
+          "updated_at" = NOW()
         WHERE
           "id_genre" = $1
-        RETURNING "email", "password"
+        RETURNING "nom_genre"
       `,
       [genreId, nom_genre],
     );
