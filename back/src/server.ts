@@ -4,6 +4,7 @@ import { UserRoute } from '@routes/users.route';
 import { ValidateEnv } from '@utils/validateEnv';
 import { Routes } from './interfaces/routes.interface';
 import { AuteurRoute } from './routes/auteurs.route';
+import { EpisodeRoute } from './routes/episode.route';
 import { GenreRoute } from './routes/genres.route';
 import { MediaGenreRoute } from './routes/media_genres.route';
 import { MediaRoute } from './routes/medias.route';
@@ -29,6 +30,7 @@ const routes: Routes[] = [
   new StudioRoute(),
   new MediaGenreRoute(),
   new MediaRoute(),
+  new EpisodeRoute(),
 ];
 
 const app = new App(routes);

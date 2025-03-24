@@ -187,3 +187,15 @@ ALTER TABLE "studios" RENAME COLUMN "createdAt" TO "created_at";
 ALTER TABLE "studios" RENAME COLUMN "updatedAt" TO "updated_at";
 
 COMMIT;
+
+CREATE TABLE "episodes"(
+    "id_episode" SERIAL PRIMARY KEY,
+    "nom_episode" TEXT,
+    "numero" INT NOT NULL,
+    "id_media" INT NOT NULL,
+    "created_at" TIMESTAMP WITHOUT TIME ZONE DEFAULT(NOW() AT TIME ZONE 'utc'),
+    "updated_at" TIMESTAMP WITHOUT TIME ZONE,
+    FOREIGN KEY ("id_media") REFERENCES "medias"("id_media") ON DELETE CASCADE
+);
+
+ALTER TABLE "episodes" ADD COLUMN "date_sortie" TIMESTAMP WITHOUT TIME ZONE;

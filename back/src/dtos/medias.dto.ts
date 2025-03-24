@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import { IsDate, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateMediaDto {
@@ -10,28 +11,34 @@ export class CreateMediaDto {
   @IsString()
   public autre_nom: string;
 
+  @Transform(({ value }) => Number(value))
   @IsNumber()
   @IsNotEmpty()
   public id_auteur: number;
 
+  @Transform(({ value }) => Number(value))
   @IsNumber()
   @IsNotEmpty()
   public id_realisateur: number;
 
+  @Transform(({ value }) => Number(value))
   @IsNumber()
   @IsNotEmpty()
   public id_studio: number;
 
+  @Transform(({ value }) => new Date(value))
   @IsDate()
   public date_sortie: Date;
 
   @IsString()
   public duree: string;
 
+  @Transform(({ value }) => Number(value))
   @IsNumber()
   @IsNotEmpty()
   public id_type: number;
 
+  @Transform(({ value }) => Number(value))
   @IsNumber()
   @IsNotEmpty()
   public id_statut: number;
@@ -50,28 +57,34 @@ export class UpdateMediaDto {
   @IsString()
   public autre_nom: string;
 
+  @Transform(({ value }) => Number(value))
   @IsNumber()
   @IsNotEmpty()
   public id_auteur: number;
 
+  @Transform(({ value }) => Number(value))
   @IsNumber()
   @IsNotEmpty()
   public id_realisateur: number;
 
+  @Transform(({ value }) => Number(value))
   @IsNumber()
   @IsNotEmpty()
   public id_studio: number;
 
+  @Transform(({ value }) => new Date(value))
   @IsDate()
   public date_sortie: Date;
 
   @IsString()
   public duree: string;
 
+  @Transform(({ value }) => Number(value))
   @IsNumber()
   @IsNotEmpty()
   public id_type: number;
 
+  @Transform(({ value }) => Number(value))
   @IsNumber()
   @IsNotEmpty()
   public id_statut: number;

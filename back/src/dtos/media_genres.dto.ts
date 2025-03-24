@@ -1,15 +1,26 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateMediaGenreDto {
-  @IsString()
+  @Transform(({ value }) => Number(value))
+  @IsNumber()
   @IsNotEmpty()
   public id_media: number;
+
+  @Transform(({ value }) => Number(value))
+  @IsNumber()
+  @IsNotEmpty()
   public id_genre: number;
 }
 
 export class UpdateMediaGenreDto {
-  @IsString()
+  @Transform(({ value }) => Number(value))
+  @IsNumber()
   @IsNotEmpty()
   public id_media: number;
+
+  @Transform(({ value }) => Number(value))
+  @IsNumber()
+  @IsNotEmpty()
   public id_genre: number;
 }

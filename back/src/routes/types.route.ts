@@ -1,5 +1,5 @@
 import { TypeController } from '@controllers/types.controller';
-import { CreateTypeDto } from '@dtos/types.dto';
+import { CreateTypeDto, UpdateTypeDto } from '@dtos/types.dto';
 import { Routes } from '@interfaces/routes.interface';
 import { ValidationMiddleware } from '@middlewares/validation.middleware';
 import { Router } from 'express';
@@ -18,7 +18,7 @@ export class TypeRoute implements Routes {
     this.router.get(`${this.path}/:id(\\d+)`, this.type.getTypeById);
     this.router.post(`${this.path}`, ValidationMiddleware(CreateTypeDto), this.type.createType);
     this.router.post(`${this.path}/generate`, this.type.generateType);
-    this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(CreateTypeDto, true), this.type.updateType);
+    this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(UpdateTypeDto, true), this.type.updateType);
     this.router.delete(`${this.path}/:id(\\d+)`, this.type.deleteType);
   }
 }

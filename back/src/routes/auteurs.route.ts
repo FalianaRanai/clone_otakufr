@@ -1,5 +1,5 @@
 import { AuteurController } from '@controllers/auteurs.controller';
-import { CreateAuteurDto } from '@dtos/auteurs.dto';
+import { CreateAuteurDto, UpdateAuteurDto } from '@dtos/auteurs.dto';
 import { Routes } from '@interfaces/routes.interface';
 import { ValidationMiddleware } from '@middlewares/validation.middleware';
 import { Router } from 'express';
@@ -18,7 +18,7 @@ export class AuteurRoute implements Routes {
     this.router.get(`${this.path}/:id(\\d+)`, this.auteur.getAuteurById);
     this.router.post(`${this.path}`, ValidationMiddleware(CreateAuteurDto), this.auteur.createAuteur);
     // this.router.post(`${this.path}/generate`, this.auteur.generateAuteur);
-    this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(CreateAuteurDto, true), this.auteur.updateAuteur);
+    this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(UpdateAuteurDto, true), this.auteur.updateAuteur);
     this.router.delete(`${this.path}/:id(\\d+)`, this.auteur.deleteAuteur);
   }
 }

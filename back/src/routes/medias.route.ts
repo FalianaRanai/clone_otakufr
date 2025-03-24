@@ -1,5 +1,5 @@
 import { MediaController } from '@controllers/medias.controller';
-import { CreateMediaDto } from '@dtos/medias.dto';
+import { CreateMediaDto, UpdateMediaDto } from '@dtos/medias.dto';
 import { Routes } from '@interfaces/routes.interface';
 import { ValidationMiddleware } from '@middlewares/validation.middleware';
 import { Router } from 'express';
@@ -18,7 +18,7 @@ export class MediaRoute implements Routes {
     this.router.get(`${this.path}/:id(\\d+)`, this.media.getMediaById);
     this.router.post(`${this.path}`, ValidationMiddleware(CreateMediaDto), this.media.createMedia);
     // this.router.post(`${this.path}/generate`, this.media.generateMedia);
-    this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(CreateMediaDto, true), this.media.updateMedia);
+    this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(UpdateMediaDto, true), this.media.updateMedia);
     this.router.delete(`${this.path}/:id(\\d+)`, this.media.deleteMedia);
   }
 }
