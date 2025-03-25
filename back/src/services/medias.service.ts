@@ -1,4 +1,5 @@
 import { Media } from '@/interfaces/medias.interface';
+import { getDateIncremented } from '@/utils/getDateIncrementedEpisode.utils';
 import pg from '@database';
 import { HttpException } from '@exceptions/httpException';
 import { Service } from 'typedi';
@@ -214,22 +215,19 @@ export class MediaService {
                 const { rows: rows_verif } = await pg.query(`SELECT COUNT(*) FROM genres WHERE LOWER(nom_genre) = LOWER($1)`, [genres[j]]);
                 if (parseInt(rows_verif[0].count) > 0) {
                   console.warn(`Genre ${genres[j]} déjà existant, genre ignoré.`);
-                  continue;
+                } else {
+                  const { rows: rows_genres } = await pg.query(
+                    `
+                            INSERT INTO
+                              genres(
+                                "nom_genre"
+                              )
+                            VALUES ($1)
+                            RETURNING "nom_genre"
+                            `,
+                    [genres[j]],
+                  );
                 }
-
-                console.log('============================== ', genres[j].nom_genre);
-
-                const { rows: rows_genres } = await pg.query(
-                  `
-                          INSERT INTO
-                            genres(
-                              "nom_genre"
-                            )
-                          VALUES ($1)
-                          RETURNING "nom_genre"
-                          `,
-                  [genres[j]],
-                );
               }
 
               // =========================================================================================
@@ -244,22 +242,19 @@ export class MediaService {
                 const { rows: rows_verif } = await pg.query(`SELECT COUNT(*) FROM types WHERE LOWER(nom_type) = LOWER($1)`, [types[j]]);
                 if (parseInt(rows_verif[0].count) > 0) {
                   console.warn(`Type ${types[j]} déjà existant, type ignoré.`);
-                  continue;
+                } else {
+                  const { rows: rows_types } = await pg.query(
+                    `
+                            INSERT INTO
+                              types(
+                                "nom_type"
+                              )
+                            VALUES ($1)
+                            RETURNING "nom_type"
+                            `,
+                    [types[j]],
+                  );
                 }
-
-                console.log('============================== ', types[j]);
-
-                const { rows: rows_types } = await pg.query(
-                  `
-                          INSERT INTO
-                            types(
-                              "nom_type"
-                            )
-                          VALUES ($1)
-                          RETURNING "nom_type"
-                          `,
-                  [types[j]],
-                );
               }
 
               // =========================================================================================
@@ -274,22 +269,19 @@ export class MediaService {
                 const { rows: rows_verif } = await pg.query(`SELECT COUNT(*) FROM statuts WHERE LOWER(nom_statut) = LOWER($1)`, [statuts[j]]);
                 if (parseInt(rows_verif[0].count) > 0) {
                   console.warn(`Statut ${statuts[j]} déjà existant, statut ignoré.`);
-                  continue;
+                } else {
+                  const { rows: rows_statuts } = await pg.query(
+                    `
+                            INSERT INTO
+                              statuts(
+                                "nom_statut"
+                              )
+                            VALUES ($1)
+                            RETURNING "nom_statut"
+                            `,
+                    [statuts[j]],
+                  );
                 }
-
-                console.log('============================== ', statuts[j]);
-
-                const { rows: rows_statuts } = await pg.query(
-                  `
-                          INSERT INTO
-                            statuts(
-                              "nom_statut"
-                            )
-                          VALUES ($1)
-                          RETURNING "nom_statut"
-                          `,
-                  [statuts[j]],
-                );
               }
 
               // =========================================================================================
@@ -304,22 +296,19 @@ export class MediaService {
                 const { rows: rows_verif } = await pg.query(`SELECT COUNT(*) FROM auteurs WHERE LOWER(nom_auteur) = LOWER($1)`, [auteurs[j]]);
                 if (parseInt(rows_verif[0].count) > 0) {
                   console.warn(`Auteur ${auteurs[j]} déjà existant, auteur ignoré.`);
-                  continue;
+                } else {
+                  const { rows: rows_auteurs } = await pg.query(
+                    `
+                            INSERT INTO
+                              auteurs(
+                                "nom_auteur"
+                              )
+                            VALUES ($1)
+                            RETURNING "nom_auteur"
+                            `,
+                    [auteurs[j]],
+                  );
                 }
-
-                console.log('============================== ', auteurs[j]);
-
-                const { rows: rows_auteurs } = await pg.query(
-                  `
-                          INSERT INTO
-                            auteurs(
-                              "nom_auteur"
-                            )
-                          VALUES ($1)
-                          RETURNING "nom_auteur"
-                          `,
-                  [auteurs[j]],
-                );
               }
 
               // =========================================================================================
@@ -336,22 +325,19 @@ export class MediaService {
                 ]);
                 if (parseInt(rows_verif[0].count) > 0) {
                   console.warn(`Realisateur ${realisateurs[j]} déjà existant, realisateur ignoré.`);
-                  continue;
+                } else {
+                  const { rows: rows_realisateurs } = await pg.query(
+                    `
+                            INSERT INTO
+                              realisateurs(
+                                "nom_realisateur"
+                              )
+                            VALUES ($1)
+                            RETURNING "nom_realisateur"
+                            `,
+                    [realisateurs[j]],
+                  );
                 }
-
-                console.log('============================== ', realisateurs[j]);
-
-                const { rows: rows_realisateurs } = await pg.query(
-                  `
-                          INSERT INTO
-                            realisateurs(
-                              "nom_realisateur"
-                            )
-                          VALUES ($1)
-                          RETURNING "nom_realisateur"
-                          `,
-                  [realisateurs[j]],
-                );
               }
 
               // =========================================================================================
@@ -366,30 +352,144 @@ export class MediaService {
                 const { rows: rows_verif } = await pg.query(`SELECT COUNT(*) FROM studios WHERE LOWER(nom_studio) = LOWER($1)`, [studios[j]]);
                 if (parseInt(rows_verif[0].count) > 0) {
                   console.warn(`Studio ${studios[j]} déjà existant, studio ignoré.`);
-                  continue;
+                } else {
+                  const { rows: rows_studios } = await pg.query(
+                    `
+                      INSERT INTO
+                        studios(
+                          "nom_studio"
+                        )
+                      VALUES ($1)
+                      RETURNING "nom_studio"
+                      `,
+                    [studios[j]],
+                  );
                 }
-
-                console.log('============================== ', studios[j]);
-
-                const { rows: rows_studios } = await pg.query(
-                  `
-                          INSERT INTO
-                            studios(
-                              "nom_studio"
-                            )
-                          VALUES ($1)
-                          RETURNING "nom_studio"
-                          `,
-                  [studios[j]],
-                );
               }
 
               // =========================================================================================
+              // genres à insérer
               const genresToInsert = [];
               for (let j = 0; j < genres.length; j++) {
                 const { rows: rows_genres_to_insert } = await pg.query(`SELECT * FROM genres WHERE LOWER(nom_genre) = LOWER($1)`, [genres[j]]);
                 genresToInsert.push(rows_genres_to_insert[0]);
-                console.log('genresToInsert', genresToInsert);
+              }
+              console.log('genresToInsert', genresToInsert);
+
+              // types
+              const { rows: rows_types_to_insert } = await pg.query(`SELECT * FROM types WHERE LOWER(nom_type) = LOWER($1)`, [types[0]]);
+              const typesToInsert = rows_types_to_insert[0];
+
+              // statuts auteurs realisateurs studios
+              const { rows: rows_statuts_to_insert } = await pg.query(`SELECT * FROM statuts WHERE LOWER(nom_statut) = LOWER($1)`, [statuts[0]]);
+              const statutsToInsert = rows_statuts_to_insert[0];
+
+              // auteurs realisateurs studios
+              const { rows: rows_auteurs_to_insert } = await pg.query(`SELECT * FROM auteurs WHERE LOWER(nom_auteur) = LOWER($1)`, [auteurs[0]]);
+              const auteursToInsert = rows_auteurs_to_insert[0];
+
+              //  realisateurs studios
+              const { rows: rows_realisateurs_to_insert } = await pg.query(`SELECT * FROM realisateurs WHERE LOWER(nom_realisateur) = LOWER($1)`, [
+                realisateurs[0],
+              ]);
+              const realisateursToInsert = rows_realisateurs_to_insert[0];
+
+              // studios
+              const { rows: rows_studios_to_insert } = await pg.query(`SELECT * FROM studios WHERE LOWER(nom_studio) = LOWER($1)`, [studios[0]]);
+              const studiosToInsert = rows_studios_to_insert[0];
+
+              const titre = results[i].Name;
+              const autre_nom = `${results[i]['English name']} / ${results[i]['Other name']}`;
+              const sygnopsis = results[i].Synopsis;
+
+              const nombre_episodes = results[i].Episodes;
+              const date_sortie = results[i].Aired;
+              const duree = results[i].Duration;
+              const affiche = results[i]['Image URL'];
+
+              // Vérifier si le studio existe déjà
+              const { rows: rows_media_to_insert } = await pg.query(`SELECT COUNT(*) FROM medias WHERE LOWER(titre) = LOWER($1)`, [titre]);
+              if (parseInt(rows_media_to_insert[0].count) > 0) {
+                console.warn(`media ${titre} déjà existant, studio ignoré.`);
+              } else {
+                const { rows: createMediaData } = await pg.query(
+                  `
+                      INSERT INTO
+                        medias(
+                          "titre", "sygnopsis", "autre_nom", "id_auteur", "id_realisateur", "id_studio", "date_sortie", "duree", "id_type", "id_statut", "affiche"
+                        )
+                      VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11)
+                      RETURNING "titre", "sygnopsis", "autre_nom", "id_auteur", "id_realisateur", "id_studio", "date_sortie", "duree", "id_type", "id_statut", "affiche", "id_media"
+                      `,
+                  [
+                    titre,
+                    sygnopsis,
+                    autre_nom,
+                    rows_auteurs_to_insert[0].id_auteur,
+                    rows_realisateurs_to_insert[0].id_realisateur,
+                    rows_studios_to_insert[0].id_studio,
+                    date_sortie,
+                    duree,
+                    rows_types_to_insert[0].id_type,
+                    rows_statuts_to_insert[0].id_statut,
+                    affiche,
+                  ],
+                );
+
+                const id_media = createMediaData[0].id_media;
+                console.log('AAAAAAAAAAAAAAAAAAA', id_media);
+
+                // insertion media_genres
+                for (let j = 0; j < genresToInsert.length; j++) {
+                  const { rows: rows_verif } = await pg.query(`SELECT COUNT(*) FROM media_genres WHERE id_media = $1 AND id_genre = $2`, [
+                    id_media,
+                    genresToInsert[j].id_genre,
+                  ]);
+
+                  if (parseInt(rows_verif[0].count) > 0) {
+                    console.warn(`Media_Genre ${genresToInsert[j].nom_genre} déjà existant, genre ignoré.`);
+                  } else {
+                    await pg.query(
+                      `
+                        INSERT INTO
+                          media_genres(
+                            "id_media",
+                            "id_genre"
+                          )
+                        VALUES ($1, $2)
+                        RETURNING "id_media", "id_genre"
+                        `,
+                      [id_media, genresToInsert[j].id_genre],
+                    );
+                  }
+                }
+
+                // insertion episodes
+                for (let j = 1; j <= nombre_episodes; j++) {
+                  const { rows: rows_verif } = await pg.query(`SELECT COUNT(*) FROM episodes WHERE id_media = $1 AND numero = $2`, [id_media, j]);
+
+                  if (parseInt(rows_verif[0].count) > 0) {
+                    console.warn(`Episode ${j} déjà existant, Episode ignoré.`);
+                  } else {
+                    const jFormatted = j < 10 ? `0${j}` : `${j}`;
+                    const nom_episode = `${titre} ${jFormatted} Vostfr`;
+                    const date_sortie_episode = getDateIncremented(date_sortie, j);
+
+                    await pg.query(
+                      `
+                              INSERT INTO
+                                episodes(
+                                  "nom_episode", "numero", "id_media", "date_sortie"
+                                )
+                              VALUES ($1, $2, $3, $4)
+                              RETURNING "nom_episode", "numero", "id_media", "date_sortie"
+                              `,
+                      [nom_episode, j, id_media, date_sortie_episode],
+                    );
+
+                    console.log(`+++++++++++++++${nom_episode} INSERE +++++++++++++++++`);
+                  }
+                }
               }
             }
             // await pg.query('COMMIT');
