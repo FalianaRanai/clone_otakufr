@@ -1,7 +1,7 @@
 
 .navbar-dark{
-  background-color: #1e1e1e !important;
-  border-bottom: 2px solid #ff2448;
+  background-color: var(--background-dark-color) !important;
+  border-bottom: 2px solid var(--primary-red-color);
 }
 .navbar-container{
   /* width: 80%; */
@@ -25,6 +25,6 @@
 #search_button{
   border: 0;
   background: transparent;
-  color: #ff2448;
+  color: var(--primary-red-color);
   font-weight: bold;
 }

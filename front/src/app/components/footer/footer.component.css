@@ -1,32 +1,18 @@
 .navbar-dark{
-  background-color: #1e1e1e !important;
+  background-color: var(--background-dark-color) !important;
 }
 
 .band{
   font-style: italic;
   font-weight: bolder;
   text-transform: capitalize;
-  background: linear-gradient(#1e1e1e,#000);
+  background: linear-gradient(var(--background-dark-color),#000);
   clear: both;
   margin: 0 0 15px;
-  border-left: 9px solid #ff2448;
+  border-left: 9px solid var(--primary-red-color);
   height: 40px;
   line-height: 40px;
   color: #fff;
   text-align: center;
   font-size: 19px;
-}
-
-.disclaimer-text{
-  color: #ff2448;
-}
-
-.contact_us_mail{
-  color: #ff2448;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-a.contact_us_mail:hover{
-  color: white;
 }

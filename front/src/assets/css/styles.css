@@ -1,0 +1,17 @@
+:root {
+  --primary-red-color: #FF2448;
+  --background-dark-color: #1e1e1e;
+}
+
+.text-red{
+  color: var(--primary-red-color);
+}
+
+.redlink{
+  color: var(--primary-red-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+.redlink:hover{
+  color: white;
+}
