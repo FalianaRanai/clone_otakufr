@@ -23,7 +23,7 @@ export const routes: Routes = [
         title: 'Media',
         children: MEDIAS_ROUTES,
       },
-      { path: '**', redirectTo: 'home' }, // Redirection si la route est inconnue
     ],
   },
+  { path: '**', redirectTo: 'home' }, // Redirection si la route est inconnue
 ];

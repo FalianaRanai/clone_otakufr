@@ -1,4 +1,5 @@
-import { Genre } from "./genres.interface";
+import { Episode } from './episodes.interface';
+import { Genre } from './genres.interface';
 
 export interface Media {
   id_media?: number;
@@ -21,6 +22,5 @@ export interface Media {
   nom_type?: string;
   nom_statut?: string;
   genres?: Genre[];
+  episodes?: Episode[];
 }
-
-

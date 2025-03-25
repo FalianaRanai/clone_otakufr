@@ -1,4 +1,44 @@
 <div class="container">
-  <p>fiche works!</p>
-  <p>{{id}}</p>
+  <div class="band-title mt-4">
+    <p>{{ media?.titre }}</p>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="container">
+            <div class="w-100 mb-2" style="object-fit: contain">
+              <img [src]="media?.affiche" alt="" class="w-100" />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="container">
+            <p class="text-red text-sm fw-bold">Sygnopsis:</p>
+            <p class="text-sm formatted-text">{{ media?.sygnopsis }}</p>
+
+            <div class="">
+              <p class="text-sm m-0">
+                <span class="text-red fw-bold">Autre nom:</span>
+                {{ media?.autre_nom }}
+              </p>
+              <p class="text-sm m-0">
+                <span class="text-red fw-bold">Auteur:</span>
+                {{ media?.nom_auteur }}
+              </p>
+              <p class="text-sm m-0">
+                <span class="text-red fw-bold">Realisateur:</span>
+                {{ media?.nom_realisateur }}
+              </p>
+              <p class="text-sm m-0">
+                <span class="text-red fw-bold">Studio d'animation:</span>
+                {{ media?.nom_studio }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

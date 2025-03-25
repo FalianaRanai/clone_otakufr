@@ -15,3 +15,44 @@
 .redlink:hover{
   color: white;
 }
+
+.band-title{
+  font-style: italic;
+  font-weight: bolder;
+  text-transform: capitalize;
+  background: linear-gradient(var(--background-dark-color),#000);
+  clear: both;
+  margin: 0 0 15px;
+    margin-top: 0px;
+  background: #1e1e1e;
+  border-left: 9px solid #ff2448;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  text-align: center;
+  font-size: 19px;
+}
+
+.text-xs{
+  font-size: 12px;
+}
+
+.text-sm{
+  font-size: 14px;
+}
+
+.text-base{
+  font-size: 16px;
+}
+
+.text-lg{
+  font-size: 18px;
+}
+
+.text-xl{
+  font-size: 20px;
+}
+
+.formatted-text {
+  white-space: pre-line;
+}

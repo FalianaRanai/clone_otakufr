@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 import { Media } from '../../../interfaces/medias.interface';
 import { MediasService } from '../../../services/medias/medias.service';
 
@@ -19,6 +20,7 @@ export class FicheComponent {
 
   id = Number(this.activeRoute.snapshot.paramMap.get('id'));
   media: Media | undefined;
+  production: boolean = environment.production;
 
   ngOnInit(): void {
     this.findMediaByIdJoin(this.id);
@@ -28,14 +30,21 @@ export class FicheComponent {
     this.mediasService.findMediaByIdJoin(id).subscribe({
       next: (data) => {
         this.media = data.data;
-        console.log('Data :', data);
-        console.log('Media :', this.media);
+
+        if (!this.production) {
+          console.log('Data :', data);
+          console.log('Media :', this.media);
+        }
       },
       error: (error) => {
-        console.error('Error :', error);
+        if (!this.production) {
+          console.error('Error :', error);
+        }
       },
       complete: () => {
-        console.log('Request executed');
+        if (!this.production) {
+          console.log('Request executed');
+        }
       },
     });
   }
