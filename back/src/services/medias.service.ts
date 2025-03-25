@@ -197,8 +197,139 @@ export class MediaService {
       fs.createReadStream('./src/output.csv')
         .pipe(csv({ separator: ';' }))
         .on('data', data => results.push(data))
-        .on('end', () => {
+        .on('end', async () => {
           // console.log(results);
+
+          try {
+            await pg.query('BEGIN');
+            for (let i = 0; i < results.length; i++) {
+              // =============================================================================================================================
+              // ON COMMENCE PAR LES GENRES
+              const genres = results[i].Genres.split(',');
+
+              for (let j = 0; j < genres.length; j++) {
+                genres[j] = genres[j].trim();
+
+                // Vérifier si le genre existe déjà
+                const { rows: rows_verif } = await pg.query(`SELECT COUNT(*) FROM genres WHERE LOWER(nom_genre) = LOWER($1)`, [genres[j]]);
+                if (parseInt(rows_verif[0].count) > 0) {
+                  console.warn(`Genre ${genres[j]} déjà existant, genre ignoré.`);
+                  continue;
+                }
+
+                console.log('============================== ', genres[j].nom_genre);
+
+                const { rows: rows_genres } = await pg.query(
+                  `
+                          INSERT INTO
+                            genres(
+                              "nom_genre"
+                            )
+                          VALUES ($1)
+                          RETURNING "nom_genre"
+                          `,
+                  [genres[j]],
+                );
+              }
+
+              // =========================================================================================
+              // =============================================================================================================================
+              // ON COMMENCE PAR LES TYPES
+              const types = results[i].Type.split(',');
+
+              for (let j = 0; j < types.length; j++) {
+                types[j] = types[j].trim();
+
+                // Vérifier si le type existe déjà
+                const { rows: rows_verif } = await pg.query(`SELECT COUNT(*) FROM types WHERE LOWER(nom_type) = LOWER($1)`, [types[j]]);
+                if (parseInt(rows_verif[0].count) > 0) {
+                  console.warn(`Type ${types[j]} déjà existant, type ignoré.`);
+                  continue;
+                }
+
+                console.log('============================== ', types[j].nom_type);
+
+                const { rows: rows_types } = await pg.query(
+                  `
+                          INSERT INTO
+                            types(
+                              "nom_type"
+                            )
+                          VALUES ($1)
+                          RETURNING "nom_type"
+                          `,
+                  [types[j]],
+                );
+              }
+
+              // =========================================================================================
+              // =============================================================================================================================
+              // ON COMMENCE PAR LES STATUTS
+              const statuts = results[i].Status.split(',');
+
+              for (let j = 0; j < statuts.length; j++) {
+                statuts[j] = statuts[j].trim();
+
+                // Vérifier si le statut existe déjà
+                const { rows: rows_verif } = await pg.query(`SELECT COUNT(*) FROM statuts WHERE LOWER(nom_statut) = LOWER($1)`, [statuts[j]]);
+                if (parseInt(rows_verif[0].count) > 0) {
+                  console.warn(`Statut ${statuts[j]} déjà existant, statut ignoré.`);
+                  continue;
+                }
+
+                console.log('============================== ', statuts[j].statut);
+
+                const { rows: rows_statuts } = await pg.query(
+                  `
+                          INSERT INTO
+                            statuts(
+                              "nom_statut"
+                            )
+                          VALUES ($1)
+                          RETURNING "nom_statut"
+                          `,
+                  [statuts[j]],
+                );
+              }
+
+              // =========================================================================================
+              // =============================================================================================================================
+              // ON COMMENCE PAR LES AUTEURS
+              const auteurs = results[i].Producers.split(',');
+
+              for (let j = 0; j < auteurs.length; j++) {
+                auteurs[j] = auteurs[j].trim();
+
+                // Vérifier si le auteur existe déjà
+                const { rows: rows_verif } = await pg.query(`SELECT COUNT(*) FROM auteurs WHERE LOWER(nom_auteur) = LOWER($1)`, [auteurs[j]]);
+                if (parseInt(rows_verif[0].count) > 0) {
+                  console.warn(`Auteur ${auteurs[j]} déjà existant, auteur ignoré.`);
+                  continue;
+                }
+
+                console.log('============================== ', auteurs[j].auteur);
+
+                const { rows: rows_auteurs } = await pg.query(
+                  `
+                          INSERT INTO
+                            auteurs(
+                              "nom_auteur"
+                            )
+                          VALUES ($1)
+                          RETURNING "nom_auteur"
+                          `,
+                  [auteurs[j]],
+                );
+              }
+
+              // =========================================================================================
+            }
+            await pg.query('COMMIT');
+          } catch (error) {
+            await pg.query('ROLLBACK');
+            console.error('Erreur lors de l’insertion des media :', error);
+            throw new HttpException(500, 'Erreur lors de la création des media genres');
+          }
 
           resolve(results); // Résoudre la Promise avec les résultats
         })
