@@ -3,17 +3,17 @@
     <p>{{ media?.titre }}</p>
   </div>
 
-  <div class="card">
+  <div class="card pb-3">
     <div class="card-body">
-      <div class="row">
-        <div class="col-lg-4">
+      <div class="row pb-3">
+        <div class="col-lg-5">
           <div class="container">
-            <div class="w-100 mb-2" style="object-fit: contain">
-              <img [src]="media?.affiche" alt="" class="w-100" />
+            <div class="w-100 mb-2" >
+              <img [src]="media?.affiche" alt="" class="w-100 rounded" style="object-fit: contain"/>
             </div>
           </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-7">
           <div class="container">
             <p class="text-red text-sm fw-bold">Sygnopsis:</p>
             <p class="text-sm formatted-text">{{ media?.sygnopsis }}</p>
@@ -24,18 +24,72 @@
                 {{ media?.autre_nom }}
               </p>
               <p class="text-sm m-0">
-                <span class="text-red fw-bold">Auteur:</span>
+                <span class="text-red fw-bold">Producteurs:</span>
                 {{ media?.nom_auteur }}
               </p>
               <p class="text-sm m-0">
-                <span class="text-red fw-bold">Realisateur:</span>
+                <span class="text-red fw-bold">Concédants de licence:</span>
                 {{ media?.nom_realisateur }}
               </p>
               <p class="text-sm m-0">
                 <span class="text-red fw-bold">Studio d'animation:</span>
                 {{ media?.nom_studio }}
               </p>
+              <p class="text-sm m-0">
+                <span class="text-red fw-bold d-flex gap-1 flex-wrap lh-1"
+                  >Genres: @for (item of media?.genres; track $index) {
+                  <a class="redlinkdark" href="#">{{ item?.nom_genre }}</a>
+                  @if(!$last){ - } }
+                </span>
+              </p>
+              <p class="text-sm m-0">
+                <span class="text-red fw-bold">Type:</span>
+                {{ media?.nom_type }}
+              </p>
+              <p class="text-sm m-0">
+                <span class="text-red fw-bold">Sortie initiale:</span>
+                {{ media?.date_sortie ?? "" | ordinalDate }}
+              </p>
+              <p class="text-sm m-0">
+                <span class="text-red fw-bold">Durée:</span>
+                {{ media?.duree }} min
+              </p>
+              <p class="text-sm m-0">
+                <span class="text-red fw-bold">Status:</span>
+                {{ media?.nom_statut }}
+              </p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="container">
+          <div class="band-title mt-4">
+            <p>Episodes :</p>
+          </div>
+
+          <div class="d-flex flex-column">
+            @for (item of media?.episodes; track $index) {
+            <a routerLink="#" class="text-decoration-none">
+              <div class="card w-100 rounded-0 episodecard">
+                <div class="card-body px-2 py-1">
+                  <div class="container">
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <div class="text-base text-gray fw-bold episode-title">
+                        {{ item?.nom_episode }}
+                      </div>
+                      <div class="text-xs bg-red px-2 text-white fw-bold episode-title">
+                        {{ item?.date_sortie ?? "" | ordinalDate }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            }
           </div>
         </div>
       </div>

@@ -3,8 +3,21 @@
   --background-dark-color: #1e1e1e;
 }
 
+body{
+  background-color: #fbf6ff;
+  font-family: 'Raleway', sans-serif !important;
+}
+
 .text-red{
   color: var(--primary-red-color);
+}
+
+.text-dark{
+  color: var(--background-dark-color);
+}
+
+.text-gray{
+  color: #495057;
 }
 
 .redlink{
@@ -14,6 +27,24 @@
 }
 .redlink:hover{
   color: white;
+}
+
+.redlinkdark{
+  color: var(--primary-red-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+.redlinkdark:hover{
+  color: var(--background-dark-color);
+}
+
+.darklink{
+  color: var(--background-dark-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+.darklink:hover{
+  color: var(--primary-red-color);
 }
 
 .band-title{
@@ -55,4 +86,12 @@
 
 .formatted-text {
   white-space: pre-line;
+}
+
+.bg-red{
+  background-color: var(--primary-red-color);
+}
+
+.episodecard:hover{
+  background: rgb(248,249,250);
 }

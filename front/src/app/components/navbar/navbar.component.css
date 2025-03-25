@@ -10,7 +10,6 @@
 .navbar-links a{
   color: rgb(143,143,143);
   text-decoration: none;
-  font-size: 1.1rem;
 }
 
 .navbar-links a.active{
