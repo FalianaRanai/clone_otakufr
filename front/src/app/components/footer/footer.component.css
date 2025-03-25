@@ -1,0 +1,32 @@
+.navbar-dark{
+  background-color: #1e1e1e !important;
+}
+
+.band{
+  font-style: italic;
+  font-weight: bolder;
+  text-transform: capitalize;
+  background: linear-gradient(#1e1e1e,#000);
+  clear: both;
+  margin: 0 0 15px;
+  border-left: 9px solid #ff2448;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  text-align: center;
+  font-size: 19px;
+}
+
+.disclaimer-text{
+  color: #ff2448;
+}
+
+.contact_us_mail{
+  color: #ff2448;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a.contact_us_mail:hover{
+  color: white;
+}

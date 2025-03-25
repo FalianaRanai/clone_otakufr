@@ -1,0 +1,30 @@
+
+.navbar-dark{
+  background-color: #1e1e1e !important;
+  border-bottom: 2px solid #ff2448;
+}
+.navbar-container{
+  /* width: 80%; */
+  margin: auto;
+}
+.navbar-links a{
+  color: rgb(143,143,143);
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.navbar-links a.active{
+  color: white;
+  font-weight: bold;
+}
+
+.navbar-links a:hover{
+  color: rgba(255,255,255, 0.75);
+}
+
+#search_button{
+  border: 0;
+  background: transparent;
+  color: #ff2448;
+  font-weight: bold;
+}
