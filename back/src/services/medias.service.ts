@@ -165,6 +165,46 @@ export class MediaService {
       retour.genres = rows_genres;
     }
 
+    const { rows: rows_episodes, rowCount: rowCount_episodes } = await pg.query(
+      `
+        SELECT 
+          s.* 
+          FROM
+            episodes s
+          JOIN 
+            medias m ON s.id_media = m.id_media
+          WHERE
+            m.id_media = $1
+          ORDER BY
+            s.numero DESC;
+        `,
+      [mediaId],
+    );
+    if (rowCount_episodes) {
+      retour.episodes = rows_episodes;
+    }
+
     return retour;
+  }
+
+  public async generateDataset(): Promise<any[]> {
+    const csv = require('csv-parser');
+    const fs = require('fs');
+
+    return new Promise((resolve, reject) => {
+      const results: any[] = [];
+
+      fs.createReadStream('./src/output.csv')
+        .pipe(csv({ separator: ';' }))
+        .on('data', data => results.push(data))
+        .on('end', () => {
+          // console.log(results);
+
+          resolve(results); // Résoudre la Promise avec les résultats
+        })
+        .on('error', error => {
+          reject(error); // Rejeter la Promise en cas d'erreur
+        });
+    });
   }
 }

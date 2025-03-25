@@ -71,4 +71,18 @@ export class MediaController {
       next(error);
     }
   };
+
+  public generateMediaJSON = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const data = await this.media.generateDataset();
+      res.status(200).json({
+        success: true,
+        data: data,
+        message: 'Dataset generated successfully',
+      });
+    } catch (error) {
+      console.error('Error generating dataset:', error);
+      next(error);
+    }
+  };
 }
