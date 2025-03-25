@@ -487,12 +487,12 @@ export class MediaService {
                       [nom_episode, j, id_media, date_sortie_episode],
                     );
 
-                    console.log(`+++++++++++++++${nom_episode} INSERE +++++++++++++++++`);
+                    console.log(`+++++++++++++++${nom_episode} ${date_sortie_episode} INSERE +++++++++++++++++`);
                   }
                 }
               }
             }
-            // await pg.query('COMMIT');
+            await pg.query('COMMIT');
           } catch (error) {
             await pg.query('ROLLBACK');
             console.error('Erreur lors de l’insertion des media :', error);
