@@ -1,3 +1,5 @@
+import { Genre } from './genres.interface';
+
 export interface Media {
   id_media?: number;
   titre: string;
@@ -11,4 +13,12 @@ export interface Media {
   id_type: number;
   id_statut: number;
   affiche: string;
+
+  // POUR LES JOIN
+  nom_auteur?: string;
+  nom_realisateur?: string;
+  nom_studio?: string;
+  nom_type?: string;
+  nom_statut?: string;
+  genres?: Genre[];
 }

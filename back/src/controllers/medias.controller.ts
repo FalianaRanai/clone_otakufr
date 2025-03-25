@@ -60,4 +60,15 @@ export class MediaController {
       next(error);
     }
   };
+
+  public getMediaByIdJoin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const mediaId = Number(req.params.id);
+      const findOneMediaData: Media = await this.media.findMediaByIdJoin(mediaId);
+
+      res.status(200).json({ data: findOneMediaData, message: 'findOne' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

@@ -121,4 +121,50 @@ export class MediaService {
 
     return deleteMediaData;
   }
+
+  public async findMediaByIdJoin(mediaId: number): Promise<Media> {
+    const { rows, rowCount } = await pg.query(
+      `
+        SELECT
+            m.*, a.nom_auteur, r.nom_realisateur, s.nom_statut, t.nom_type, st.nom_studio
+          FROM
+            medias m
+            JOIN
+            auteurs a ON m.id_auteur = a.id_auteur
+          JOIN
+            realisateurs r ON m.id_realisateur = r.id_realisateur
+          JOIN
+            statuts s ON m.id_statut = s.id_statut
+          JOIN
+            types t ON m.id_type = t.id_type
+          JOIN
+            studios st ON m.id_studio = st.id_studio
+          WHERE
+            m.id_media = $1;
+        `,
+      [mediaId],
+    );
+    if (!rowCount) throw new HttpException(409, "Media doesn't exist");
+
+    const retour = rows[0];
+
+    const { rows: rows_genres, rowCount: rowCount_genres } = await pg.query(
+      `
+        SELECT * 
+          FROM 
+            genres g
+          JOIN
+            media_genres mg
+            ON g.id_genre = mg.id_genre
+          WHERE 
+            mg.id_media = $1;
+        `,
+      [mediaId],
+    );
+    if (rowCount_genres) {
+      retour.genres = rows_genres;
+    }
+
+    return retour;
+  }
 }
