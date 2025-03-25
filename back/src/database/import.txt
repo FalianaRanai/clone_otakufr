@@ -1,0 +1,1 @@
+psql --username=<db_user_name> databasename < data_base_dump
