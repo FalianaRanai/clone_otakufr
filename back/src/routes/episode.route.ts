@@ -16,8 +16,11 @@ export class EpisodeRoute implements Routes {
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.episode.getEpisodes);
     this.router.get(`${this.path}/:id(\\d+)`, this.episode.getEpisodeById);
+    this.router.get(`${this.path}/page/:page(\\d+)`, this.episode.getHomePagination);
+
     this.router.post(`${this.path}`, ValidationMiddleware(CreateEpisodeDto), this.episode.createEpisode);
     // this.router.post(`${this.path}/generate`, this.episode.generateEpisode);
+
     this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(UpdateEpisodeDto, true), this.episode.updateEpisode);
     this.router.delete(`${this.path}/:id(\\d+)`, this.episode.deleteEpisode);
   }

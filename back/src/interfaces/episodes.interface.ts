@@ -4,4 +4,7 @@ export interface Episode {
   numero: number;
   id_media: number;
   date_sortie: Date;
+
+  // Am lay pagination
+  affiche?: string;
 }

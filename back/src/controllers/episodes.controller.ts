@@ -60,4 +60,15 @@ export class EpisodeController {
       next(error);
     }
   };
+
+  public getHomePagination = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const page = Number(req.params.page);
+      const findOneEpisodeData: Episode[] = await this.episode.getHomePagination(page);
+
+      res.status(200).json({ data: findOneEpisodeData, message: 'findAll pagination' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

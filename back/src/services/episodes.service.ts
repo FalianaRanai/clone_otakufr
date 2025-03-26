@@ -113,4 +113,19 @@ export class EpisodeService {
 
     return deleteEpisodeData;
   }
+
+  public async getHomePagination(page: number): Promise<Episode[]> {
+    const { rows } = await pg.query(
+      `
+        SELECT e.id_media, e.date_sortie, e.nom_episode, m.affiche
+          FROM episodes e
+            JOIN medias m ON m.id_media = e.id_media
+            ORDER BY e.date_sortie DESC
+            LIMIT 20 OFFSET ($1 - 1) * 20
+        ;
+        `,
+      [page],
+    );
+    return rows;
+  }
 }
