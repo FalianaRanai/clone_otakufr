@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -9,7 +10,7 @@ import { MediasService } from '../../../services/medias/medias.service';
 @Component({
   selector: 'app-fiche',
   standalone: true,
-  imports: [RouterModule, OrdinalDatePipe],
+  imports: [RouterModule, OrdinalDatePipe, CommonModule],
   templateUrl: './fiche.component.html',
   styleUrl: './fiche.component.css',
 })

@@ -1,1 +1,7 @@
-<router-outlet></router-outlet>
+<div container="container">
+  @for (item of listeDate; track $index) {
+    <div class="band-title mt-4">
+      <p>{{ item | date: 'EEEE dd MMMM y' }}</p>
+    </div>
+  }
+</div>

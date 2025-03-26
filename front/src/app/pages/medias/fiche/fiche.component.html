@@ -48,7 +48,7 @@
               </p>
               <p class="text-sm m-0">
                 <span class="text-red fw-bold">Sortie initiale:</span>
-                {{ media?.date_sortie ?? "" | ordinalDate }}
+                {{ media?.date_sortie ?? "" | date: 'EEEE dd MMMM y' }}
               </p>
               <p class="text-sm m-0">
                 <span class="text-red fw-bold">Durée:</span>
@@ -82,7 +82,7 @@
                         {{ item?.nom_episode }}
                       </div>
                       <div class="text-xs bg-red px-2 text-white fw-bold episode-title">
-                        {{ item?.date_sortie ?? "" | ordinalDate }}
+                        {{ item?.date_sortie ?? "" |  date: 'dd MMM y' }}
                       </div>
                     </div>
                   </div>
