@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="vw-100 py-3 navbar-dark m-0" style="box-sizing: border-box;">
+  <div class="w-100 py-3 navbar-dark" style="box-sizing: border-box">
     <div
       class="navbar-container container d-flex justify-content-between align-items-center"
     >
@@ -8,7 +8,10 @@
           <img src="/assets/img/otakufr-logo.webp" alt="" />
         </div>
 
-        <div class="navbar-links d-flex gap-3 fs-6 text-base fw-bold">
+        <!-- NAVBAR LARGE -->
+        <div
+          class="d-none d-lg-flex navbar-links d-flex gap-3 fs-6 text-base fw-bold"
+        >
           <a routerLink="/home" routerLinkActive="active">Accueil</a>
           <a routerLink="#" routerLinkActive="active">Liste d'anime</a>
           <a routerLink="#" routerLinkActive="active">En cours</a>
@@ -19,10 +22,35 @@
         </div>
       </div>
 
-      <div class="d-flex gap-3 align-items-center">
-        <input type="text" class="form-control" placeholder="Search...">
-        <button type="submit" class="btn btn-primary" id="search_button">Search</button>
+      <div class="d-none d-lg-flex gap-3 align-items-center">
+        <input type="text" class="form-control" placeholder="Search..." />
+        <button type="submit" class="btn btn-primary" id="search_button">
+          Search
+        </button>
+      </div>
+
+      <!-- MOBILE MENU TOGGLER -->
+      <button class="navbar-toggler py-2 px-3 d-block d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+    </div>
+
+    <!-- MOBILE MENU -->
+    <div class="collapse navbar-collapse container pt-3 navbar-links" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" routerLink="/home" routerLinkActive="active">Accueil</a>
+        <a class="nav-link" routerLink="#" routerLinkActive="active">Liste d'anime</a>
+        <a class="nav-link" routerLink="#" routerLinkActive="active">En cours</a>
+        <a class="nav-link" routerLink="#" routerLinkActive="active">Terminé</a>
+        <a class="nav-link" routerLink="#" routerLinkActive="active">Film</a>
+        <a class="nav-link" routerLink="#" routerLinkActive="active">Genres</a>
+        <a class="nav-link" routerLink="#" routerLinkActive="active">STAFF</a>
+      </div>
+      <div class="pt-2">
+        <input type="text" class="form-control rounded-0" placeholder="Search...">
       </div>
     </div>
+
   </div>
 </div>
