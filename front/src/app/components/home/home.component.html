@@ -1,7 +1,141 @@
-<div container="container">
-  @for (item of listeDate; track $index) {
+<ng-container *ngIf="isLoading == false">
+  <ng-container *ngFor="let date of listeDate">
     <div class="band-title mt-4">
-      <p>{{ item | date: 'EEEE dd MMMM y' }}</p>
+      <p>{{ date | date : "EEEE dd MMMM y" }}</p>
     </div>
-  }
+
+    <div class="d-flex flex-wrap w-100 align-items-end">
+      <ng-container *ngFor="let episode of episodes; let i = index">
+        <ng-container
+          *ngIf="
+            episode.date_sortie &&
+            date &&
+            (episode.date_sortie | date : 'yyyy-MM-dd') ===
+              (date | date : 'yyyy-MM-dd')
+          "
+        >
+          <!-- SM -->
+          <div class="py-2 d-md-none" style="width: 100%">
+            <div class="container text-center">
+              <div class="">
+                <a routerLink="#" class="darklink text-base lh-1">{{
+                  episode.nom_episode
+                }}</a>
+              </div>
+
+              <div
+                class="image-container rounded"
+                style="
+                  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+                    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+                  max-width: 250px;
+                "
+              >
+                <img [src]="episode.affiche" alt="" class="image rounded" />
+                <div class="badge">Vostfr</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MD -->
+          <div class="py-2 d-none d-md-block d-lg-none" style="width: 50%">
+            <div class="container text-center">
+              <div class="">
+                <a routerLink="#" class="darklink text-base lh-1">{{
+                  episode.nom_episode
+                }}</a>
+              </div>
+
+              <div
+                class="image-container rounded"
+                style="
+                  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+                    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+                  max-width: 250px;
+                "
+              >
+                <img [src]="episode.affiche" alt="" class="image rounded" />
+                <div class="badge">Vostfr</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LG -->
+          <div class="py-2 d-none d-lg-block" style="width: 33%">
+            <div class="container text-center">
+              <div class="">
+                <a routerLink="#" class="darklink text-base lh-1">{{
+                  episode.nom_episode
+                }}</a>
+              </div>
+
+              <div
+                class="image-container rounded"
+                style="
+                  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+                    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+                  max-width: 250px;
+                "
+              >
+                <img [src]="episode.affiche" alt="" class="image rounded" />
+                <div class="badge">Vostfr</div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+</ng-container>
+<div container="container">
+  <!-- PAGINATION -->
+  <div class="pt-5 d-flex justify-content-center">
+    <nav aria-label="Page navigation example" class="pagination_nav">
+      <ul class="pagination">
+        <ng-container *ngIf="current_page > 1">
+          <li class="page-item">
+            <a
+              class="page-link"
+              [routerLink]="['/page', current_page - 1]"
+              aria-label="Previous"
+            >
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+        </ng-container>
+
+        <ng-container *ngFor="let page of array_pagination">
+          <ng-container *ngIf="page == 0">
+            <li class="page-item">
+              <a class="page-link" role="button">...</a>
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf="page == current_page">
+            <li class="page-item active">
+              <a class="page-link" role="button">{{ page }}</a>
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf="page != 0 && page != current_page">
+            <li class="page-item">
+              <a class="page-link" [routerLink]="['/page', page]">{{ page }}</a>
+            </li>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="current_page != total_page">
+          <li class="page-item">
+            <a
+              class="page-link"
+              [routerLink]="['/page', current_page + 1]"
+              aria-label="Next"
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </nav>
+  </div>
 </div>

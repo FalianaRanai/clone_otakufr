@@ -128,4 +128,15 @@ export class EpisodeService {
     );
     return rows;
   }
+
+  public async getCountPagination(): Promise<any[]> {
+    const { rows } = await pg.query(
+      `
+        SELECT COUNT(*) / 20 as count_pages
+          FROM episodes e
+        ;
+        `,
+    );
+    return rows;
+  }
 }

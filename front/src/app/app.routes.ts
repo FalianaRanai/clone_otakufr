@@ -19,6 +19,10 @@ export const routes: Routes = [
         component: HomeComponent,
       },
       {
+        path: 'page/:page',
+        component: HomeComponent,
+      },
+      {
         path: 'medias',
         title: 'Media',
         children: MEDIAS_ROUTES,

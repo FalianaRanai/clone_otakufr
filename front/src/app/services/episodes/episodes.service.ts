@@ -15,4 +15,8 @@ export class EpisodesService {
   getHomePagination(page: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/episodes/page/${page}`);
   }
+
+  getCountPagination(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/episodes/getCountPagination`);
+  }
 }

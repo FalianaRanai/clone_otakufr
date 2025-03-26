@@ -1,0 +1,42 @@
+.image-container {
+  position: relative; /* Permet de positionner l'étiquette */
+  display: inline-block;
+  overflow: hidden; /* Assure que l'image et le badge ne débordent pas */
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 4/5;
+  border: 1px solid var(--primary-red-color); /* Bordure rouge */
+}
+
+.badge {
+  position: absolute;
+  /* bottom: 10px;  */
+  /* right: 10px;  */
+  bottom: 0px; 
+  right: 0px; 
+  /* background-color: rgba(0, 0, 0, 0.5);  */
+  background-color: var(--primary-red-color);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: transform 0.5s ease; /* Transition pour l'effet smooth */
+}
+
+.image-container:hover {
+  transform: scale(1.02); /* Agrandit le badge au survol */
+  transition: transform 0.5s ease; /* Transition pour un effet smooth */
+}
+
+.image-container:hover .badge {
+  transform: scale(1.1); /* Agrandit le badge au survol */
+}
+
+.image-container:hover .image {
+  border-color: var(--background-dark-color);
+  opacity: 0.8;
+}
+

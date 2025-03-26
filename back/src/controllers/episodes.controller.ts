@@ -71,4 +71,14 @@ export class EpisodeController {
       next(error);
     }
   };
+
+  public getCountPagination = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const count: any[] = await this.episode.getCountPagination();
+
+      res.status(200).json({ data: count, message: 'count pagination' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

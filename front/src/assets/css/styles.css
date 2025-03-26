@@ -1,6 +1,7 @@
 :root {
   --primary-red-color: #FF2448;
   --background-dark-color: #1e1e1e;
+  --gray-hover-color: rgb(248, 249, 250);
 }
 
 body{
@@ -93,5 +94,20 @@ body{
 }
 
 .episodecard:hover{
-  background: rgb(248,249,250);
+  background: var(--gray-hover-color);
+}
+
+.pagination_nav .page-link{
+  color: var(--primary-red-color);
+  font-weight: bold;
+}
+
+.pagination_nav .page-link:hover{
+  background: var(--gray-hover-color);
+}
+
+.pagination_nav .page-item.active .page-link{
+  background: var(--primary-red-color);
+  color: white;
+  border-color: var(--primary-red-color);
 }
