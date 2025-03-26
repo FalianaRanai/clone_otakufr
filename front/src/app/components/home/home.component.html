@@ -18,22 +18,29 @@
           <div class="py-2 d-md-none" style="width: 100%">
             <div class="container text-center">
               <div class="">
-                <a routerLink="#" class="darklink text-base lh-1">{{
-                  episode.nom_episode
-                }}</a>
+                <a
+                  [routerLink]="['/medias', episode.id_media]"
+                  class="darklink text-base lh-1"
+                  >{{ episode.nom_episode }}</a
+                >
               </div>
 
-              <div
-                class="image-container rounded"
-                style="
-                  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
-                    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
-                  max-width: 250px;
-                "
+              <a
+                [routerLink]="['/medias', episode.id_media]"
+                class="text-decoration-none"
               >
-                <img [src]="episode.affiche" alt="" class="image rounded" />
-                <div class="badge">Vostfr</div>
-              </div>
+                <div
+                  class="image-container rounded"
+                  style="
+                    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+                      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+                    max-width: 250px;
+                  "
+                >
+                  <img [src]="episode.affiche" alt="" class="image rounded" />
+                  <div class="badge">Vostfr</div>
+                </div></a
+              >
             </div>
           </div>
 
@@ -41,22 +48,29 @@
           <div class="py-2 d-none d-md-block d-lg-none" style="width: 50%">
             <div class="container text-center">
               <div class="">
-                <a routerLink="#" class="darklink text-base lh-1">{{
-                  episode.nom_episode
-                }}</a>
+                <a
+                  [routerLink]="['/medias', episode.id_media]"
+                  class="darklink text-base lh-1"
+                  >{{ episode.nom_episode }}</a
+                >
               </div>
 
-              <div
-                class="image-container rounded"
-                style="
-                  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
-                    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
-                  max-width: 250px;
-                "
+              <a
+                [routerLink]="['/medias', episode.id_media]"
+                class="text-decoration-none"
               >
-                <img [src]="episode.affiche" alt="" class="image rounded" />
-                <div class="badge">Vostfr</div>
-              </div>
+                <div
+                  class="image-container rounded"
+                  style="
+                    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+                      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+                    max-width: 250px;
+                  "
+                >
+                  <img [src]="episode.affiche" alt="" class="image rounded" />
+                  <div class="badge">Vostfr</div>
+                </div></a
+              >
             </div>
           </div>
 
@@ -64,22 +78,29 @@
           <div class="py-2 d-none d-lg-block" style="width: 33%">
             <div class="container text-center">
               <div class="">
-                <a routerLink="#" class="darklink text-base lh-1">{{
-                  episode.nom_episode
-                }}</a>
+                <a
+                  [routerLink]="['/medias', episode.id_media]"
+                  class="darklink text-base lh-1"
+                  >{{ episode.nom_episode }}</a
+                >
               </div>
 
-              <div
-                class="image-container rounded"
-                style="
-                  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
-                    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
-                  max-width: 250px;
-                "
+              <a
+                [routerLink]="['/medias', episode.id_media]"
+                class="text-decoration-none"
               >
-                <img [src]="episode.affiche" alt="" class="image rounded" />
-                <div class="badge">Vostfr</div>
-              </div>
+                <div
+                  class="image-container rounded"
+                  style="
+                    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+                      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+                    max-width: 250px;
+                  "
+                >
+                  <img [src]="episode.affiche" alt="" class="image rounded" />
+                  <div class="badge">Vostfr</div>
+                </div></a
+              >
             </div>
           </div>
         </ng-container>
@@ -87,6 +108,15 @@
     </div>
   </ng-container>
 </ng-container>
+
+<ng-container *ngIf="isLoading == true">
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</ng-container>
+
 <div container="container">
   <!-- PAGINATION -->
   <div class="pt-5 d-flex justify-content-center">
