@@ -25,6 +25,7 @@ export class FicheComponent {
   id = Number(this.activeRoute.snapshot.paramMap.get('id'));
   media: Media | undefined;
   production: boolean = environment.production;
+  isLoading: boolean = false;
 
   ngOnInit(): void {
     this.findMediaByIdJoin(this.id);
@@ -32,6 +33,7 @@ export class FicheComponent {
   }
 
   findMediaByIdJoin(id: number): void {
+    this.isLoading = true;
     this.mediasService.findMediaByIdJoin(id).subscribe({
       next: (data) => {
         this.media = data.data;
@@ -41,11 +43,13 @@ export class FicheComponent {
           console.log('Data :', data);
           console.log('Media :', this.media);
         }
+        this.isLoading = false;
       },
       error: (error) => {
         if (!this.production) {
           console.error('Error :', error);
         }
+        this.isLoading = false;
       },
       complete: () => {
         if (!this.production) {
