@@ -4,12 +4,18 @@ import { HttpException } from '@exceptions/httpException';
 import { DataStoredInToken, TokenData } from '@interfaces/auth.interface';
 import { User } from '@interfaces/users.interface';
 import { compare, hash } from 'bcrypt';
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
+import { jwtDecode } from 'jwt-decode';
 import { Service } from 'typedi';
 
 const createToken = (user: User): TokenData => {
   const dataStoredInToken: DataStoredInToken = { id: user.id_user };
   const expiresIn: number = 60 * 60;
+
+  // const now = new Date();
+  // console.log('Server current time:', now.toISOString()); // Heure actuelle du serveur en UTC
+  // const expirationTime = new Date(now.getTime() + expiresIn * 1000); // Ajoute expiresIn en secondes
+  // console.log('Expiration time:', expirationTime.toISOString()); // Heure d'expiration en UTC
 
   return { expiresIn, token: sign(dataStoredInToken, SECRET_KEY, { expiresIn }) };
 };
@@ -61,7 +67,8 @@ export class AuthService {
       `
       SELECT
         "email",
-        "password"
+        "password",
+        "id_user"
       FROM
         users
       WHERE
@@ -99,5 +106,40 @@ export class AuthService {
     if (!rowCount) throw new HttpException(409, "User doesn't exist");
 
     return rows[0];
+  }
+
+  public async checkValidationToken(token: string): Promise<any> {
+    if (token) {
+      const { id } = (await verify(token, SECRET_KEY)) as DataStoredInToken;
+
+      const { rows, rowCount } = await pg.query(
+        `
+              SELECT
+                "email",
+                "password"
+              FROM
+                users
+              WHERE
+                "id_user" = $1
+            `,
+        [id],
+      );
+
+      if (rowCount) {
+        return rows[0];
+      }
+
+      // VERIFIE SI LE TOKEN EST EXPIRER
+      const decoded = jwtDecode(token);
+      const now = new Date();
+      const expire = new Date(decoded.exp * 1000);
+
+      // return [now, expire, false];
+
+      if (now >= expire) {
+        return false;
+      }
+    }
+    return false;
   }
 }

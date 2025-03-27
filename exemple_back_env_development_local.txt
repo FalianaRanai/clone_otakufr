@@ -1,0 +1,21 @@
+# PORT
+PORT = 3000
+
+# TOKEN
+SECRET_KEY = secretKey
+
+# LOG
+LOG_FORMAT = dev
+LOG_DIR = ../logs
+
+# CORS
+# ORIGIN = *
+ORIGIN = http://localhost:4200 #FAUT CHANGER CAR MANAO CORS ORIGIN LAY FRONT
+CREDENTIALS = true
+
+# DATABASE
+# POSTGRES_USER = root
+# POSTGRES_PASSWORD = password
+# POSTGRES_HOST = localhost
+# POSTGRES_PORT = 5432
+# POSTGRES_DB = dev
