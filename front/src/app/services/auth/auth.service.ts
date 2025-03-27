@@ -20,9 +20,13 @@ export class AuthService {
         (userData: any) => {
           console.log('User data:', userData.data);
           this.userSubject.next(userData);
+          this.user$ = this.userSubject.asObservable();
         },
         () => {
-          this.logout();
+          document.cookie = 'Authorization=; Path=/; Max-Age=0;';
+          this.userSubject.next(null);
+          this.user$ = this.userSubject.asObservable();
+          this.router.navigate(['/admin/login'], { queryParams: { error: 'not-authenticated' } });
         }
       );
   }
@@ -45,14 +49,14 @@ export class AuthService {
   logout(): void {
     document.cookie = 'Authorization=; Path=/; Max-Age=0;';
     this.userSubject.next(null);
-    this.router.navigate(['/admin/login']);
+    this.router.navigate(['/admin/login'], { queryParams: { success: 'success_logout' } });
   }
 
   isAuthenticated(): Observable<boolean> {
     return this.user$.pipe(map((user) => !!user));
   }
 
-  getUserSubject() {
-    return this.userSubject;
+  getUser(): Observable<any> {
+    return this.userSubject.asObservable();
   }
 }

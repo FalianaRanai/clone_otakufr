@@ -1,0 +1,38 @@
+.nav-link.active{
+  background-color: var(--primary-red-color);
+}
+
+.sidebar{
+  background-color: var(--background-dark-color) !important;
+}
+
+.sidebar_dropdown_button{
+  background-color: var();
+}
+
+
+
+.sidebar_dropdown_button[aria-expanded="true"]{
+  background-color: white;
+  color: var(--primary-red-color) !important;
+}
+
+.sidebar_dropdown_button[aria-expanded="false"]{
+  background-color: var(--background-dark-color);
+  color: white !important;
+}
+
+.sidebar_dropdown_button:hover{
+  background-color: white;
+  color: var(--primary-red-color) !important;
+}
+
+.sidebar_dropdown_button.active{
+  background-color: var(--primary-red-color);
+  color: white !important;
+}
+
+.sidebar_collapse_menu{
+  color: white;
+  background-color: rgba(255, 255, 255, 0.15);
+}

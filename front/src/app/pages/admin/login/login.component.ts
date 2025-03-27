@@ -58,6 +58,16 @@ export class LoginComponent {
         });
         
       }
+      if (params['success'] === 'success_logout') {
+        this.toastr.success("Logged Out successfully",'Success', {
+          positionClass: 'toast-bottom-right',
+          timeOut: 5000,
+          extendedTimeOut: 1000,
+          tapToDismiss: true,
+          closeButton: true,
+          progressBar: true
+        });
+      }
     });
   }
 
