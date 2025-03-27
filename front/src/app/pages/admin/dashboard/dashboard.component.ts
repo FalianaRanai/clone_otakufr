@@ -11,9 +11,15 @@ import { AuthService } from '../../../services/auth/auth.service';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
-  user$ = this.authService.user$;
+  user:any = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+  }
+
+  ngOnInit():void{
+    this.user = JSON.parse(localStorage.getItem('user') || '{}');
+    console.log(this.user);
+  }
 
   logout() {
     this.authService.logout();

@@ -37,7 +37,7 @@ export class UserService {
   }
 
   public async createUser(userData: User): Promise<User> {
-    const { email, password } = userData;
+    const { email, password, username } = userData;
 
     const { rows } = await pg.query(
       `
@@ -59,12 +59,13 @@ export class UserService {
       INSERT INTO
         users(
           "email",
-          "password"
+          "password",
+          "username"
         )
-      VALUES ($1, $2)
-      RETURNING "email", "password"
+      VALUES ($1, $2, $3)
+      RETURNING "email", "password", "username"
       `,
-      [email, hashedPassword],
+      [email, hashedPassword, username],
     );
 
     return createUserData[0];
@@ -85,7 +86,7 @@ export class UserService {
     );
     if (findUser[0].exists) throw new HttpException(409, "User doesn't exist");
 
-    const { email, password } = userData;
+    const { email, password, username } = userData;
     const hashedPassword = await hash(password, 10);
     const { rows: updateUserData } = await pg.query(
       `
@@ -93,12 +94,13 @@ export class UserService {
         users
       SET
         "email" = $2,
-        "password" = $3
+        "password" = $3,
+        "username" = $4
       WHERE
         "id_user" = $1
-      RETURNING "email", "password"
+      RETURNING "email", "password", "username"
     `,
-      [userId, email, hashedPassword],
+      [userId, email, hashedPassword, username],
     );
 
     return updateUserData;

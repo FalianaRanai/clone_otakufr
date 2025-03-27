@@ -40,6 +40,9 @@ export class LoginComponent {
         this.production ? '' : 'password123456789',
         Validators.required,
       ],
+      username: [
+        ''
+      ],
     });
   }
 
@@ -73,6 +76,7 @@ export class LoginComponent {
 
   onSubmit(): void {
     this.isLoading = true;
+    console.log(this.loginForm.value);
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.authService.login(email, password).subscribe({

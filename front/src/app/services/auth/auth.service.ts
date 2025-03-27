@@ -20,12 +20,12 @@ export class AuthService {
         (userData: any) => {
           console.log('User data:', userData.data);
           this.userSubject.next(userData);
-          this.user$ = this.userSubject.asObservable();
+          localStorage.setItem('user', JSON.stringify({  email: userData.data.email }));
         },
         () => {
           document.cookie = 'Authorization=; Path=/; Max-Age=0;';
           this.userSubject.next(null);
-          this.user$ = this.userSubject.asObservable();
+          localStorage.removeItem('user');
           this.router.navigate(['/admin/login'], { queryParams: { error: 'not-authenticated' } });
         }
       );
@@ -42,6 +42,7 @@ export class AuthService {
         tap((response) => {
           // console.log(response);
           this.userSubject.next(response.data);
+          localStorage.setItem('user', JSON.stringify({  email: response.data.email }));
         })
       );
   }
@@ -49,6 +50,7 @@ export class AuthService {
   logout(): void {
     document.cookie = 'Authorization=; Path=/; Max-Age=0;';
     this.userSubject.next(null);
+    localStorage.removeItem('user');
     this.router.navigate(['/admin/login'], { queryParams: { success: 'success_logout' } });
   }
 
@@ -56,7 +58,5 @@ export class AuthService {
     return this.user$.pipe(map((user) => !!user));
   }
 
-  getUser(): Observable<any> {
-    return this.userSubject.asObservable();
-  }
+
 }

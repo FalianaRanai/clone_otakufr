@@ -61,20 +61,23 @@ export class AuthService {
   }
 
   public async login(userData: User): Promise<{ cookie: string; findUser: User }> {
-    const { email, password } = userData;
+    const { email, password, username } = userData;
 
     const { rows, rowCount } = await pg.query(
       `
       SELECT
+        "id_user",
         "email",
         "password",
-        "id_user"
+        "username"
       FROM
         users
       WHERE
         "email" = $1
+      OR 
+        "username" = $2
     `,
-      [email],
+      [email, username],
     );
     if (!rowCount) throw new HttpException(409, `This email ${email} was not found`);
 

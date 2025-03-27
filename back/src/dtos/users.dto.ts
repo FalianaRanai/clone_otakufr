@@ -9,6 +9,9 @@ export class CreateUserDto {
   @MinLength(9)
   @MaxLength(32)
   public password: string;
+
+  @IsString()
+  public username: string;
 }
 
 export class UpdateUserDto {
@@ -17,4 +20,7 @@ export class UpdateUserDto {
   @MinLength(9)
   @MaxLength(32)
   public password: string;
+
+  @IsString()
+  public username: string;
 }
