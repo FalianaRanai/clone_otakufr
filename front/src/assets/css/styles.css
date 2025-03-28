@@ -2,6 +2,7 @@
   --primary-red-color: #FF2448;
   --background-dark-color: #1e1e1e;
   --gray-hover-color: rgb(248, 249, 250);
+  --primary-green-color: #229753;
 }
 
 body{
@@ -111,3 +112,23 @@ body{
   color: white;
   border-color: var(--primary-red-color);
 }
+
+.btn.btn-danger{
+  background-color: var(--primary-red-color);
+  border-color: var(--primary-red-color);
+}
+
+.btn.btn-danger:hover{
+  filter: brightness(0.9); /* Réduit la luminosité (0.9 = 90%) */
+}
+
+.btn.btn-success{
+  background-color: var(--primary-green-color);
+  border-color: var(--primary-green-color);
+}
+
+.btn.btn-success:hover{
+  filter: brightness(0.9); /* Réduit la luminosité (0.9 = 90%) */
+}
+
+

@@ -1,0 +1,85 @@
+<div class="card">
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">nom_realisateur</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <ng-container *ngFor="let realisateur of listeRealisateurs">
+          <tr>
+            <th scope="row">{{ realisateur.id_realisateur }}</th>
+            <td>{{ realisateur.nom_realisateur }}</td>
+            <td>
+              <div class="d-flex justify-content-end gap-2">
+                <div>
+                  <button class="btn btn-success"><i class="fa fa-edit"></i></button>
+                </div>
+                <div>
+                  <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+       
+
+      </tbody>
+    </table>
+
+    <!-- PAGINATION -->
+  <div class="pt-5 d-flex justify-content-center">
+    <nav aria-label="Page navigation example" class="pagination_nav">
+      <ul class="pagination">
+        <ng-container *ngIf="current_page > 1">
+          <li class="page-item">
+            <a
+              class="page-link"
+              [routerLink]="['/page', current_page - 1]"
+              aria-label="Previous"
+            >
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+        </ng-container>
+
+        <ng-container *ngFor="let page of array_pagination">
+          <ng-container *ngIf="page == 0">
+            <li class="page-item">
+              <a class="page-link" role="button">...</a>
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf="page == current_page">
+            <li class="page-item active">
+              <a class="page-link" role="button">{{ page }}</a>
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf="page != 0 && page != current_page">
+            <li class="page-item">
+              <a class="page-link" [routerLink]="['/page', page]">{{ page }}</a>
+            </li>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="current_page != total_page">
+          <li class="page-item">
+            <a
+              class="page-link"
+              [routerLink]="['/page', current_page + 1]"
+              aria-label="Next"
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </nav>
+  </div>
+  </div>
+</div>

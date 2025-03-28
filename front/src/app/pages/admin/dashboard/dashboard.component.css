@@ -1,9 +1,29 @@
+.nav-link{
+  color: white;
+  font-weight: bold;
+  color: var(--primary-red-color);
+}
+.nav-link:hover{
+  color: var(--primary-red-color);
+  background-color: white;
+}
+
 .nav-link.active{
   background-color: var(--primary-red-color);
 }
 
 .sidebar{
   background-color: var(--background-dark-color) !important;
+
+  transition: transform 0.3s ease-in-out;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+}
+
+.hidden {
+  transform: translateX(-100%);
 }
 
 .sidebar_dropdown_button{
@@ -35,4 +55,31 @@
 .sidebar_collapse_menu{
   color: white;
   background-color: rgba(255, 255, 255, 0.15);
+}
+
+.navbar{
+  background-color: var(--background-dark-color) !important;
+  height: 80px;
+  padding: 0;
+  z-index: 2;
+}
+
+.nav-pills{
+  margin-top: 80px;
+  z-index: 1;
+}
+
+.content{
+  flex-grow: 1;
+  transition: margin-left 0.3s ease-in-out;
+  margin-left: 280px;
+}
+
+.content.expanded {
+  margin-left: 0px;
+}
+
+.link-body-emphasis.active{
+  color: black !important;
+  background: white;
 }

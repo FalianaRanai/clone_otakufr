@@ -12,8 +12,13 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class DashboardComponent {
   user:any = null;
+  isSidebarVisible = true;
 
   constructor(private authService: AuthService) {
+  }
+
+  toggleSidebar() {
+    this.isSidebarVisible = !this.isSidebarVisible;
   }
 
   ngOnInit():void{
