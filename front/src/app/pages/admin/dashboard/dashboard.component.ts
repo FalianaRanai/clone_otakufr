@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
@@ -13,20 +13,50 @@ import { AuthService } from '../../../services/auth/auth.service';
 export class DashboardComponent {
   user:any = null;
   isSidebarVisible = true;
+  currentRoute: string = '';
+  currentYear:number = new Date().getFullYear();
 
-  constructor(private authService: AuthService) {
+  isRealisateurActive: boolean = false;
+
+  constructor(private authService: AuthService, private router: Router) {
+  }
+
+  ngOnInit():void{
+    this.user = JSON.parse(localStorage.getItem('user') || '{}');
+    console.log(this.user);
+
+    this.currentRoute = this.router.url;
+    console.log(this.currentRoute);
+    this.collapseSidebarMenu();
+
+    this.router.events.subscribe(() => {
+      this.currentRoute = this.router.url;
+      console.log("changement de route", this.currentRoute);
+      this.collapseSidebarMenu();
+    });
   }
 
   toggleSidebar() {
     this.isSidebarVisible = !this.isSidebarVisible;
   }
 
-  ngOnInit():void{
-    this.user = JSON.parse(localStorage.getItem('user') || '{}');
-    console.log(this.user);
-  }
-
   logout() {
     this.authService.logout();
+  }
+
+  collapseSidebarMenu():void {
+
+    if(this.currentRoute.includes("realisateurs")){
+      const button = document.getElementById('dashboard_realisateur_sidebar_menu_button');
+      if (button) {
+        button.click();
+        this.isRealisateurActive = true;
+      }
+    }
+    else{
+      this.isRealisateurActive = false;
+    }
+
+
   }
 }

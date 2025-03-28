@@ -1,115 +1,119 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 import { Realisateur } from '../../../interfaces/realisateurs.interface';
 import { RealisateursService } from '../../../services/realisateurs/realisateurs.service';
+import { closeAllModals } from '../../../utils/closeAllModals.utils';
+import { getArrayPagination } from '../../../utils/getArrayPagination.utils';
+// import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-realisateurs',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './realisateurs.component.html',
-  styleUrl: './realisateurs.component.css'
+  styleUrl: './realisateurs.component.css',
 })
 export class RealisateursComponent {
-
   isLoading: boolean = false;
-  listeRealisateurs: Realisateur[] = [];
+  liste: Realisateur[] = [];
   current_page: number = 1;
   total_page: number = 0;
   array_pagination: number[] = [];
+  production: boolean = environment.production;
+  errorMessage:string = '';
 
-  constructor(private realisateurService: RealisateursService){
-    this.getRealisateurs();
+  updateForm: FormGroup = this.formbuilder.group({
+    nom_realisateur: ['', [Validators.required]],
+    id_realisateur: [0, [Validators.required]],
+  });
+
+  constructor(
+    private realisateurService: RealisateursService,
+    private formbuilder: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    this.getHomePagination();
   }
 
-  getRealisateurs():void{
-    this.isLoading = true;
+  changePage(page: number): void {
+    this.current_page = page;
+    this.getHomePagination();
+  }
 
-    this.realisateurService.getRealisateurs().subscribe({
+  getHomePagination(): void {
+    // EN GROS FAUT VIDER AVANT DEFAIRE ENTRER
+    this.isLoading = true;
+    this.liste = [];
+
+    this.realisateurService.getHomePagination(this.current_page).subscribe({
       next: (data) => {
-        console.log(data);
-        this.listeRealisateurs = data.data;
+        this.liste = data.data;
+        this.total_page = data.total_page;
+        this.array_pagination = getArrayPagination(
+          this.current_page,
+          this.total_page
+        );
+
+        if (!this.production) {
+          console.log('Data :', data);
+          console.log('episodes :', this.liste);
+        }
+
         this.isLoading = false;
       },
       error: (error) => {
-        console.error(error);
+        if (!this.production) {
+          console.error('Error :', error);
+        }
+        this.isLoading = false;
+      },
+      complete: () => {
+        if (!this.production) {
+          console.log('Request executed');
+        }
+      },
+    });
+  }
+
+  onUpdateSubmit(id_realisateur: any):void{
+    console.log(this.updateForm.value);
+
+    if (this.updateForm.invalid) {
+      this.errorMessage = 'Veuillez corriger les erreurs du formulaire.';
+      return;
+    }
+
+    this.isLoading = true;
+    closeAllModals();
+
+    this.realisateurService.updateRealisateur(id_realisateur, this.updateForm.value).subscribe({
+      next: (data) => {
+        this.getHomePagination();
+        console.log('Data :', data);
+        this.isLoading = false;
+      },
+      error: (error) => {
+        if (!this.production) {
+          console.error('Error :', error);
+        }
         this.isLoading = false;
       }
     });
-
   }
 
-  getArrayPagination(page: number) {
-    // 0 correspond aux ""...""
-    // Toujours les 3 premières pages
-
-    let array_debut = [];
-    for (let i = 1; i <= 3; i++) {
-      if (i <= this.total_page) {
-        array_debut.push(i);
-      }
-    }
-
-    // Toujours les dernières premières pages
-    let array_fin = [];
-    for (let i = this.total_page - 3; i <= this.total_page; i++) {
-      if (i > 0) {
-        array_fin.push(i);
-      }
-    }
-
-    // Les "..." du MILIEU
-    let array_milieu = [];
-    // Si la distance entre page et le dernier nombre de array_debut >= 3 on met un "..."
-    if (page - array_debut[array_debut.length - 1] >= 3) {
-      array_milieu.push(0);
-    }
-
-    // On genere toujours page -1 | page | page + 1
-    page - 1 > 0 ? array_milieu.push(page - 1) : null;
-    array_milieu.push(page);
-    page + 1 <= this.total_page ? array_milieu.push(page + 1) : null;
-
-    // Si la distance entre page et le premier nombre de array_fin >= 3 on met un "..."
-    if (array_fin[0] - page >= 3) {
-      array_milieu.push(0);
-    }
-
-    let array_total: number[] = [];
-    for (let i = 0; i < array_debut.length; i++) {
-      if (array_total.indexOf(array_debut[i]) == -1) {
-        array_total.push(array_debut[i]);
-      }
-      else{
-        if(array_debut[i] == 0){
-          array_total.push(array_debut[i]);
-        }
-      }
-    }
-    for (let i = 0; i < array_milieu.length; i++) {
-      if (array_total.indexOf(array_milieu[i]) == -1) {
-        array_total.push(array_milieu[i]);
-      }
-      else{
-        if(array_milieu[i] == 0){
-          array_total.push(array_milieu[i]);
-        }
-      }
-    }
-    for (let i = 0; i < array_fin.length; i++) {
-      if (array_total.indexOf(array_fin[i]) == -1) {
-        array_total.push(array_fin[i]);
-      }
-      else{
-        if(array_fin[i] == 0){
-          array_total.push(array_fin[i]);
-        }
-      }
-    }
-    console.log('+++++++++++++++++', array_total);
-
-    return array_total;
+  onModalOpen(realisateur:Realisateur): void {
+    this.updateForm.get('id_realisateur')?.setValue(realisateur.id_realisateur);
+    this.updateForm.get('nom_realisateur')?.setValue(realisateur.nom_realisateur);
   }
+
 
 }

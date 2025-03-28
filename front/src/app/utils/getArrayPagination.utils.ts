@@ -11,12 +11,12 @@ export const getArrayPagination= (page: number, total_page: number): number[] =>
 
   // Toujours les dernières premières pages
   let array_fin = [];
-  for (let i = total_page - 3; i <= total_page; i++) {
+  for (let i = total_page - 2; i <= total_page; i++) {
     if (i > 0) {
       array_fin.push(i);
     }
   }
-  console.error(array_fin);
+  // console.error(array_fin);
 
   // Les "..." du MILIEU
   let array_milieu = [];
@@ -35,7 +35,7 @@ export const getArrayPagination= (page: number, total_page: number): number[] =>
     array_milieu.push(0);
   }
 
-  console.error(array_milieu);
+  // console.error(array_milieu);
 
   let array_total: number[] = [];
   for (let i = 0; i < array_debut.length; i++) {
@@ -68,7 +68,7 @@ export const getArrayPagination= (page: number, total_page: number): number[] =>
       }
     }
   }
-  console.log('+++++++++++++++++', array_total);
+  // console.log('+++++++++++++++++', array_total);
 
   // Il faut trier array_total  dans l'ordre croissant sans déplacer les 0
 
@@ -83,7 +83,7 @@ export const getArrayPagination= (page: number, total_page: number): number[] =>
     }
   }
 
-  console.log('+++++++++++++++++', array_total);
+  // console.log('+++++++++++++++++', array_total);
   
 
   return array_total;

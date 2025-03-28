@@ -1,15 +1,19 @@
 .nav-link{
-  color: white;
+  color: white !important;
   font-weight: bold;
   color: var(--primary-red-color);
 }
 .nav-link:hover{
-  color: var(--primary-red-color);
+  color: var(--primary-red-color) !important;
   background-color: white;
 }
 
 .nav-link.active{
   background-color: var(--primary-red-color);
+}
+
+.nav-link.active:hover{
+  color: white !important;
 }
 
 .sidebar{
@@ -73,6 +77,7 @@
   flex-grow: 1;
   transition: margin-left 0.3s ease-in-out;
   margin-left: 280px;
+  margin-top: 80px;
 }
 
 .content.expanded {
@@ -82,4 +87,9 @@
 .link-body-emphasis.active{
   color: black !important;
   background: white;
+}
+
+#dashboard_toggle_menu_button{
+  background-color: var(--primary-red-color);
+  border-color: var(--primary-red-color);
 }

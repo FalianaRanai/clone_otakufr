@@ -16,7 +16,5 @@ export class EpisodesService {
     return this.http.get<any>(`${this.apiUrl}/episodes/page/${page}`);
   }
 
-  getCountPagination(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/episodes/getCountPagination`);
-  }
+  
 }

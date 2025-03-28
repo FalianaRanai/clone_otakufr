@@ -65,18 +65,9 @@ export class EpisodeController {
     try {
       const page = Number(req.params.page);
       const findOneEpisodeData: Episode[] = await this.episode.getHomePagination(page);
+      const total_page = await this.episode.getCountPagination();
 
-      res.status(200).json({ data: findOneEpisodeData, message: 'findAll pagination' });
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  public getCountPagination = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try {
-      const count: any[] = await this.episode.getCountPagination();
-
-      res.status(200).json({ data: count, message: 'count pagination' });
+      res.status(200).json({ data: findOneEpisodeData, total_page: total_page, message: 'findAll pagination' });
     } catch (error) {
       next(error);
     }

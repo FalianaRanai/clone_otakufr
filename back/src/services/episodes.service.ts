@@ -115,28 +115,38 @@ export class EpisodeService {
   }
 
   public async getHomePagination(page: number): Promise<Episode[]> {
+    const sample = 20;
     const { rows } = await pg.query(
       `
         SELECT e.id_media, e.date_sortie, e.nom_episode, m.affiche
           FROM episodes e
             JOIN medias m ON m.id_media = e.id_media
             ORDER BY e.date_sortie DESC
-            LIMIT 20 OFFSET ($1 - 1) * 20
+            LIMIT $1 OFFSET ($2 - 1) * $3
         ;
         `,
-      [page],
+      [sample, page, sample],
     );
+
     return rows;
   }
 
-  public async getCountPagination(): Promise<any[]> {
+  public async getCountPagination(): Promise<any> {
+    const sample = 20;
     const { rows } = await pg.query(
       `
-        SELECT COUNT(*) / 20 as count_pages
-          FROM episodes e
+        SELECT COUNT(*) as count_pages
+          FROM episodes
         ;
         `,
+      [],
     );
-    return rows;
+    let nb_pages = Number(rows[0].count_pages / sample);
+    // console.log(nb_pages, Math.trunc(nb_pages));
+    if (nb_pages - Math.trunc(nb_pages) > 0) {
+      nb_pages = Math.trunc(nb_pages) + 1;
+    }
+
+    return nb_pages;
   }
 }

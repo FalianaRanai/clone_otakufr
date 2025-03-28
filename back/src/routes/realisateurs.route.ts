@@ -16,9 +16,13 @@ export class RealisateurRoute implements Routes {
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.realisateur.getRealisateurs);
     this.router.get(`${this.path}/:id(\\d+)`, this.realisateur.getRealisateurById);
+    this.router.get(`${this.path}/page/:page(\\d+)`, this.realisateur.getHomePagination);
+
     this.router.post(`${this.path}`, ValidationMiddleware(CreateRealisateurDto), this.realisateur.createRealisateur);
     // this.router.post(`${this.path}/generate`, this.realisateur.generateRealisateur);
+
     this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(UpdateRealisateurDto, true), this.realisateur.updateRealisateur);
+
     this.router.delete(`${this.path}/:id(\\d+)`, this.realisateur.deleteRealisateur);
   }
 }

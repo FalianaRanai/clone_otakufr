@@ -60,4 +60,16 @@ export class RealisateurController {
       next(error);
     }
   };
+
+  public getHomePagination = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const page = Number(req.params.page);
+      const findOneRealisateurData: Realisateur[] = await this.realisateur.getHomePagination(page);
+      const total_page = await this.realisateur.getCountPagination();
+
+      res.status(200).json({ data: findOneRealisateurData, total_page: total_page, message: 'findAll pagination' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

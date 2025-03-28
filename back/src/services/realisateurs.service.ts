@@ -112,4 +112,38 @@ export class RealisateurService {
 
     return deleteRealisateurData;
   }
+
+  public async getHomePagination(page: number): Promise<Realisateur[]> {
+    const sample = 10;
+    const { rows } = await pg.query(
+      `
+          SELECT *
+            FROM realisateurs 
+              LIMIT $1 OFFSET ($2 - 1) * $3
+          ;
+          `,
+      [sample, page, sample],
+    );
+
+    return rows;
+  }
+
+  public async getCountPagination(): Promise<any> {
+    const sample = 10;
+    const { rows } = await pg.query(
+      `
+          SELECT COUNT(*) as count_pages
+            FROM realisateurs
+          ;
+          `,
+      [],
+    );
+    let nb_pages = Number(rows[0].count_pages / sample);
+    // console.log(nb_pages, Math.trunc(nb_pages));
+    if (nb_pages - Math.trunc(nb_pages) > 0) {
+      nb_pages = Math.trunc(nb_pages) + 1;
+    }
+
+    return nb_pages;
+  }
 }

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
   <div class="vw-100">
     <div class="d-flex gap-2 justify-content-between" style="max-width: 280px; width: 280px;">
       <a
@@ -11,7 +11,7 @@
             <img src="/assets/img/otakufr-logo.webp" alt="" /></div
         ></span>
       </a>
-      <button class="btn btn-primary" (click)="toggleSidebar()">
+      <button class="btn btn-primary px-3 py-1" (click)="toggleSidebar()" id="dashboard_toggle_menu_button">
         <i class="fa-solid fa-bars"></i>
       </button>
     </div>
@@ -43,6 +43,8 @@ style="width: 280px"
   <li class="mb-2">
     <button
       class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
+      [class.active]="isRealisateurActive"
+      id="dashboard_realisateur_sidebar_menu_button"
       data-bs-toggle="collapse"
       data-bs-target="#dashboard-collapse1"
       aria-expanded="false"
@@ -560,13 +562,15 @@ style="width: 280px"
 </div>
 
 <div class="">
-
   
-
   <div class="content" [ngClass]="{ 'expanded': !isSidebarVisible }">
     
       <div class="container pt-3">
         <router-outlet></router-outlet>
+      </div>
+
+      <div class="py-5 text-center">
+        <span class="text-sm fw-bold text-secondary">Copyright &copy; <span class="text-red">{{ currentYear }}</span> Otakufr</span>
       </div>
     
   </div>

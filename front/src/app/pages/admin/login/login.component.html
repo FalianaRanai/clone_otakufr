@@ -17,6 +17,11 @@
                 aria-describedby="emailHelp"
                 formControlName="email"
               />
+
+              <p *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched" class="text-danger">
+                <span *ngIf="loginForm.controls['email'].errors?.['required']">Le nom est requis.</span>
+              </p>
+
             </div>
 
             <div class="mb-3">
@@ -29,6 +34,12 @@
                 aria-describedby="emailHelp"
                 formControlName="password"
               />
+
+              <p *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched" class="text-danger">
+                <span *ngIf="loginForm.controls['password'].errors?.['required']">Le password est requis.</span>
+                <span *ngIf="loginForm.controls['password'].errors?.['minlength']">Le password doit contenir au moins 9 caractères</span>
+              </p>
+
             </div>
 
             <button
