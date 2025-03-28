@@ -34,15 +34,12 @@ export class LoginComponent {
     this.loginForm = this.formbuilder.group({
       email: [
         this.production ? '' : 'admin@email.com',
-        [Validators.required, Validators.email],
+        [Validators.required],
       ],
       password: [
         this.production ? '' : 'password123456789',
-        Validators.required,
-      ],
-      username: [
-        ''
-      ],
+        [Validators.required, Validators.minLength(9)]
+      ]
     });
   }
 
