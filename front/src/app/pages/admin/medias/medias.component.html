@@ -49,7 +49,11 @@
                   <td style="min-width: 400px;">{{ element.autre_nom }}</td>
                   <td style="min-width: 400px;">{{ element.sygnopsis }}</td>
                   <td style="min-width: 400px;">{{ element.date_sortie }}</td>
-                  <td style="min-width: 200px;">{{ element.affiche }}</td>
+                  <td style="min-width: 200px;">
+                    <div class="w-100" style="aspect-ratio: 16/9;">
+                      <img [src]="element.affiche" alt="" class="w-100 rounded" style="object-fit: contain"/>
+                    </div>
+                  </td>
                   <td style="min-width: 100px;">{{ element.duree }}</td>
                   <td style="min-width: 200px;">{{ element.nom_auteur }}</td>
                   <td style="min-width: 200px;">{{ element.nom_realisateur }}</td>
