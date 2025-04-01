@@ -15,11 +15,11 @@ export class RealisateursService {
     return this.http.get<any>(`${this.apiUrl}/realisateurs`);
   }
 
-  getHomePagination(page: number): Observable<any> {
+  getPagination(page: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/realisateurs/page/${page}`);
   }
 
-  updateRealisateur(id: number, realisateur: any): Observable<any> {
+  update(id: number, realisateur: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/realisateurs/${id}`, realisateur);
   }
 }

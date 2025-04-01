@@ -1,0 +1,235 @@
+<ng-container *ngIf="isLoading == true">
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="isLoading == false">
+  <div class="d-flex justify-content-end pb-2">
+    <div>
+      <input
+        class="form-control"
+        type="text"
+        placeholder="Search..."
+        aria-label="Search..."
+      />
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <ng-container *ngFor="let colonne of listeColonne; index as index">
+          <ng-container *ngIf="index == 0">
+            <th scope="col">#</th>
+          </ng-container>
+
+          <ng-container *ngIf="index != 0">
+            <th scope="col">{{ colonne }}</th>
+          </ng-container>
+        </ng-container>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let element of liste">
+        <tr>
+          <!-- CHAMPS -->
+          <ng-container *ngFor="let colonne of listeColonne; index as index">
+            <ng-container *ngIf="index == 0">
+              <th scope="row">{{ element[colonne] }}</th>
+            </ng-container>
+
+            <ng-container *ngIf="index != 0">
+              <td>{{ element[colonne] }}</td>
+            </ng-container>
+          </ng-container>
+
+          <!-- BOUTON UPDATE ET DELETE -->
+          <td>
+            <div class="d-flex justify-content-end gap-2">
+              <div>
+                <button
+                  class="btn btn-success"
+                  data-bs-toggle="modal"
+                  [attr.data-bs-target]="
+                    '#exampleModalUpdate' + element[listeColonne[0]]
+                  "
+                  (click) = "onModalUpdateOpen(element)"
+                >
+                  <i class="fa fa-edit"></i>
+                </button>
+              </div>
+              <div>
+                <button class="btn btn-danger">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+
+      <!-- LIGNE AJOUT -->
+      <tr>
+        <ng-container *ngFor="let colonne of listeColonne; index as index">
+          <td></td>
+        </ng-container>
+        <td>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary"><i class="fa fa-plus"></i></button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- PAGINATION -->
+  <div class="pt-5 d-flex justify-content-center">
+    <nav aria-label="Page navigation example" class="pagination_nav">
+      <ul class="pagination">
+        <ng-container *ngIf="current_page > 1">
+          <li class="page-item">
+            <a
+              class="page-link"
+              (click)="changePage(current_page - 1)"
+              role="button"
+              aria-label="Previous"
+            >
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+        </ng-container>
+
+        <ng-container *ngFor="let page of array_pagination">
+          <ng-container *ngIf="page == 0">
+            <li class="page-item">
+              <a class="page-link" role="button">...</a>
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf="page == current_page">
+            <li class="page-item active">
+              <a class="page-link" role="button">{{ page }}</a>
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf="page != 0 && page != current_page">
+            <li class="page-item">
+              <a class="page-link" (click)="changePage(page)" role="button">{{
+                page
+              }}</a>
+            </li>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="current_page != total_page">
+          <li class="page-item">
+            <a
+              class="page-link"
+              (click)="changePage(current_page + 1)"
+              role="button"
+              aria-label="Next"
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Modal Update -->
+  <ng-container *ngFor="let element of liste">
+    <div
+      class="modal fade"
+      [attr.id]="'exampleModalUpdate' + element[listeColonne[0]]"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <form [formGroup]="updateForm" (ngSubmit)="onUpdateSubmit(element[listeColonne[0]])">
+            <div class="modal-body">
+
+              <ng-container
+                *ngFor="let colonne of listeColonne; index as index"
+              >
+                <ng-container *ngIf="index == 0">
+                  <input
+                    type="hidden"
+                    [formControlName]="colonne"
+                  />
+                </ng-container>
+
+                <ng-container *ngIf="index != 0">
+
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                      >{{ colonne }}</label
+                    >
+                    <ng-container *ngIf="listeColonneType[index] == 'number'">
+                      <input
+                      type="number"
+                      class="form-control"
+                      [formControlName]="colonne"
+                    />
+                    </ng-container>
+
+                    <ng-container *ngIf="listeColonneType[index] == 'string'">
+                      <input
+                      type="text"
+                      class="form-control"
+                      [formControlName]="colonne"
+                    />
+                    </ng-container>
+                    
+                  </div>
+                </ng-container>
+              </ng-container>
+
+
+              <p *ngIf="errorMessage" class="error text-danger mt-3">
+                {{ errorMessage }}
+              </p>
+            </div>
+
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">
+                <div
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  *ngIf="isLoading"
+                >
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                Save changes
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

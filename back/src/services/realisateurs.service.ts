@@ -113,8 +113,7 @@ export class RealisateurService {
     return deleteRealisateurData;
   }
 
-  public async getHomePagination(page: number): Promise<Realisateur[]> {
-    const sample = 10;
+  public async getPagination(page: number, sample = 10): Promise<Realisateur[]> {
     const { rows } = await pg.query(
       `
           SELECT *
@@ -128,8 +127,7 @@ export class RealisateurService {
     return rows;
   }
 
-  public async getCountPagination(): Promise<any> {
-    const sample = 10;
+  public async getCountPagination(sample = 10): Promise<any> {
     const { rows } = await pg.query(
       `
           SELECT COUNT(*) as count_pages

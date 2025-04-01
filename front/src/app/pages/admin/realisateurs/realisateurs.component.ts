@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../../environments/environment';
+import { DashboarddatatableComponent } from "../../../components/dashboarddatatable/dashboarddatatable.component";
 import { Realisateur } from '../../../interfaces/realisateurs.interface';
 import { RealisateursService } from '../../../services/realisateurs/realisateurs.service';
 import { closeAllModals } from '../../../utils/closeAllModals.utils';
@@ -17,7 +18,7 @@ import { getArrayPagination } from '../../../utils/getArrayPagination.utils';
 @Component({
   selector: 'app-realisateurs',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, DashboarddatatableComponent],
   templateUrl: './realisateurs.component.html',
   styleUrl: './realisateurs.component.css',
 })
@@ -29,6 +30,11 @@ export class RealisateursComponent {
   array_pagination: number[] = [];
   production: boolean = environment.production;
   errorMessage:string = '';
+
+  realisateurInterface = {
+    id_realisateur: 'number',
+    nom_realisateur: 'string'
+  };
 
   updateForm: FormGroup = this.formbuilder.group({
     nom_realisateur: ['', [Validators.required]],
@@ -54,7 +60,7 @@ export class RealisateursComponent {
     this.isLoading = true;
     this.liste = [];
 
-    this.realisateurService.getHomePagination(this.current_page).subscribe({
+    this.realisateurService.getPagination(this.current_page).subscribe({
       next: (data) => {
         this.liste = data.data;
         this.total_page = data.total_page;
@@ -95,7 +101,7 @@ export class RealisateursComponent {
     this.isLoading = true;
     closeAllModals();
 
-    this.realisateurService.updateRealisateur(id_realisateur, this.updateForm.value).subscribe({
+    this.realisateurService.update(id_realisateur, this.updateForm.value).subscribe({
       next: (data) => {
         this.getHomePagination();
         console.log('Data :', data);
@@ -113,6 +119,10 @@ export class RealisateursComponent {
   onModalOpen(realisateur:Realisateur): void {
     this.updateForm.get('id_realisateur')?.setValue(realisateur.id_realisateur);
     this.updateForm.get('nom_realisateur')?.setValue(realisateur.nom_realisateur);
+  }
+
+  getService(){
+    return this.realisateurService;
   }
 
 
