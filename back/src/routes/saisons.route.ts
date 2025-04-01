@@ -16,8 +16,13 @@ export class SaisonRoute implements Routes {
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.saison.getSaisons);
     this.router.get(`${this.path}/:id(\\d+)`, this.saison.getSaisonById);
+    this.router.get(`${this.path}/page/:page(\\d+)`, this.saison.getPagination);
+    this.router.get(`${this.path}/search`, this.saison.search);
+
     this.router.post(`${this.path}`, ValidationMiddleware(CreateSaisonDto), this.saison.createSaison);
+
     this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(UpdateSaisonDto, true), this.saison.updateSaison);
+
     this.router.delete(`${this.path}/:id(\\d+)`, this.saison.deleteSaison);
   }
 }

@@ -111,8 +111,8 @@
         >
           <li>
             <a
-            routerLink="/admin/auteurs"
-            routerLinkActive="active"
+              routerLink="/admin/auteurs"
+              routerLinkActive="active"
               class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
               >Liste des auteurs</a
             >
@@ -194,6 +194,8 @@
         data-bs-toggle="collapse"
         data-bs-target="#dashboard-collapse4"
         aria-expanded="false"
+        id="dashboard_saison_sidebar_menu_button"
+        [class.active]="isSaisonActive"
       >
         Saisons
       </button>
@@ -203,9 +205,10 @@
         >
           <li>
             <a
-              href="#"
+              routerLink="/admin/saisons"
+              routerLinkActive="active"
               class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-              >Overview</a
+              >Liste des saisons</a
             >
           </li>
           <li>
@@ -238,6 +241,8 @@
         data-bs-toggle="collapse"
         data-bs-target="#dashboard-collapse5"
         aria-expanded="false"
+        id="dashboard_genre_sidebar_menu_button"
+        [class.active]="isGenreActive"
       >
         Genres
       </button>
@@ -247,9 +252,10 @@
         >
           <li>
             <a
-              href="#"
+              routerLink="/admin/genres"
+              routerLinkActive="active"
               class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-              >Overview</a
+              >Liste des genres</a
             >
           </li>
           <li>
@@ -282,6 +288,8 @@
         data-bs-toggle="collapse"
         data-bs-target="#dashboard-collapse6"
         aria-expanded="false"
+        id="dashboard_statut_sidebar_menu_button"
+        [class.active]="isStatutActive"
       >
         Statuts
       </button>
@@ -291,9 +299,10 @@
         >
           <li>
             <a
-              href="#"
+              routerLink="/admin/statuts"
+              routerLinkActive="active"
               class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-              >Overview</a
+              >Liste des statuts</a
             >
           </li>
           <li>
@@ -326,6 +335,8 @@
         data-bs-toggle="collapse"
         data-bs-target="#dashboard-collapse7"
         aria-expanded="false"
+        id="dashboard_type_sidebar_menu_button"
+        [class.active]="isTypeActive"
       >
         Types
       </button>
@@ -335,9 +346,10 @@
         >
           <li>
             <a
-              href="#"
+              routerLink="/admin/types"
+              routerLinkActive="active"
               class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-              >Overview</a
+              >Liste des types</a
             >
           </li>
           <li>
@@ -370,6 +382,8 @@
         data-bs-toggle="collapse"
         data-bs-target="#dashboard-collapse8"
         aria-expanded="false"
+        id="dashboard_media_sidebar_menu_button"
+        [class.active]="isMediaActive"
       >
         Medias
       </button>
@@ -379,9 +393,10 @@
         >
           <li>
             <a
-              href="#"
+              routerLink="/admin/medias"
+              routerLinkActive="active"
               class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-              >Overview</a
+              >Liste des medias</a
             >
           </li>
           <li>

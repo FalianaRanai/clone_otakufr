@@ -19,7 +19,12 @@ export class DashboardComponent {
   isRealisateurActive: boolean = false;
   iEpisodeActive: boolean = false;
   isAuteursActive: boolean = false;
-  isStudioActive: boolean = false
+  isStudioActive: boolean = false;
+  isSaisonActive: boolean = false;
+  isGenreActive: boolean = false;
+  isStatutActive: boolean = false;
+  isTypeActive: boolean = false;
+  isMediaActive: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -91,6 +96,61 @@ export class DashboardComponent {
     }
     else{
       this.isStudioActive = false;
+    }
+
+    if(this.currentRoute.includes("saisons")){
+      const button = document.getElementById('dashboard_saison_sidebar_menu_button');
+      if (button) {
+        button.click();
+        this.isSaisonActive = true;
+      }
+    }
+    else{
+      this.isSaisonActive = false;
+    }
+
+    if(this.currentRoute.includes("genres")){
+      const button = document.getElementById('dashboard_genre_sidebar_menu_button');
+      if (button) {
+        button.click();
+        this.isGenreActive = true;
+      }
+    }
+    else{
+      this.isGenreActive = false;
+    }
+
+    if(this.currentRoute.includes("statuts")){
+      const button = document.getElementById('dashboard_statut_sidebar_menu_button');
+      if (button) {
+        button.click();
+        this.isStatutActive = true;
+      }
+    }
+    else{
+      this.isStatutActive = false;
+    }
+
+    if(this.currentRoute.includes("types")){
+      const button = document.getElementById('dashboard_type_sidebar_menu_button');
+      if (button) {
+        button.click();
+        this.isTypeActive = true;
+      }
+    }
+    else{
+      this.isTypeActive = false;
+    }
+
+    if(this.currentRoute.includes("medias")){
+      const button = document.getElementById('dashboard_media_sidebar_menu_button');
+      if (button) {
+        button.click();
+        this.isMediaActive = true;
+      }
+    }
+    else{
+      this.isMediaActive = false;
     }
 
 

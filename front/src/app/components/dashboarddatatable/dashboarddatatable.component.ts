@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { closeAllModals } from '../../utils/closeAllModals.utils';
@@ -43,7 +44,7 @@ export class DashboarddatatableComponent {
 
   searchControl = new FormControl('');
 
-  constructor(private formbuilder: FormBuilder) {}
+  constructor(private formbuilder: FormBuilder, private toastr: ToastrService) {}
 
   ngOnInit() {
     this.getPagination();
@@ -75,12 +76,30 @@ export class DashboarddatatableComponent {
         }
 
         this.isLoading = false;
+
+        this.toastr.success("Fetch data successfully",'Success', {
+          positionClass: 'toast-bottom-right',
+          timeOut: 5000,
+          extendedTimeOut: 1000,
+          tapToDismiss: true,
+          closeButton: true,
+          progressBar: true
+        });
       },
       error: (error: any) => {
         if (!this.production) {
           console.error('Error :', error);
         }
         this.isLoading = false;
+
+        this.toastr.error(error.error.message, 'Error', {
+          positionClass: 'toast-bottom-right',
+          timeOut: 5000,
+          extendedTimeOut: 1000,
+          tapToDismiss: true,
+          closeButton: true,
+          progressBar: true
+        });
       },
       complete: () => {
         if (!this.production) {
@@ -242,12 +261,32 @@ export class DashboarddatatableComponent {
         this.getPagination();
         console.log('Data :', data);
         this.isLoading = false;
+
+        this.toastr.success("Data Updated Successfully", 'Success', {
+          positionClass: 'toast-bottom-right',
+          timeOut: 5000,
+          extendedTimeOut: 1000,
+          tapToDismiss: true,
+          closeButton: true,
+          progressBar: true
+        });
+
       },
       error: (error: any) => {
         if (!this.production) {
           console.error('Error :', error);
         }
         this.isLoading = false;
+
+        this.toastr.error(error.error.message, 'Error', {
+          positionClass: 'toast-bottom-right',
+          timeOut: 5000,
+          extendedTimeOut: 1000,
+          tapToDismiss: true,
+          closeButton: true,
+          progressBar: true
+        });
+
       },
     });
   }
@@ -268,12 +307,32 @@ export class DashboarddatatableComponent {
         this.getPagination();
         console.log('Data :', data);
         this.isLoading = false;
+
+        this.toastr.success("Data created Successfully", 'Success', {
+          positionClass: 'toast-bottom-right',
+          timeOut: 5000,
+          extendedTimeOut: 1000,
+          tapToDismiss: true,
+          closeButton: true,
+          progressBar: true
+        });
+
       },
       error: (error: any) => {
         if (!this.production) {
           console.error('Error :', error);
         }
         this.isLoading = false;
+
+        this.toastr.error(error.error.message, 'Error', {
+          positionClass: 'toast-bottom-right',
+          timeOut: 5000,
+          extendedTimeOut: 1000,
+          tapToDismiss: true,
+          closeButton: true,
+          progressBar: true
+        });
+
       },
     });
   }
@@ -289,12 +348,32 @@ export class DashboarddatatableComponent {
         this.getPagination();
         console.log('Data :', data);
         this.isLoading = false;
+
+        this.toastr.success("Date deleted Successfully", 'Success', {
+          positionClass: 'toast-bottom-right',
+          timeOut: 5000,
+          extendedTimeOut: 1000,
+          tapToDismiss: true,
+          closeButton: true,
+          progressBar: true
+        });
+
       },
       error: (error: any) => {
         if (!this.production) {
           console.error('Error :', error);
         }
         this.isLoading = false;
+
+        this.toastr.error(error.error.message, 'Error', {
+          positionClass: 'toast-bottom-right',
+          timeOut: 5000,
+          extendedTimeOut: 1000,
+          tapToDismiss: true,
+          closeButton: true,
+          progressBar: true
+        });
+
       },
     });
   }
@@ -351,12 +430,32 @@ export class DashboarddatatableComponent {
         }
 
         this.isLoading = false;
+
+        this.toastr.success("Data fetched successfully", 'Search', {
+          positionClass: 'toast-bottom-right',
+          timeOut: 5000,
+          extendedTimeOut: 1000,
+          tapToDismiss: true,
+          closeButton: true,
+          progressBar: true
+        });
+
       },
       error: (error: any) => {
         if (!this.production) {
           console.error('Error :', error);
         }
         this.isLoading = false;
+
+        this.toastr.error(error.error.message, 'Error', {
+          positionClass: 'toast-bottom-right',
+          timeOut: 5000,
+          extendedTimeOut: 1000,
+          tapToDismiss: true,
+          closeButton: true,
+          progressBar: true
+        });
+
       },
       complete: () => {
         if (!this.production) {

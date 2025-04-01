@@ -16,9 +16,14 @@ export class GenreRoute implements Routes {
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.genre.getGenres);
     this.router.get(`${this.path}/:id(\\d+)`, this.genre.getGenreById);
+    this.router.get(`${this.path}/page/:page(\\d+)`, this.genre.getPagination);
+    this.router.get(`${this.path}/search`, this.genre.search);
+
     this.router.post(`${this.path}`, ValidationMiddleware(CreateGenreDto), this.genre.createGenre);
     this.router.post(`${this.path}/generate`, this.genre.generateGenre);
+
     this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(UpdateGenreDto, true), this.genre.updateGenre);
+
     this.router.delete(`${this.path}/:id(\\d+)`, this.genre.deleteGenre);
   }
 }
