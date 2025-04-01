@@ -18,6 +18,8 @@ export class MediaRoute implements Routes {
     this.router.get(`${this.path}/:id(\\d+)`, this.media.getMediaById);
     this.router.get(`${this.path}/getDetailedMediaId/:id(\\d+)`, this.media.getMediaByIdJoin);
     this.router.get(`${this.path}/generateMediaJSON`, this.media.generateMediaJSON);
+    this.router.get(`${this.path}/page/:page(\\d+)`, this.media.getPagination);
+    this.router.get(`${this.path}/search`, this.media.search);
 
     this.router.post(`${this.path}`, ValidationMiddleware(CreateMediaDto), this.media.createMedia);
     // this.router.post(`${this.path}/generate`, this.media.generateMedia);
