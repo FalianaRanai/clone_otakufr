@@ -30,4 +30,8 @@ export class RealisateursService {
   delete(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/realisateurs/${id}`);
   }
+
+  search(search:string, page = 1, sample = 10): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/realisateurs/search?page=${page}&sample=${sample}&search=${search}`);
+  }
 }

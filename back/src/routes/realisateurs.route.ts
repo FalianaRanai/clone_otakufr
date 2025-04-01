@@ -17,6 +17,7 @@ export class RealisateurRoute implements Routes {
     this.router.get(`${this.path}`, this.realisateur.getRealisateurs);
     this.router.get(`${this.path}/:id(\\d+)`, this.realisateur.getRealisateurById);
     this.router.get(`${this.path}/page/:page(\\d+)`, this.realisateur.getPagination);
+    this.router.get(`${this.path}/search`, this.realisateur.search);
 
     this.router.post(`${this.path}`, ValidationMiddleware(CreateRealisateurDto), this.realisateur.createRealisateur);
     // this.router.post(`${this.path}/generate`, this.realisateur.generateRealisateur);
