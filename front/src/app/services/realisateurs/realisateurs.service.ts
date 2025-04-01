@@ -22,4 +22,8 @@ export class RealisateursService {
   update(id: number, realisateur: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/realisateurs/${id}`, realisateur);
   }
+
+  add(realisateur: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/realisateurs`, realisateur);
+  }
 }

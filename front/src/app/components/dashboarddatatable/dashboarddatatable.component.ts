@@ -30,6 +30,7 @@ export class DashboarddatatableComponent {
   errorMessage: string = '';
 
   updateForm!: FormGroup;
+  addForm!: FormGroup;
 
   constructor(private formbuilder: FormBuilder) {
   }
@@ -54,6 +55,7 @@ export class DashboarddatatableComponent {
         this.listeColonne = this.getListeColonne(this.liste[0]);
         this.listeColonneType = this.getListeColonneType();
         this.initUpdateForm();
+        this.initAddForm();
 
         if (!this.production) {
           console.log('From dashborad datatable :', data);
@@ -129,10 +131,34 @@ export class DashboarddatatableComponent {
       }
     }
   }
+
+  initAddForm(): void {
+    this.addForm = this.formbuilder.group({});
+  
+    // Vérification que listeColonne et listeColonneType ont la même longueur
+    if (this.listeColonne.length !== this.listeColonneType.length) {
+      console.error("Les tableaux listeColonne et listeColonneType doivent avoir la même longueur.");
+      return;
+    }
+  
+    for (let i = 1; i < this.listeColonne.length; i++) {
+      const colonne = this.listeColonne[i];
+      const type = this.listeColonneType[i];
+  
+      // Pour les champs de type 'number'
+      if (type === "number") {
+        this.addForm.addControl(colonne, this.formbuilder.control(0, [Validators.required]));
+      }
+  
+      // Pour les champs de type 'string'
+      if (type === "string") {
+        this.addForm.addControl(colonne, this.formbuilder.control('', [Validators.required]));
+      }
+    }
+  }
   
 
   onModalUpdateOpen(element:any): void {
-
     for(let i = 0; i < this.listeColonne.length; i++){
       this.updateForm.get(this.listeColonne[i])?.setValue(element[this.listeColonne[i]]);
     }
@@ -163,4 +189,31 @@ export class DashboarddatatableComponent {
         }
       });
     }
+
+    onAddSubmit():void{
+      console.log(this.addForm.value);
+
+      if (this.addForm.invalid) {
+        this.errorMessage = 'Veuillez corriger les erreurs du formulaire.';
+        return;
+      }
+  
+      this.isLoading = true;
+      closeAllModals();
+  
+      this.service.add(this.addForm.value).subscribe({
+        next: (data:any) => {
+          this.getPagination();
+          console.log('Data :', data);
+          this.isLoading = false;
+        },
+        error: (error:any) => {
+          if (!this.production) {
+            console.error('Error :', error);
+          }
+          this.isLoading = false;
+        }
+      });
+    }
+
 }

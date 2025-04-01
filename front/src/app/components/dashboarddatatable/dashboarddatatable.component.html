@@ -57,7 +57,7 @@
                   [attr.data-bs-target]="
                     '#exampleModalUpdate' + element[listeColonne[0]]
                   "
-                  (click) = "onModalUpdateOpen(element)"
+                  (click)="onModalUpdateOpen(element)"
                 >
                   <i class="fa fa-edit"></i>
                 </button>
@@ -79,7 +79,13 @@
         </ng-container>
         <td>
           <div class="d-flex justify-content-end">
-            <button class="btn btn-primary"><i class="fa fa-plus"></i></button>
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModalAdd"
+            >
+              <i class="fa fa-plus"></i>
+            </button>
           </div>
         </td>
       </tr>
@@ -162,45 +168,41 @@
             ></button>
           </div>
 
-          <form [formGroup]="updateForm" (ngSubmit)="onUpdateSubmit(element[listeColonne[0]])">
+          <form
+            [formGroup]="updateForm"
+            (ngSubmit)="onUpdateSubmit(element[listeColonne[0]])"
+          >
             <div class="modal-body">
-
               <ng-container
                 *ngFor="let colonne of listeColonne; index as index"
               >
                 <ng-container *ngIf="index == 0">
-                  <input
-                    type="hidden"
-                    [formControlName]="colonne"
-                  />
+                  <input type="hidden" [formControlName]="colonne" />
                 </ng-container>
 
                 <ng-container *ngIf="index != 0">
-
                   <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label"
-                      >{{ colonne }}</label
-                    >
+                    <label for="exampleInputEmail1" class="form-label">{{
+                      colonne
+                    }}</label>
                     <ng-container *ngIf="listeColonneType[index] == 'number'">
                       <input
-                      type="number"
-                      class="form-control"
-                      [formControlName]="colonne"
-                    />
+                        type="number"
+                        class="form-control"
+                        [formControlName]="colonne"
+                      />
                     </ng-container>
 
                     <ng-container *ngIf="listeColonneType[index] == 'string'">
                       <input
-                      type="text"
-                      class="form-control"
-                      [formControlName]="colonne"
-                    />
+                        type="text"
+                        class="form-control"
+                        [formControlName]="colonne"
+                      />
                     </ng-container>
-                    
                   </div>
                 </ng-container>
               </ng-container>
-
 
               <p *ngIf="errorMessage" class="error text-danger mt-3">
                 {{ errorMessage }}
@@ -215,7 +217,11 @@
               >
                 Close
               </button>
-              <button type="submit" class="btn btn-primary">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="isLoading || !updateForm.valid"
+              >
                 <div
                   class="spinner-border spinner-border-sm"
                   role="status"
@@ -227,9 +233,86 @@
               </button>
             </div>
           </form>
-
         </div>
       </div>
     </div>
   </ng-container>
+
+  <!-- Modal Ajouter -->
+  <div
+    class="modal fade"
+    id="exampleModalAdd"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <form [formGroup]="addForm" (ngSubmit)="onAddSubmit()">
+          <div class="modal-body">
+            <ng-container *ngFor="let colonne of listeColonne; index as index">
+              <ng-container *ngIf="index != 0">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">{{
+                    colonne
+                  }}</label>
+                  <ng-container *ngIf="listeColonneType[index] == 'number'">
+                    <input
+                      type="number"
+                      class="form-control"
+                      [formControlName]="colonne"
+                    />
+                  </ng-container>
+
+                  <ng-container *ngIf="listeColonneType[index] == 'string'">
+                    <input
+                      type="text"
+                      class="form-control"
+                      [formControlName]="colonne"
+                    />
+                  </ng-container>
+                </div>
+              </ng-container>
+            </ng-container>
+            <p *ngIf="errorMessage" class="error text-danger mt-3">
+              {{ errorMessage }}
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="isLoading || !addForm.valid"
+            >
+              <div
+                class="spinner-border spinner-border-sm"
+                role="status"
+                *ngIf="isLoading"
+              >
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              Save changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </ng-container>
