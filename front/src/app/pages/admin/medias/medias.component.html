@@ -1,6 +1,126 @@
 <div class="card">
-  <div class="card-body">
-    <app-dashboarddatatable [service]="getService()" [interface]="mediaInterface"></app-dashboarddatatable>
+  < class="card-body">
+
+    
+      <ng-container *ngIf="isLoading == true">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="isLoading == false">
+
+        <div class="d-flex justify-content-end pb-2">
+          <div>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Search..."
+              aria-label="Search..."
+            />
+          </div>
+        </div>
+
+        <div style="max-width: 100%; overflow-x: auto;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">titre</th>
+                <th scope="col">autre_nom</th>
+                <th scope="col">sygnopsis</th>
+                <th scope="col">date_sortie</th>
+                <th scope="col">affiche</th>
+                <th scope="col">duree</th>
+                <th scope="col">nom_auteur</th>
+                <th scope="col">nom_realisateur</th>
+                <th scope="col">nom_statut</th>
+                <th scope="col">nom_type</th>
+                <th scope="col">nom_studio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let element of liste">
+                <tr>
+                  <th scope="row">{{ element.id_media }}</th>
+                  <td>{{ element.titre }}</td>
+                  <td>{{ element.autre_nom }}</td>
+                  <td>{{ element.sygnopsis }}</td>
+                  <td>{{ element.date_sortie }}</td>
+                  <td>{{ element.affiche }}</td>
+                  <td>{{ element.duree }}</td>
+                  <td>{{ element.nom_auteur }}</td>
+                  <td>{{ element.nom_realisateur }}</td>
+                  <td>{{ element.statut }}</td>
+                  <td>{{ element.type }}</td>
+                  <td>{{ element.studio }}</td>
+                </tr>
+              </ng-container>
+              
+            </tbody>
+          </table>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="pt-5 d-flex justify-content-center">
+          <nav aria-label="Page navigation example" class="pagination_nav">
+            <ul class="pagination">
+              <ng-container *ngIf="current_page > 1">
+                <li class="page-item">
+                  <a
+                    class="page-link"
+                    (click)="changePage(current_page - 1)"
+                    role="button"
+                    aria-label="Previous"
+                  >
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              </ng-container>
+
+              <ng-container *ngFor="let page of array_pagination">
+                <ng-container *ngIf="page == 0">
+                  <li class="page-item">
+                    <a class="page-link" role="button">...</a>
+                  </li>
+                </ng-container>
+
+                <ng-container *ngIf="page == current_page">
+                  <li class="page-item active">
+                    <a class="page-link" role="button">{{ page }}</a>
+                  </li>
+                </ng-container>
+
+                <ng-container *ngIf="page != 0 && page != current_page">
+                  <li class="page-item">
+                    <a class="page-link" (click)="changePage(page)" role="button">{{
+                      page
+                    }}</a>
+                  </li>
+                </ng-container>
+              </ng-container>
+
+              <ng-container *ngIf="current_page != total_page">
+                <li class="page-item">
+                  <a
+                    class="page-link"
+                    (click)="changePage(current_page + 1)"
+                    role="button"
+                    aria-label="Next"
+                  >
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ng-container>
+            </ul>
+          </nav>
+        </div>
+
+      </ng-container>
+    
+
   </div>
 </div>
 

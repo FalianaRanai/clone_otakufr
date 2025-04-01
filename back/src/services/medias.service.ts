@@ -510,8 +510,13 @@ export class MediaService {
   public async getPagination(page: number, sample = 10): Promise<Media[]> {
     const { rows } = await pg.query(
       `
-            SELECT *
-              FROM medias 
+            SELECT m.*, a.nom_auteur, r.nom_realisateur, s.nom_statut, t.nom_type, st.nom_studio
+              FROM medias m
+              JOIN auteurs a ON m.id_auteur = a.id_auteur
+              JOIN realisateurs r ON m.id_realisateur = r.id_realisateur
+              JOIN statuts s ON m.id_statut = s.id_statut
+              JOIN types t ON m.id_type = t.id_type
+              JOIN studios st ON m.id_studio = st.id_studio 
                 LIMIT $1 OFFSET ($2 - 1) * $3
             ;
             `,
