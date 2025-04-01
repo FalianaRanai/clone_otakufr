@@ -16,9 +16,14 @@ export class AuteurRoute implements Routes {
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.auteur.getAuteurs);
     this.router.get(`${this.path}/:id(\\d+)`, this.auteur.getAuteurById);
+    this.router.get(`${this.path}/page/:page(\\d+)`, this.auteur.getPagination);
+    this.router.get(`${this.path}/search`, this.auteur.search);
+
     this.router.post(`${this.path}`, ValidationMiddleware(CreateAuteurDto), this.auteur.createAuteur);
     // this.router.post(`${this.path}/generate`, this.auteur.generateAuteur);
+
     this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(UpdateAuteurDto, true), this.auteur.updateAuteur);
+
     this.router.delete(`${this.path}/:id(\\d+)`, this.auteur.deleteAuteur);
   }
 }

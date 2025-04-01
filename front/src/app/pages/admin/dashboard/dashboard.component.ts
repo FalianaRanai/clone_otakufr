@@ -18,6 +18,7 @@ export class DashboardComponent {
 
   isRealisateurActive: boolean = false;
   iEpisodeActive: boolean = false;
+  isAuteursActive: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -67,6 +68,17 @@ export class DashboardComponent {
     }
     else{
       this.iEpisodeActive = false;
+    }
+
+    if(this.currentRoute.includes("auteurs")){
+      const button = document.getElementById('dashboard_auteur_sidebar_menu_button');
+      if (button) {
+        button.click();
+        this.isAuteursActive = true;
+      }
+    }
+    else{
+      this.isAuteursActive = false;
     }
 
 

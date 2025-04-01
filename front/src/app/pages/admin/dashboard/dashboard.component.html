@@ -100,6 +100,8 @@
         data-bs-toggle="collapse"
         data-bs-target="#dashboard-collapse2"
         aria-expanded="false"
+        id="dashboard_auteur_sidebar_menu_button"
+        [class.active]="isAuteursActive"
       >
         Auteurs
       </button>
@@ -109,9 +111,10 @@
         >
           <li>
             <a
-              href="#"
+            routerLink="/admin/auteurs"
+            routerLinkActive="active"
               class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-              >Overview</a
+              >Liste des auteurs</a
             >
           </li>
           <li>
