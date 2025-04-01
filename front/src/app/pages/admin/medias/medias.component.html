@@ -1,187 +1,385 @@
 <div class="card">
   <div class="card-body">
-
-    
-      <ng-container *ngIf="isLoading == true">
-        <div class="d-flex justify-content-center">
-          <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
+    <ng-container *ngIf="isLoading == true">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
-      </ng-container>
+      </div>
+    </ng-container>
 
-      <ng-container *ngIf="isLoading == false">
-
-        <div class="d-flex justify-content-end pb-2">
-          <div>
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Search..."
-              aria-label="Search..."
-              [formControl]="searchControl"
-            />
-          </div>
+    <ng-container *ngIf="isLoading == false">
+      <div class="d-flex justify-content-end pb-2">
+        <div>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Search..."
+            aria-label="Search..."
+            [formControl]="searchControl"
+          />
         </div>
+      </div>
 
-        <div style="max-width: 100%; overflow-x: auto;">
-          <table class="table">
-            <thead>
+      <div style="max-width: 100%; overflow-x: auto">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">titre</th>
+              <th scope="col">autre_nom</th>
+              <th scope="col">sygnopsis</th>
+              <th scope="col">date_sortie</th>
+              <th scope="col">affiche</th>
+              <th scope="col">duree</th>
+              <th scope="col">nom_auteur</th>
+              <th scope="col">nom_realisateur</th>
+              <th scope="col">nom_statut</th>
+              <th scope="col">nom_type</th>
+              <th scope="col">nom_studio</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let element of liste">
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">titre</th>
-                <th scope="col">autre_nom</th>
-                <th scope="col">sygnopsis</th>
-                <th scope="col">date_sortie</th>
-                <th scope="col">affiche</th>
-                <th scope="col">duree</th>
-                <th scope="col">nom_auteur</th>
-                <th scope="col">nom_realisateur</th>
-                <th scope="col">nom_statut</th>
-                <th scope="col">nom_type</th>
-                <th scope="col">nom_studio</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <ng-container *ngFor="let element of liste">
-                <tr>
-                  <th scope="row">{{ element.id_media }}</th>
-                  <td style="min-width: 400px;">{{ element.titre }}</td>
-                  <td style="min-width: 400px;">{{ element.autre_nom }}</td>
-                  <td style="min-width: 400px;">{{ element.sygnopsis }}</td>
-                  <td style="min-width: 400px;">{{ element.date_sortie }}</td>
-                  <td style="min-width: 200px;">
-                    <div class="w-100" style="aspect-ratio: 16/9;">
-                      <img [src]="element.affiche" alt="" class="w-100 rounded" style="object-fit: contain"/>
-                    </div>
-                  </td>
-                  <td style="min-width: 100px;">{{ element.duree }}</td>
-                  <td style="min-width: 200px;">{{ element.nom_auteur }}</td>
-                  <td style="min-width: 200px;">{{ element.nom_realisateur }}</td>
-                  <td style="min-width: 200px;">{{ element.nom_statut }}</td>
-                  <td style="min-width: 200px;">{{ element.nom_type }}</td>
-                  <td style="min-width: 200px;">{{ element.nom_studio }}</td>
-                  <td>
-                    <div class="d-flex justify-content-end gap-2">
-                      <div>
-                        <button
-                          class="btn btn-success"
-                          data-bs-toggle="modal"
-                          [attr.data-bs-target]="
-                            '#exampleModalUpdate' + element[listeColonne[0]]
-                          "
-                        >
-                          <i class="fa fa-edit"></i>
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="btn btn-danger"
-                          data-bs-toggle="modal"
-                          [attr.data-bs-target]="
-                            '#exampleModalDelete' + element[listeColonne[0]]
-                          "
-                        >
-                          <i class="fa fa-trash"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </ng-container>
-
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <th scope="row">{{ element.id_media }}</th>
+                <td style="min-width: 400px">{{ element.titre }}</td>
+                <td style="min-width: 400px">{{ element.autre_nom }}</td>
+                <td style="min-width: 400px">{{ element.sygnopsis }}</td>
+                <td style="min-width: 400px">{{ element.date_sortie }}</td>
+                <td style="min-width: 200px">
+                  <div class="w-100" style="aspect-ratio: 16/9">
+                    <img
+                      [src]="element.affiche"
+                      alt=""
+                      class="w-100 rounded"
+                      style="object-fit: contain"
+                    />
+                  </div>
+                </td>
+                <td style="min-width: 100px">{{ element.duree }}</td>
+                <td style="min-width: 200px">{{ element.nom_auteur }}</td>
+                <td style="min-width: 200px">{{ element.nom_realisateur }}</td>
+                <td style="min-width: 200px">{{ element.nom_statut }}</td>
+                <td style="min-width: 200px">{{ element.nom_type }}</td>
+                <td style="min-width: 200px">{{ element.nom_studio }}</td>
                 <td>
-                  <div class="d-flex justify-content-end">
-                    <button
-                      class="btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModalAdd"
-                    >
-                      <i class="fa fa-plus"></i>
-                    </button>
+                  <div class="d-flex justify-content-end gap-2">
+                    <div>
+                      <button
+                        class="btn btn-success"
+                        data-bs-toggle="modal"
+                        [attr.data-bs-target]="
+                          '#exampleModalUpdate' + element[listeColonne[0]]
+                        "
+                      >
+                        <i class="fa fa-edit"></i>
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        class="btn btn-danger"
+                        data-bs-toggle="modal"
+                        [attr.data-bs-target]="
+                          '#exampleModalDelete' + element[listeColonne[0]]
+                        "
+                      >
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
                   </div>
                 </td>
               </tr>
-              
-            </tbody>
-          </table>
-        </div>
+            </ng-container>
 
-        <!-- PAGINATION -->
-        <div class="pt-5 d-flex justify-content-center">
-          <nav aria-label="Page navigation example" class="pagination_nav">
-            <ul class="pagination">
-              <ng-container *ngIf="current_page > 1">
-                <li class="page-item">
-                  <a
-                    class="page-link"
-                    (click)="changePage(current_page - 1)"
-                    role="button"
-                    aria-label="Previous"
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <div class="d-flex justify-content-end">
+                  <button
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModalAdd"
                   >
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PAGINATION -->
+      <div class="pt-5 d-flex justify-content-center">
+        <nav aria-label="Page navigation example" class="pagination_nav">
+          <ul class="pagination">
+            <ng-container *ngIf="current_page > 1">
+              <li class="page-item">
+                <a
+                  class="page-link"
+                  (click)="changePage(current_page - 1)"
+                  role="button"
+                  aria-label="Previous"
+                >
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+            </ng-container>
+
+            <ng-container *ngFor="let page of array_pagination">
+              <ng-container *ngIf="page == 0">
+                <li class="page-item">
+                  <a class="page-link" role="button">...</a>
                 </li>
               </ng-container>
 
-              <ng-container *ngFor="let page of array_pagination">
-                <ng-container *ngIf="page == 0">
-                  <li class="page-item">
-                    <a class="page-link" role="button">...</a>
-                  </li>
-                </ng-container>
-
-                <ng-container *ngIf="page == current_page">
-                  <li class="page-item active">
-                    <a class="page-link" role="button">{{ page }}</a>
-                  </li>
-                </ng-container>
-
-                <ng-container *ngIf="page != 0 && page != current_page">
-                  <li class="page-item">
-                    <a class="page-link" (click)="changePage(page)" role="button">{{
-                      page
-                    }}</a>
-                  </li>
-                </ng-container>
+              <ng-container *ngIf="page == current_page">
+                <li class="page-item active">
+                  <a class="page-link" role="button">{{ page }}</a>
+                </li>
               </ng-container>
 
-              <ng-container *ngIf="current_page != total_page">
+              <ng-container *ngIf="page != 0 && page != current_page">
                 <li class="page-item">
                   <a
                     class="page-link"
-                    (click)="changePage(current_page + 1)"
+                    (click)="changePage(page)"
                     role="button"
-                    aria-label="Next"
+                    >{{ page }}</a
                   >
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
                 </li>
               </ng-container>
-            </ul>
-          </nav>
+            </ng-container>
+
+            <ng-container *ngIf="current_page != total_page">
+              <li class="page-item">
+                <a
+                  class="page-link"
+                  (click)="changePage(current_page + 1)"
+                  role="button"
+                  aria-label="Next"
+                >
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ng-container>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Modal Ajouter -->
+      <div
+        class="modal fade"
+        id="exampleModalAdd"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal Add</h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <form [formGroup]="addForm" (ngSubmit)="onAddSubmit()">
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >titre</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    formControlName="titre"
+                  />
+
+                  <p
+                    *ngIf="
+                      addForm.controls['titre'].invalid &&
+                      addForm.controls['titre'].touched
+                    "
+                    class="text-danger"
+                  >
+                    <span *ngIf="addForm.controls['titre'].errors?.['required']"
+                      >Le champ est requis.</span
+                    >
+                  </p>
+                </div>
+
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >autre_nom</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    formControlName="autre_nom"
+                  />
+
+                  <p
+                    *ngIf="
+                      addForm.controls['autre_nom'].invalid &&
+                      addForm.controls['autre_nom'].touched
+                    "
+                    class="text-danger"
+                  >
+                    <span
+                      *ngIf="addForm.controls['autre_nom'].errors?.['required']"
+                      >Le champ est requis.</span
+                    >
+                  </p>
+                </div>
+
+                <div class="mb-3">
+
+                  <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" formControlName="sygnopsis"></textarea>
+                    <label for="floatingTextarea2">Sygnopsis</label>
+                  </div>
+
+                  <p
+                    *ngIf="
+                      addForm.controls['sygnopsis'].invalid &&
+                      addForm.controls['sygnopsis'].touched
+                    "
+                    class="text-danger"
+                  >
+                    <span
+                      *ngIf="addForm.controls['sygnopsis'].errors?.['required']"
+                      >Le champ est requis.</span
+                    >
+                  </p>
+                </div>
+
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >date_sortie</label
+                  >
+                  <input
+                    type="datetime-local"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    formControlName="date_sortie"
+                  />
+
+                  <p
+                    *ngIf="
+                      addForm.controls['date_sortie'].invalid &&
+                      addForm.controls['date_sortie'].touched
+                    "
+                    class="text-danger"
+                  >
+                    <span
+                      *ngIf="addForm.controls['date_sortie'].errors?.['required']"
+                      >Le champ est requis.</span
+                    >
+                  </p>
+                </div>
+
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >duree</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    formControlName="duree"
+                  />
+
+                  <p
+                    *ngIf="
+                      addForm.controls['duree'].invalid &&
+                      addForm.controls['duree'].touched
+                    "
+                    class="text-danger"
+                  >
+                    <span
+                      *ngIf="addForm.controls['duree'].errors?.['required']"
+                      >Le champ est requis.</span
+                    >
+                  </p>
+                </div>
+
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >id_auteur</label
+                  >
+                  <select class="select2 form-control" formControlName="id_auteur">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                  </select>
+
+                  <p
+                    *ngIf="
+                      addForm.controls['id_auteur'].invalid &&
+                      addForm.controls['id_auteur'].touched
+                    "
+                    class="text-danger"
+                  >
+                    <span
+                      *ngIf="addForm.controls['id_auteur'].errors?.['required']"
+                      >Le champ est requis.</span
+                    >
+                  </p>
+                </div>
+
+                <p *ngIf="errorMessage" class="error text-danger mt-3">
+                  {{ errorMessage }}
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                >
+                  <div
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    *ngIf="isLoading"
+                  >
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-
-      </ng-container>
-    
-
+      </div>
+    </ng-container>
   </div>
 </div>
-
-
-
-

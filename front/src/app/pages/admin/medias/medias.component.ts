@@ -5,6 +5,7 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +13,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { MediasService } from '../../../services/medias/medias.service';
 import { getArrayPagination } from '../../../utils/getArrayPagination.utils';
-// import { ToastrService } from 'ngx-toastr';
+declare var $: any; // Pour éviter les erreurs TypeScript avec jQuery
 
 @Component({
   selector: 'app-medias',
@@ -26,6 +27,7 @@ import { getArrayPagination } from '../../../utils/getArrayPagination.utils';
   styleUrl: './medias.component.css',
 })
 export class MediasComponent {
+  
   isLoading: boolean = false;
 
   liste: any[] = [];
@@ -54,6 +56,7 @@ export class MediasComponent {
   ngOnInit() {
     this.getPagination();
     this.initSearchForm();
+    this.initAddForm();
   }
 
   getPagination(): void {
@@ -199,5 +202,32 @@ export class MediasComponent {
             );
           }
         });
+    }
+
+    initAddForm(): void {
+      this.addForm = this.formbuilder.group({});
+
+      this.addForm.addControl('titre', this.formbuilder.control('', [Validators.required]));
+      this.addForm.addControl('autre_nom', this.formbuilder.control('', [Validators.required]));
+      this.addForm.addControl('sygnopsis', this.formbuilder.control('', [Validators.required]));
+      this.addForm.addControl('date_sortie', this.formbuilder.control(this.formatDateForInput(new Date().toISOString()), [Validators.required]));
+      this.addForm.addControl('affiche', this.formbuilder.control('', [Validators.required]));
+      this.addForm.addControl('duree', this.formbuilder.control(1, [Validators.required, Validators.min(1)]));
+      this.addForm.addControl('id_auteur', this.formbuilder.control(0, [Validators.required]));
+      this.addForm.addControl('id_realisateur', this.formbuilder.control(0, [Validators.required]));
+      this.addForm.addControl('id_statut', this.formbuilder.control(0, [Validators.required]));
+      this.addForm.addControl('id_type', this.formbuilder.control(0, [Validators.required]));
+      this.addForm.addControl('id_studio', this.formbuilder.control(0, [Validators.required]));
+    }
+
+    formatDateForInput(dateString: string): string {
+      const date = new Date(dateString);
+      const offset = date.getTimezoneOffset(); // Décalage horaire
+      const localDate = new Date(date.getTime() - offset * 60000); // Ajustement au fuseau horaire local
+      return localDate.toISOString().slice(0, 16); // Format "YYYY-MM-DDTHH:MM"
+    }
+
+    onAddSubmit(): void {
+      console.log(this.addForm.value);
     }
 }
