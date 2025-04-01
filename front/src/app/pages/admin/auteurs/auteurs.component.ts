@@ -17,7 +17,7 @@ import { AuteursService } from '../../../services/auteurs/auteurs.service';
 })
 export class AuteursComponent {
 
-  realisateurInterface = {
+  auteurInterface = {
     id_auteur: 'number',
     nom_auteur: 'string'
   };

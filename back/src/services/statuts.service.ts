@@ -150,4 +150,74 @@ export class StatutService {
 
     return retour;
   }
+
+  public async getPagination(page: number, sample = 10): Promise<Statut[]> {
+    const { rows } = await pg.query(
+      `
+            SELECT *
+              FROM statuts 
+                LIMIT $1 OFFSET ($2 - 1) * $3
+            ;
+            `,
+      [sample, page, sample],
+    );
+
+    return rows;
+  }
+
+  public async getCountPagination(sample = 10): Promise<any> {
+    const { rows } = await pg.query(
+      `
+            SELECT COUNT(*) as count_pages
+              FROM statuts
+            ;
+            `,
+      [],
+    );
+    let nb_pages = Number(rows[0].count_pages / sample);
+    // console.log(nb_pages, Math.trunc(nb_pages));
+    if (nb_pages - Math.trunc(nb_pages) > 0) {
+      nb_pages = Math.trunc(nb_pages) + 1;
+    }
+
+    return nb_pages;
+  }
+
+  public async search(search: string, page = 1, sample = 10): Promise<Statut[]> {
+    const { rows } = await pg.query(
+      `
+            SELECT
+              *
+            FROM
+              statuts
+            WHERE
+              LOWER("nom_statut") LIKE LOWER($1)
+              LIMIT $2 OFFSET ($3 - 1) * $4
+            `,
+      [`%${search}%`, sample, page, sample],
+    );
+    return rows;
+  }
+
+  public async getCountPaginationSearch(search: string, sample = 10): Promise<any> {
+    const { rows } = await pg.query(
+      `
+            SELECT
+              COUNT(*) as count_pages
+            FROM
+              statuts
+            WHERE
+              LOWER("nom_statut") LIKE LOWER($1)
+            `,
+      [`%${search}%`],
+    );
+
+    let nb_pages = Number(rows[0].count_pages / sample);
+    // console.log(nb_pages, Math.trunc(nb_pages));
+    if (nb_pages - Math.trunc(nb_pages) > 0) {
+      nb_pages = Math.trunc(nb_pages) + 1;
+    }
+
+    return nb_pages;
+  }
 }

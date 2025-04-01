@@ -16,9 +16,14 @@ export class StatutRoute implements Routes {
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.statut.getStatuts);
     this.router.get(`${this.path}/:id(\\d+)`, this.statut.getStatutById);
+    this.router.get(`${this.path}/page/:page(\\d+)`, this.statut.getPagination);
+    this.router.get(`${this.path}/search`, this.statut.search);
+
     this.router.post(`${this.path}`, ValidationMiddleware(CreateStatutDto), this.statut.createStatut);
     this.router.post(`${this.path}/generate`, this.statut.generateStatut);
+
     this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(UpdateStatutDto, true), this.statut.updateStatut);
+
     this.router.delete(`${this.path}/:id(\\d+)`, this.statut.deleteStatut);
   }
 }

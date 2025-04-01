@@ -17,7 +17,7 @@ export class DashboardComponent {
   currentYear:number = new Date().getFullYear();
 
   isRealisateurActive: boolean = false;
-  iEpisodeActive: boolean = false;
+  isEpisodeActive: boolean = false;
   isAuteursActive: boolean = false;
   isStudioActive: boolean = false;
   isSaisonActive: boolean = false;
@@ -69,11 +69,11 @@ export class DashboardComponent {
       const button = document.getElementById('dashboard_episode_sidebar_menu_button');
       if (button) {
         button.click();
-        this.iEpisodeActive = true;
+        this.isEpisodeActive = true;
       }
     }
     else{
-      this.iEpisodeActive = false;
+      this.isEpisodeActive = false;
     }
 
     if(this.currentRoute.includes("auteurs")){
