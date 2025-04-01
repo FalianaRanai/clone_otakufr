@@ -15,26 +15,29 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {
 
-    this.http
-      .get(`${this.apiUrl}/checkValidationToken`, { withCredentials: true })
-      .subscribe({
-        next: (userData: any) => {
-          console.log('User data:', userData.data);
-          this.userSubject.next(userData);
-          localStorage.setItem(
-            'user',
-            JSON.stringify({ email: userData.data.email, username: userData.data.username })
-          );
-        },
-        error: () => {
-          document.cookie = 'Authorization=; Path=/; Max-Age=0;';
-          this.userSubject.next(null);
-          localStorage.removeItem('user');
-          this.router.navigate(['/admin/login'], {
-            queryParams: { error: 'not-authenticated' },
-          });
-        },
-      });
+    
+
+      this.http
+        .get(`${this.apiUrl}/checkValidationToken`, { withCredentials: true })
+        .subscribe({
+          next: (userData: any) => {
+            console.log('User data:', userData.data);
+            this.userSubject.next(userData);
+            localStorage.setItem(
+              'user',
+              JSON.stringify({ email: userData.data.email, username: userData.data.username })
+            );
+          },
+          error: () => {
+            document.cookie = 'Authorization=; Path=/; Max-Age=0;';
+            this.userSubject.next(null);
+            localStorage.removeItem('user');
+            this.router.navigate(['/admin/login'], {
+              queryParams: { error: 'not-authenticated' },
+            });
+          },
+        });
+    
 
   }
 

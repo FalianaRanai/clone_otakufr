@@ -45,17 +45,17 @@
               <ng-container *ngFor="let element of liste">
                 <tr>
                   <th scope="row">{{ element.id_media }}</th>
-                  <td>{{ element.titre }}</td>
-                  <td>{{ element.autre_nom }}</td>
-                  <td>{{ element.sygnopsis }}</td>
-                  <td>{{ element.date_sortie }}</td>
-                  <td>{{ element.affiche }}</td>
-                  <td>{{ element.duree }}</td>
-                  <td>{{ element.nom_auteur }}</td>
-                  <td>{{ element.nom_realisateur }}</td>
-                  <td>{{ element.statut }}</td>
-                  <td>{{ element.type }}</td>
-                  <td>{{ element.studio }}</td>
+                  <td style="min-width: 400px;">{{ element.titre }}</td>
+                  <td style="min-width: 400px;">{{ element.autre_nom }}</td>
+                  <td style="min-width: 400px;">{{ element.sygnopsis }}</td>
+                  <td style="min-width: 400px;">{{ element.date_sortie }}</td>
+                  <td style="min-width: 200px;">{{ element.affiche }}</td>
+                  <td style="min-width: 100px;">{{ element.duree }}</td>
+                  <td style="min-width: 200px;">{{ element.nom_auteur }}</td>
+                  <td style="min-width: 200px;">{{ element.nom_realisateur }}</td>
+                  <td style="min-width: 200px;">{{ element.nom_statut }}</td>
+                  <td style="min-width: 200px;">{{ element.nom_type }}</td>
+                  <td style="min-width: 200px;">{{ element.nom_studio }}</td>
                 </tr>
               </ng-container>
               
