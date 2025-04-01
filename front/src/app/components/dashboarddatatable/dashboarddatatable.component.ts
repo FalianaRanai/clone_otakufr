@@ -216,4 +216,25 @@ export class DashboarddatatableComponent {
       });
     }
 
+    onDeleteSubmit(id: number):void{
+      console.log("id delete = ", id);
+  
+      this.isLoading = true;
+      closeAllModals();
+  
+      this.service.delete(id).subscribe({
+        next: (data:any) => {
+          this.getPagination();
+          console.log('Data :', data);
+          this.isLoading = false;
+        },
+        error: (error:any) => {
+          if (!this.production) {
+            console.error('Error :', error);
+          }
+          this.isLoading = false;
+        }
+      });
+    }
+
 }

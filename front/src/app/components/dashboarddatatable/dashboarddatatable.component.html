@@ -63,7 +63,13 @@
                 </button>
               </div>
               <div>
-                <button class="btn btn-danger">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  [attr.data-bs-target]="
+                    '#exampleModalDelete' + element[listeColonne[0]]
+                  "
+                >
                   <i class="fa fa-trash"></i>
                 </button>
               </div>
@@ -147,8 +153,9 @@
     </nav>
   </div>
 
-  <!-- Modal Update -->
+  <!-- MODALS -->
   <ng-container *ngFor="let element of liste">
+    <!-- Modal Update -->
     <div
       class="modal fade"
       [attr.id]="'exampleModalUpdate' + element[listeColonne[0]]"
@@ -159,7 +166,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal Update</h1>
             <button
               type="button"
               class="btn-close"
@@ -236,6 +243,40 @@
         </div>
       </div>
     </div>
+
+      <!-- Modal Delete -->
+    <div
+      class="modal fade"
+      [attr.id]="'exampleModalDelete' + element[listeColonne[0]]"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal Delete</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">Are you sure you want to delete: {{ listeColonne[0] + ' = ' + element[listeColonne[0]] }} ?</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" (click)="onDeleteSubmit(element[listeColonne[0]])">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </ng-container>
 
   <!-- Modal Ajouter -->
@@ -249,7 +290,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal Add</h1>
           <button
             type="button"
             class="btn-close"
@@ -315,4 +356,7 @@
       </div>
     </div>
   </div>
+
+
+
 </ng-container>

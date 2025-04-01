@@ -26,4 +26,8 @@ export class RealisateursService {
   add(realisateur: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/realisateurs`, realisateur);
   }
+
+  delete(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/realisateurs/${id}`);
+  }
 }
