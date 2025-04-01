@@ -8,8 +8,8 @@ import {
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { DashboarddatatableComponent } from '../../../components/dashboarddatatable/dashboarddatatable.component';
 import { MediasService } from '../../../services/medias/medias.service';
 import { getArrayPagination } from '../../../utils/getArrayPagination.utils';
 // import { ToastrService } from 'ngx-toastr';
@@ -20,8 +20,7 @@ import { getArrayPagination } from '../../../utils/getArrayPagination.utils';
   imports: [
     CommonModule,
     RouterModule,
-    ReactiveFormsModule,
-    DashboarddatatableComponent,
+    ReactiveFormsModule
   ],
   templateUrl: './medias.component.html',
   styleUrl: './medias.component.css',
@@ -54,6 +53,7 @@ export class MediasComponent {
 
   ngOnInit() {
     this.getPagination();
+    this.initSearchForm();
   }
 
   getPagination(): void {
@@ -115,8 +115,89 @@ export class MediasComponent {
     if (this.searchControl.value == '') {
       this.getPagination();
     } else {
-      // this.getPaginationSearch();
+      this.getPaginationSearch();
     }
   }
 
+  getPaginationSearch(): void {
+    this.isLoading = true;
+    this.liste = [];
+
+    this.mediaService.search(this.searchControl.value, this.current_page).subscribe({
+      next: (data: any) => {
+        this.liste = data.data;
+
+        this.total_page = data.total_page;
+        this.array_pagination = getArrayPagination(
+          this.current_page,
+          this.total_page
+        );
+
+
+        if (!this.production) {
+          console.log('From datatable :', data);
+          console.log('episodes :', this.liste);
+        }
+
+        this.isLoading = false;
+
+        this.toastr.success('Fetch data successfully', 'Success', {
+          positionClass: 'toast-bottom-right',
+          timeOut: 5000,
+          extendedTimeOut: 1000,
+          tapToDismiss: true,
+          closeButton: true,
+          progressBar: true,
+        });
+      },
+      error: (error: any) => {
+        if (!this.production) {
+          console.error('Error :', error);
+        }
+        this.isLoading = false;
+
+        this.toastr.error(error.error.message, 'Error', {
+          positionClass: 'toast-bottom-right',
+          timeOut: 5000,
+          extendedTimeOut: 1000,
+          tapToDismiss: true,
+          closeButton: true,
+          progressBar: true,
+        });
+      },
+      complete: () => {
+        if (!this.production) {
+          console.log('Request executed');
+        }
+      },
+    });
+  }
+
+  initSearchForm(): void {
+  
+      this.searchControl.valueChanges
+        .pipe(
+          debounceTime(500), // Attend 500ms après la dernière frappe
+          distinctUntilChanged(), // Ne déclenche que si la valeur a changé
+          switchMap((query) => this.mediaService.search(query)) // Annule la requête précédente si nouvelle valeur
+        )
+        .subscribe((results: any) => {
+          // Traitez les résultats ici
+          console.log(results);
+          const data = results.data;
+  
+          if (this.searchControl.value == '') {
+            this.current_page = 1;
+            this.getPagination();
+          } else {
+            this.current_page = 1;
+            this.liste = data;
+            this.total_page = results.total_page;
+            this.array_pagination = getArrayPagination(
+              this.current_page,
+              this.total_page
+            );
+          }
+        });
+    }
 }

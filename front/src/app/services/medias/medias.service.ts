@@ -35,7 +35,7 @@ export class MediasService {
     return this.http.delete<any>(`${this.apiUrl}/medias/${id}`);
   }
 
-  search(search:string, page = 1, sample = 10): Observable<any> {
+  search(search:string | null, page = 1, sample = 10): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/medias/search?page=${page}&sample=${sample}&search=${search}`);
   }
 }

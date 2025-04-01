@@ -553,9 +553,10 @@ export class MediaService {
               medias
             WHERE
               LOWER("titre") LIKE LOWER($1)
-              LIMIT $2 OFFSET ($3 - 1) * $4
+              OR LOWER("autre_nom") LIKE LOWER($1)
+              LIMIT $2 OFFSET ($3 - 1) * $2
             `,
-      [`%${search}%`, sample, page, sample],
+      [`%${search}%`, sample, page],
     );
     return rows;
   }
@@ -569,6 +570,7 @@ export class MediaService {
               medias
             WHERE
               LOWER("titre") LIKE LOWER($1)
+              OR LOWER("autre_nom") LIKE LOWER($1)
             `,
       [`%${search}%`],
     );
