@@ -92,11 +92,10 @@ export class DashboarddatatableComponent {
 
   changePage(page: number): void {
     this.current_page = page;
-    if(this.searchControl.value == ""){
-      this.getPaginationSearch();
-    }
-    else{
+    if (this.searchControl.value == '') {
       this.getPagination();
+    } else {
+      this.getPaginationSearch();
     }
   }
 
@@ -153,6 +152,14 @@ export class DashboarddatatableComponent {
           this.formbuilder.control('', [Validators.required])
         );
       }
+
+      // Pour les champs de type 'date'
+      if (type === 'date') {
+        this.updateForm.addControl(
+          colonne,
+          this.formbuilder.control(this.formatDateForInput(new Date().toISOString()), [Validators.required])
+        );
+      }
     }
   }
 
@@ -171,6 +178,7 @@ export class DashboarddatatableComponent {
       const colonne = this.listeColonne[i];
       const type = this.listeColonneType[i];
 
+
       // Pour les champs de type 'number'
       if (type === 'number') {
         this.addForm.addControl(
@@ -186,15 +194,36 @@ export class DashboarddatatableComponent {
           this.formbuilder.control('', [Validators.required])
         );
       }
+
+      // Pour les champs de type 'string'
+      if (type === 'date') {
+        const current_date = new Date();
+
+
+        this.addForm.addControl(
+          colonne,
+          this.formbuilder.control(this.formatDateForInput(current_date.toISOString()), [Validators.required])
+        );
+      }
     }
+
   }
 
   onModalUpdateOpen(element: any): void {
     for (let i = 0; i < this.listeColonne.length; i++) {
-      this.updateForm
+      if(this.listeColonneType[i] == "date"){
+        this.updateForm
+        .get(this.listeColonne[i])
+        ?.setValue(this.formatDateForInput((element[this.listeColonne[i]])));
+      }
+      else{
+        this.updateForm
         .get(this.listeColonne[i])
         ?.setValue(element[this.listeColonne[i]]);
+      }
     }
+
+    console.log(this.updateForm.value);
   }
 
   onUpdateSubmit(id: any): void {
@@ -271,7 +300,6 @@ export class DashboarddatatableComponent {
   }
 
   initSearchForm(): void {
-    this.current_page = 1;
 
     this.searchControl.valueChanges
       .pipe(
@@ -284,11 +312,13 @@ export class DashboarddatatableComponent {
         console.log(results);
         const data = results.data;
 
-        if (this.searchControl.value == "") {
+        if (this.searchControl.value == '') {
+          this.current_page = 1;
           this.getPagination();
         } else {
+          this.current_page = 1;
           this.liste = data;
-          this.total_page = data.total_page;
+          this.total_page = results.total_page;
           this.array_pagination = getArrayPagination(
             this.current_page,
             this.total_page
@@ -334,5 +364,13 @@ export class DashboarddatatableComponent {
         }
       },
     });
+  }
+
+
+  formatDateForInput(dateString: string): string {
+    const date = new Date(dateString);
+    const offset = date.getTimezoneOffset(); // Décalage horaire
+    const localDate = new Date(date.getTime() - offset * 60000); // Ajustement au fuseau horaire local
+    return localDate.toISOString().slice(0, 16); // Format "YYYY-MM-DDTHH:MM"
   }
 }

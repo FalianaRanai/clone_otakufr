@@ -17,6 +17,8 @@ export class EpisodeRoute implements Routes {
     this.router.get(`${this.path}`, this.episode.getEpisodes);
     this.router.get(`${this.path}/:id(\\d+)`, this.episode.getEpisodeById);
     this.router.get(`${this.path}/page/:page(\\d+)`, this.episode.getHomePagination);
+    this.router.get(`${this.path}/page2/:page(\\d+)`, this.episode.getPagination);
+    this.router.get(`${this.path}/search`, this.episode.search);
 
     this.router.post(`${this.path}`, ValidationMiddleware(CreateEpisodeDto), this.episode.createEpisode);
     // this.router.post(`${this.path}/generate`, this.episode.generateEpisode);

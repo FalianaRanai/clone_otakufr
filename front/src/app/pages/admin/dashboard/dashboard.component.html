@@ -1,17 +1,23 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
   <div class="vw-100">
-    <div class="d-flex gap-2 justify-content-between" style="max-width: 280px; width: 280px;">
+    <div
+      class="d-flex gap-2 justify-content-between"
+      style="max-width: 280px; width: 280px"
+    >
       <a
         href="/"
         class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none ps-4"
       >
-        
         <span class="fs-4"
           ><div>
             <img src="/assets/img/otakufr-logo.webp" alt="" /></div
         ></span>
       </a>
-      <button class="btn btn-primary px-3 py-1" (click)="toggleSidebar()" id="dashboard_toggle_menu_button">
+      <button
+        class="btn btn-primary px-3 py-1"
+        (click)="toggleSidebar()"
+        id="dashboard_toggle_menu_button"
+      >
         <i class="fa-solid fa-bars"></i>
       </button>
     </div>
@@ -20,561 +26,560 @@
 
 <!-- SIDEBAR -->
 <div
-class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark vh-100 sidebar pt-0"
-style="width: 280px"
-[ngClass]="{ hidden: !isSidebarVisible }"
+  class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark vh-100 sidebar pt-0"
+  style="width: 280px"
+  [ngClass]="{ hidden: !isSidebarVisible }"
 >
-<hr class="mt-0">
-<ul class="nav nav-pills flex-column mb-auto">
-  <li class="nav-item mb-2">
-    <a
-      routerLink="/admin/dashboard"
-      routerLinkActive="active"
-      class="nav-link active"
-      aria-current="page"
-    >
-      <svg class="bi pe-none me-2" width="16" height="16">
-        <use xlink:href="#home" />
-      </svg>
-      Dashboard
-    </a>
-  </li>
+  <hr class="mt-0" />
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item mb-2">
+      <a
+        routerLink="/admin/dashboard"
+        routerLinkActive="active"
+        class="nav-link active"
+        aria-current="page"
+      >
+        <svg class="bi pe-none me-2" width="16" height="16">
+          <use xlink:href="#home" />
+        </svg>
+        Dashboard
+      </a>
+    </li>
 
-  <li class="mb-2">
-    <button
-      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
-      [class.active]="isRealisateurActive"
-      id="dashboard_realisateur_sidebar_menu_button"
-      data-bs-toggle="collapse"
-      data-bs-target="#dashboard-collapse1"
-      aria-expanded="false"
-    >
-      Réalisateurs
-    </button>
-    <div class="collapse" id="dashboard-collapse1">
-      <ul
-        class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+    <li class="mb-2">
+      <button
+        class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
+        [class.active]="isRealisateurActive"
+        id="dashboard_realisateur_sidebar_menu_button"
+        data-bs-toggle="collapse"
+        data-bs-target="#dashboard-collapse1"
+        aria-expanded="false"
       >
-        <li>
-          <a
-            routerLink="/admin/realisateurs"
-            routerLinkActive="active"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Liste des réalisateurs</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Ajouter un réalisateur</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Monthly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Annually</a
-          >
-        </li>
-      </ul>
-    </div>
-  </li>
+        Réalisateurs
+      </button>
+      <div class="collapse" id="dashboard-collapse1">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        >
+          <li>
+            <a
+              routerLink="/admin/realisateurs"
+              routerLinkActive="active"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Liste des réalisateurs</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Ajouter un réalisateur</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Monthly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Annually</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
 
-  <li class="mb-2">
-    <button
-      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
-      data-bs-toggle="collapse"
-      data-bs-target="#dashboard-collapse2"
-      aria-expanded="false"
-    >
-      Auteurs
-    </button>
-    <div class="collapse" id="dashboard-collapse2">
-      <ul
-        class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+    <li class="mb-2">
+      <button
+        class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
+        data-bs-toggle="collapse"
+        data-bs-target="#dashboard-collapse2"
+        aria-expanded="false"
       >
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Overview</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Weekly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Monthly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Annually</a
-          >
-        </li>
-      </ul>
-    </div>
-  </li>
-  <li class="mb-2">
-    <button
-      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
-      data-bs-toggle="collapse"
-      data-bs-target="#dashboard-collapse3"
-      aria-expanded="false"
-    >
-      Studios
-    </button>
-    <div class="collapse" id="dashboard-collapse3">
-      <ul
-        class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        Auteurs
+      </button>
+      <div class="collapse" id="dashboard-collapse2">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        >
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Overview</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Weekly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Monthly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Annually</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-2">
+      <button
+        class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
+        data-bs-toggle="collapse"
+        data-bs-target="#dashboard-collapse3"
+        aria-expanded="false"
       >
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Overview</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Weekly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Monthly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Annually</a
-          >
-        </li>
-      </ul>
-    </div>
-  </li>
-  <li class="mb-2">
-    <button
-      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
-      data-bs-toggle="collapse"
-      data-bs-target="#dashboard-collapse4"
-      aria-expanded="false"
-    >
-      Saisons
-    </button>
-    <div class="collapse" id="dashboard-collapse4">
-      <ul
-        class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        Studios
+      </button>
+      <div class="collapse" id="dashboard-collapse3">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        >
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Overview</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Weekly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Monthly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Annually</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-2">
+      <button
+        class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
+        data-bs-toggle="collapse"
+        data-bs-target="#dashboard-collapse4"
+        aria-expanded="false"
       >
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Overview</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Weekly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Monthly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Annually</a
-          >
-        </li>
-      </ul>
-    </div>
-  </li>
-  <li class="mb-2">
-    <button
-      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
-      data-bs-toggle="collapse"
-      data-bs-target="#dashboard-collapse5"
-      aria-expanded="false"
-    >
-      Genres
-    </button>
-    <div class="collapse" id="dashboard-collapse5">
-      <ul
-        class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        Saisons
+      </button>
+      <div class="collapse" id="dashboard-collapse4">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        >
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Overview</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Weekly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Monthly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Annually</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-2">
+      <button
+        class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
+        data-bs-toggle="collapse"
+        data-bs-target="#dashboard-collapse5"
+        aria-expanded="false"
       >
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Overview</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Weekly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Monthly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Annually</a
-          >
-        </li>
-      </ul>
-    </div>
-  </li>
-  <li class="mb-2">
-    <button
-      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
-      data-bs-toggle="collapse"
-      data-bs-target="#dashboard-collapse6"
-      aria-expanded="false"
-    >
-      Statuts
-    </button>
-    <div class="collapse" id="dashboard-collapse6">
-      <ul
-        class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        Genres
+      </button>
+      <div class="collapse" id="dashboard-collapse5">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        >
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Overview</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Weekly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Monthly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Annually</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-2">
+      <button
+        class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
+        data-bs-toggle="collapse"
+        data-bs-target="#dashboard-collapse6"
+        aria-expanded="false"
       >
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Overview</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Weekly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Monthly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Annually</a
-          >
-        </li>
-      </ul>
-    </div>
-  </li>
-  <li class="mb-2">
-    <button
-      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
-      data-bs-toggle="collapse"
-      data-bs-target="#dashboard-collapse7"
-      aria-expanded="false"
-    >
-      Types
-    </button>
-    <div class="collapse" id="dashboard-collapse7">
-      <ul
-        class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        Statuts
+      </button>
+      <div class="collapse" id="dashboard-collapse6">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        >
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Overview</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Weekly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Monthly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Annually</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-2">
+      <button
+        class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
+        data-bs-toggle="collapse"
+        data-bs-target="#dashboard-collapse7"
+        aria-expanded="false"
       >
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Overview</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Weekly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Monthly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Annually</a
-          >
-        </li>
-      </ul>
-    </div>
-  </li>
-  <li class="mb-2">
-    <button
-      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
-      data-bs-toggle="collapse"
-      data-bs-target="#dashboard-collapse8"
-      aria-expanded="false"
-    >
-      Medias
-    </button>
-    <div class="collapse" id="dashboard-collapse8">
-      <ul
-        class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        Types
+      </button>
+      <div class="collapse" id="dashboard-collapse7">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        >
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Overview</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Weekly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Monthly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Annually</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-2">
+      <button
+        class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
+        data-bs-toggle="collapse"
+        data-bs-target="#dashboard-collapse8"
+        aria-expanded="false"
       >
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Overview</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Weekly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Monthly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Annually</a
-          >
-        </li>
-      </ul>
-    </div>
-  </li>
-  <li class="mb-2">
-    <button
-      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
-      data-bs-toggle="collapse"
-      data-bs-target="#dashboard-collapse9"
-      aria-expanded="false"
-    >
-      Episodes
-    </button>
-    <div class="collapse" id="dashboard-collapse9">
-      <ul
-        class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        Medias
+      </button>
+      <div class="collapse" id="dashboard-collapse8">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        >
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Overview</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Weekly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Monthly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Annually</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-2">
+      <button
+        class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
+        data-bs-toggle="collapse"
+        data-bs-target="#dashboard-collapse9"
+        aria-expanded="false"
+        id="dashboard_episode_sidebar_menu_button"
       >
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Overview</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Weekly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Monthly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Annually</a
-          >
-        </li>
-      </ul>
-    </div>
-  </li>
-  <li class="mb-2">
-    <button
-      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
-      data-bs-toggle="collapse"
-      data-bs-target="#dashboard-collapse10"
-      aria-expanded="false"
-    >
-      Users
-    </button>
-    <div class="collapse" id="dashboard-collapse10">
-      <ul
-        class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        Episodes
+      </button>
+      <div class="collapse" id="dashboard-collapse9">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        >
+          <li>
+            <a
+              routerLink="/admin/episodes"
+              routerLinkActive="active"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Liste des épisodes</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Weekly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Monthly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Annually</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-2">
+      <button
+        class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
+        data-bs-toggle="collapse"
+        data-bs-target="#dashboard-collapse10"
+        aria-expanded="false"
       >
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Overview</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Weekly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Monthly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Annually</a
-          >
-        </li>
-      </ul>
-    </div>
-  </li>
-  <li class="mb-2">
-    <button
-      class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
-      data-bs-toggle="collapse"
-      data-bs-target="#dashboard-collapse11"
-      aria-expanded="false"
-    >
-      Roles
-    </button>
-    <div class="collapse" id="dashboard-collapse11">
-      <ul
-        class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        Users
+      </button>
+      <div class="collapse" id="dashboard-collapse10">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        >
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Overview</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Weekly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Monthly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Annually</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-2">
+      <button
+        class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white w-100 sidebar_dropdown_button px-4 py-2"
+        data-bs-toggle="collapse"
+        data-bs-target="#dashboard-collapse11"
+        aria-expanded="false"
       >
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Overview</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Weekly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Monthly</a
-          >
-        </li>
-        <li>
-          <a
-            href="#"
-            class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-            >Annually</a
-          >
-        </li>
-      </ul>
-    </div>
-  </li>
-</ul>
-<hr />
-<div class="dropdown">
-  <a
-    href="#"
-    class="d-flex align-items-center text-white text-decoration-none dropdown-toggle gap-2"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-    <img
-      src="/assets/img/Sylphynford.webp"
-      alt=""
-      width="32"
-      height="32"
-      class="rounded-circle me-2"
-    />
-    <div class="d-flex flex-column gap-0 justify-content-center">
-      <strong>{{ user?.username }}</strong>
-      <p class="text-sm mb-0">{{ user?.email }}</p>
-    </div>
-  </a>
-  <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-    <li><a class="dropdown-item" href="#">New project...</a></li>
-    <li><a class="dropdown-item" href="#">Settings</a></li>
-    <li><a class="dropdown-item" href="#">Profile</a></li>
-    <li><hr class="dropdown-divider" /></li>
-    <li>
-      <a class="dropdown-item" role="button" (click)="logout()">Sign out</a>
+        Roles
+      </button>
+      <div class="collapse" id="dashboard-collapse11">
+        <ul
+          class="btn-toggle-nav list-unstyled fw-normal pb-1 small sidebar_collapse_menu"
+        >
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Overview</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Weekly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Monthly</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
+              >Annually</a
+            >
+          </li>
+        </ul>
+      </div>
     </li>
   </ul>
-</div>
-</div>
-
-<div class="">
-  
-  <div class="content" [ngClass]="{ 'expanded': !isSidebarVisible }">
-    
-      <div class="container pt-3">
-        <router-outlet></router-outlet>
+  <hr />
+  <div class="dropdown">
+    <a
+      href="#"
+      class="d-flex align-items-center text-white text-decoration-none dropdown-toggle gap-2"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <img
+        src="/assets/img/Sylphynford.webp"
+        alt=""
+        width="32"
+        height="32"
+        class="rounded-circle me-2"
+      />
+      <div class="d-flex flex-column gap-0 justify-content-center">
+        <strong>{{ user?.username }}</strong>
+        <p class="text-sm mb-0">{{ user?.email }}</p>
       </div>
-
-      <div class="py-5 text-center">
-        <span class="text-sm fw-bold text-secondary">Copyright &copy; <span class="text-red">{{ currentYear }}</span> Otakufr</span>
-      </div>
-    
+    </a>
+    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+      <li><a class="dropdown-item" href="#">New project...</a></li>
+      <li><a class="dropdown-item" href="#">Settings</a></li>
+      <li><a class="dropdown-item" href="#">Profile</a></li>
+      <li><hr class="dropdown-divider" /></li>
+      <li>
+        <a class="dropdown-item" role="button" (click)="logout()">Sign out</a>
+      </li>
+    </ul>
   </div>
 </div>
 
+<div class="">
+  <div class="content" [ngClass]="{ expanded: !isSidebarVisible }">
+    <div class="container pt-3">
+      <router-outlet></router-outlet>
+    </div>
 
-
+    <div class="py-5 text-center">
+      <span class="text-sm fw-bold text-secondary"
+        >Copyright &copy;
+        <span class="text-red">{{ currentYear }}</span> Otakufr</span
+      >
+    </div>
+  </div>
+</div>

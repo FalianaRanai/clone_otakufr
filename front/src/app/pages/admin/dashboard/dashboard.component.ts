@@ -17,6 +17,7 @@ export class DashboardComponent {
   currentYear:number = new Date().getFullYear();
 
   isRealisateurActive: boolean = false;
+  iEpisodeActive: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -55,6 +56,17 @@ export class DashboardComponent {
     }
     else{
       this.isRealisateurActive = false;
+    }
+
+    if(this.currentRoute.includes("episodes")){
+      const button = document.getElementById('dashboard_episode_sidebar_menu_button');
+      if (button) {
+        button.click();
+        this.iEpisodeActive = true;
+      }
+    }
+    else{
+      this.iEpisodeActive = false;
     }
 
 

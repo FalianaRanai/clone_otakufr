@@ -72,4 +72,33 @@ export class EpisodeController {
       next(error);
     }
   };
+
+  public getPagination = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const page = Number(req.params.page);
+      const sample = parseInt(req.query.sample as string, 10) || 10; // Valeur par défaut : 10
+      const findOneEpisodeData: Episode[] = await this.episode.getPagination(page, sample);
+      const total_page = await this.episode.getCountPagination(sample);
+
+      res.status(200).json({ data: findOneEpisodeData, total_page: total_page, message: 'findAll pagination' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public search = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      console.log(req.query);
+      const search = req.query.search ? req.query.search.toString() : '';
+      const sample = parseInt(req.query.sample as string, 10) || 10; // Valeur par défaut : 10
+      const page = parseInt(req.query.page as string, 10) || 1;
+
+      const findOneEpisodeData: Episode[] = await this.episode.search(search, page, sample);
+      const total_page = await this.episode.getCountPaginationSearch(search, sample);
+
+      res.status(200).json({ data: findOneEpisodeData, total_page: total_page, message: 'search' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

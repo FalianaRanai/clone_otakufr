@@ -44,7 +44,14 @@
             </ng-container>
 
             <ng-container *ngIf="index != 0">
-              <td>{{ element[colonne] }}</td>
+              <!-- date: 'EEEE dd MMMM y' -->
+               <ng-container *ngIf="listeColonneType[index] == 'date'">
+                <td>{{ element[colonne] | date: 'dd MMMM y hh:mm:ss' }}</td>
+               </ng-container>
+               <ng-container *ngIf="listeColonneType[index] != 'date'">
+                <td>{{ element[colonne] }}</td>
+               </ng-container>
+
             </ng-container>
           </ng-container>
 
@@ -167,7 +174,9 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal Update</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Modal Update
+            </h1>
             <button
               type="button"
               class="btn-close"
@@ -208,6 +217,27 @@
                         [formControlName]="colonne"
                       />
                     </ng-container>
+
+                    <ng-container *ngIf="listeColonneType[index] == 'date'">
+                      <input
+                        type="datetime-local"
+                        class="form-control"
+                        [formControlName]="colonne"
+                      />
+                    </ng-container>
+
+                    <p
+                      *ngIf="
+                        updateForm.controls[colonne].invalid &&
+                        updateForm.controls[colonne].touched
+                      "
+                      class="text-danger"
+                    >
+                      <span
+                        *ngIf="updateForm.controls[colonne].errors?.['required']"
+                        >Le champ est requis.</span
+                      >
+                    </p>
                   </div>
                 </ng-container>
               </ng-container>
@@ -245,7 +275,7 @@
       </div>
     </div>
 
-      <!-- Modal Delete -->
+    <!-- Modal Delete -->
     <div
       class="modal fade"
       [attr.id]="'exampleModalDelete' + element[listeColonne[0]]"
@@ -256,7 +286,9 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal Delete</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Modal Delete
+            </h1>
             <button
               type="button"
               class="btn-close"
@@ -264,7 +296,10 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">Are you sure you want to delete: {{ listeColonne[0] + ' = ' + element[listeColonne[0]] }} ?</div>
+          <div class="modal-body">
+            Are you sure you want to delete:
+            {{ listeColonne[0] + " = " + element[listeColonne[0]] }} ?
+          </div>
           <div class="modal-footer">
             <button
               type="button"
@@ -273,7 +308,13 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" (click)="onDeleteSubmit(element[listeColonne[0]])">Save changes</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="onDeleteSubmit(element[listeColonne[0]])"
+            >
+              Save changes
+            </button>
           </div>
         </div>
       </div>
@@ -323,6 +364,27 @@
                       [formControlName]="colonne"
                     />
                   </ng-container>
+
+                  <ng-container *ngIf="listeColonneType[index] == 'date'">
+                    <input
+                      type="datetime-local"
+                      class="form-control"
+                      [formControlName]="colonne"
+                    />
+                  </ng-container>
+
+                  <p
+                    *ngIf="
+                      addForm.controls[colonne].invalid &&
+                      addForm.controls[colonne].touched
+                    "
+                    class="text-danger"
+                  >
+                    <span
+                      *ngIf="addForm.controls[colonne].errors?.['required']"
+                      >Le champ est requis.</span
+                    >
+                  </p>
                 </div>
               </ng-container>
             </ng-container>
@@ -357,7 +419,4 @@
       </div>
     </div>
   </div>
-
-
-
 </ng-container>
