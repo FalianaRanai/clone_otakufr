@@ -147,6 +147,8 @@
         data-bs-toggle="collapse"
         data-bs-target="#dashboard-collapse3"
         aria-expanded="false"
+        id="dashboard_studio_sidebar_menu_button"
+        [class.active]="isStudioActive"
       >
         Studios
       </button>
@@ -156,9 +158,10 @@
         >
           <li>
             <a
-              href="#"
+              routerLink="/admin/studios"
+              routerLinkActive="active"
               class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white"
-              >Overview</a
+              >Liste des studios</a
             >
           </li>
           <li>

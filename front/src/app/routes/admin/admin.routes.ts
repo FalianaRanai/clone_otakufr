@@ -5,6 +5,7 @@ import { LoginComponent } from "../../pages/admin/login/login.component";
 import { AUTEURS_ROUTES } from "./auteurs.routes";
 import { EPISODES_ROUTES } from "./episodes.routes";
 import { REALISATEURS_ROUTES } from "./realisateurs.routes";
+import { STUDIOS_ROUTES } from "./studios.routes";
 
 export const ADMIN_ROUTES: Route[] = [
   {
@@ -34,5 +35,10 @@ export const ADMIN_ROUTES: Route[] = [
     path: "auteurs",
     component: DashboardComponent,
     children: AUTEURS_ROUTES  
+  },
+  {
+    path: "studios",
+    component: DashboardComponent,
+    children: STUDIOS_ROUTES  
   }
 ];
