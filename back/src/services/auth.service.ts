@@ -5,7 +5,6 @@ import { DataStoredInToken, TokenData } from '@interfaces/auth.interface';
 import { User } from '@interfaces/users.interface';
 import { compare, hash } from 'bcrypt';
 import { sign, verify } from 'jsonwebtoken';
-import { jwtDecode } from 'jwt-decode';
 import { Service } from 'typedi';
 
 const createToken = (user: User): TokenData => {
@@ -111,7 +110,7 @@ export class AuthService {
     return rows[0];
   }
 
-  public async checkValidationToken(token: string): Promise<any> {
+  public async isAuthenticated(token: string): Promise<any> {
     if (token) {
       const { id } = (await verify(token, SECRET_KEY)) as DataStoredInToken;
 
@@ -131,17 +130,6 @@ export class AuthService {
 
       if (rowCount) {
         return rows[0];
-      }
-
-      // VERIFIE SI LE TOKEN EST EXPIRER
-      const decoded = jwtDecode(token);
-      const now = new Date();
-      const expire = new Date(decoded.exp * 1000);
-
-      // return [now, expire, false];
-
-      if (now >= expire) {
-        return false;
       }
     }
     return false;

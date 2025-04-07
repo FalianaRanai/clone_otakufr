@@ -14,10 +14,11 @@ export class AuthRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.get('/checkValidationToken', AuthMiddleware, this.auth.checkValidationToken);
+    this.router.get('/isAuthenticated', AuthMiddleware, this.auth.isAuthenticated);
 
     this.router.post('/signup', ValidationMiddleware(CreateUserDto), this.auth.signUp);
     this.router.post('/login', ValidationMiddleware(LoginUserDto), this.auth.logIn);
+
     this.router.post('/logout', AuthMiddleware, this.auth.logOut);
   }
 }

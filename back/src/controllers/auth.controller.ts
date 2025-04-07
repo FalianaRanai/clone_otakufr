@@ -45,10 +45,10 @@ export class AuthController {
   };
 
   // POUR LE AUTH SERVICE DU FRONT
-  public checkValidationToken = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  public isAuthenticated = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const token = req.cookies['Authorization'];
-      const validationToken = await this.auth.checkValidationToken(token);
+      const validationToken = await this.auth.isAuthenticated(token);
       res.status(200).json({ data: validationToken, message: 'logout' });
     } catch (error) {
       next(error);

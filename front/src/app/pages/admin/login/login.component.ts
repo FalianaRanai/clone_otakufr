@@ -10,6 +10,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../services/auth/auth.service';
+import { getAlertErrorMessage, getAlertSuccessMessage } from '../../../utils/getAlertMessage.utils';
 
 @Component({
   selector: 'app-login',
@@ -45,28 +46,12 @@ export class LoginComponent {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      if (params['error'] === 'not-authenticated') {
+      if (params['error'] === 'unauthorized') {
         this.errorMessage = "Please, log in";
-
-        this.toastr.error(this.errorMessage,'Error', {
-          positionClass: 'toast-bottom-right',
-          timeOut: 5000,
-          extendedTimeOut: 1000,
-          tapToDismiss: true,
-          closeButton: true,
-          progressBar: true
-        });
-        
+        getAlertErrorMessage(this.toastr, this.errorMessage, 'Error');
       }
-      if (params['success'] === 'success_logout') {
-        this.toastr.success("Logged Out successfully",'Success', {
-          positionClass: 'toast-bottom-right',
-          timeOut: 5000,
-          extendedTimeOut: 1000,
-          tapToDismiss: true,
-          closeButton: true,
-          progressBar: true
-        });
+      if (params['success'] === 'logout') {
+        getAlertSuccessMessage(this.toastr, 'You have been logged out successfully', 'Success');
       }
     });
   }
@@ -78,32 +63,15 @@ export class LoginComponent {
       const { email, password } = this.loginForm.value;
       this.authService.login(email, password).subscribe({
         next: () => {
-
-          this.toastr.success("Logged In successfully",'Success', {
-            positionClass: 'toast-bottom-right',
-            timeOut: 5000,
-            extendedTimeOut: 1000,
-            tapToDismiss: true,
-            closeButton: true,
-            progressBar: true
-          });
-
-          this.router.navigate(['/admin/dashboard']);
           this.isLoading = false;
+          getAlertSuccessMessage(this.toastr, 'Logged in successfully', 'Success');
+          this.router.navigate(['/admin/dashboard']);
         },
         error: (err) => {
-          this.errorMessage = err.error.message;
-
-          this.toastr.error(this.errorMessage,'Error', {
-            positionClass: 'toast-bottom-right',
-            timeOut: 5000,
-            extendedTimeOut: 1000,
-            tapToDismiss: true,
-            closeButton: true,
-            progressBar: true
-          });
-
           this.isLoading = false;
+          this.errorMessage = err.error.message;
+          getAlertErrorMessage(this.toastr, this.errorMessage);
+          console.error('Login error:', err);
         },
       });
     }

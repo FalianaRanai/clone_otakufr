@@ -20,7 +20,6 @@ export const AuthMiddleware = async (req: RequestWithUser, res: Response, next: 
     const Authorization = getAuthorization(req);
 
     if (Authorization) {
-      // console.log('======================', await verify(Authorization, SECRET_KEY));
       const { id } = (await verify(Authorization, SECRET_KEY)) as DataStoredInToken;
       const { rows, rowCount } = await pg.query(
         `
