@@ -12,22 +12,17 @@ import { ToastrService } from 'ngx-toastr';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { MediasService } from '../../../services/medias/medias.service';
+import { getAlertErrorMessage, getAlertSuccessMessage } from '../../../utils/getAlertMessage.utils';
 import { getArrayPagination } from '../../../utils/getArrayPagination.utils';
-declare var $: any; // Pour éviter les erreurs TypeScript avec jQuery
 
 @Component({
   selector: 'app-medias',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    ReactiveFormsModule
-  ],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './medias.component.html',
   styleUrl: './medias.component.css',
 })
 export class MediasComponent {
-  
   isLoading: boolean = false;
 
   liste: any[] = [];
@@ -65,6 +60,7 @@ export class MediasComponent {
 
     this.mediaService.getPagination(this.current_page).subscribe({
       next: (data: any) => {
+
         this.liste = data.data;
 
         this.total_page = data.total_page;
@@ -73,7 +69,6 @@ export class MediasComponent {
           this.total_page
         );
 
-
         if (!this.production) {
           console.log('From datatable :', data);
           console.log('episodes :', this.liste);
@@ -81,14 +76,7 @@ export class MediasComponent {
 
         this.isLoading = false;
 
-        this.toastr.success('Fetch data successfully', 'Success', {
-          positionClass: 'toast-bottom-right',
-          timeOut: 5000,
-          extendedTimeOut: 1000,
-          tapToDismiss: true,
-          closeButton: true,
-          progressBar: true,
-        });
+        getAlertSuccessMessage(this.toastr, 'Fetch data successfully');
       },
       error: (error: any) => {
         if (!this.production) {
@@ -96,14 +84,7 @@ export class MediasComponent {
         }
         this.isLoading = false;
 
-        this.toastr.error(error.error.message, 'Error', {
-          positionClass: 'toast-bottom-right',
-          timeOut: 5000,
-          extendedTimeOut: 1000,
-          tapToDismiss: true,
-          closeButton: true,
-          progressBar: true,
-        });
+        getAlertErrorMessage(this.toastr, error.error.message);
       },
       complete: () => {
         if (!this.production) {
@@ -126,108 +107,130 @@ export class MediasComponent {
     this.isLoading = true;
     this.liste = [];
 
-    this.mediaService.search(this.searchControl.value, this.current_page).subscribe({
-      next: (data: any) => {
-        this.liste = data.data;
+    this.mediaService
+      .search(this.searchControl.value, this.current_page)
+      .subscribe({
+        next: (data: any) => {
+          this.liste = data.data;
 
-        this.total_page = data.total_page;
-        this.array_pagination = getArrayPagination(
-          this.current_page,
-          this.total_page
-        );
+          this.total_page = data.total_page;
+          this.array_pagination = getArrayPagination(
+            this.current_page,
+            this.total_page
+          );
 
+          if (!this.production) {
+            console.log('From datatable :', data);
+            console.log('episodes :', this.liste);
+          }
 
-        if (!this.production) {
-          console.log('From datatable :', data);
-          console.log('episodes :', this.liste);
-        }
+          this.isLoading = false;
 
-        this.isLoading = false;
+          getAlertSuccessMessage(this.toastr, 'Fetch data successfully');
+        },
+        error: (error: any) => {
+          if (!this.production) {
+            console.error('Error :', error);
+          }
+          this.isLoading = false;
 
-        this.toastr.success('Fetch data successfully', 'Success', {
-          positionClass: 'toast-bottom-right',
-          timeOut: 5000,
-          extendedTimeOut: 1000,
-          tapToDismiss: true,
-          closeButton: true,
-          progressBar: true,
-        });
-      },
-      error: (error: any) => {
-        if (!this.production) {
-          console.error('Error :', error);
-        }
-        this.isLoading = false;
-
-        this.toastr.error(error.error.message, 'Error', {
-          positionClass: 'toast-bottom-right',
-          timeOut: 5000,
-          extendedTimeOut: 1000,
-          tapToDismiss: true,
-          closeButton: true,
-          progressBar: true,
-        });
-      },
-      complete: () => {
-        if (!this.production) {
-          console.log('Request executed');
-        }
-      },
-    });
+          getAlertErrorMessage(this.toastr, error.error.message);
+        },
+        complete: () => {
+          if (!this.production) {
+            console.log('Request executed');
+          }
+        },
+      });
   }
 
   initSearchForm(): void {
-  
-      this.searchControl.valueChanges
-        .pipe(
-          debounceTime(500), // Attend 500ms après la dernière frappe
-          distinctUntilChanged(), // Ne déclenche que si la valeur a changé
-          switchMap((query) => this.mediaService.search(query)) // Annule la requête précédente si nouvelle valeur
-        )
-        .subscribe((results: any) => {
-          // Traitez les résultats ici
-          console.log(results);
-          const data = results.data;
-  
-          if (this.searchControl.value == '') {
-            this.current_page = 1;
-            this.getPagination();
-          } else {
-            this.current_page = 1;
-            this.liste = data;
-            this.total_page = results.total_page;
-            this.array_pagination = getArrayPagination(
-              this.current_page,
-              this.total_page
-            );
-          }
-        });
-    }
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(500), // Attend 500ms après la dernière frappe
+        distinctUntilChanged(), // Ne déclenche que si la valeur a changé
+        switchMap((query) => this.mediaService.search(query)) // Annule la requête précédente si nouvelle valeur
+      )
+      .subscribe((results: any) => {
+        // Traitez les résultats ici
+        console.log(results);
+        const data = results.data;
 
-    initAddForm(): void {
-      this.addForm = this.formbuilder.group({});
+        if (this.searchControl.value == '') {
+          this.current_page = 1;
+          this.getPagination();
+        } else {
+          this.current_page = 1;
+          this.liste = data;
+          this.total_page = results.total_page;
+          this.array_pagination = getArrayPagination(
+            this.current_page,
+            this.total_page
+          );
+        }
+      });
+  }
 
-      this.addForm.addControl('titre', this.formbuilder.control('', [Validators.required]));
-      this.addForm.addControl('autre_nom', this.formbuilder.control('', [Validators.required]));
-      this.addForm.addControl('sygnopsis', this.formbuilder.control('', [Validators.required]));
-      this.addForm.addControl('date_sortie', this.formbuilder.control(this.formatDateForInput(new Date().toISOString()), [Validators.required]));
-      this.addForm.addControl('affiche', this.formbuilder.control('', [Validators.required]));
-      this.addForm.addControl('duree', this.formbuilder.control(1, [Validators.required, Validators.min(1)]));
-      this.addForm.addControl('id_auteur', this.formbuilder.control(0, [Validators.required]));
-      this.addForm.addControl('id_realisateur', this.formbuilder.control(0, [Validators.required]));
-      this.addForm.addControl('id_statut', this.formbuilder.control(0, [Validators.required]));
-      this.addForm.addControl('id_type', this.formbuilder.control(0, [Validators.required]));
-      this.addForm.addControl('id_studio', this.formbuilder.control(0, [Validators.required]));
-    }
+  initAddForm(): void {
+    this.addForm = this.formbuilder.group({});
 
-    formatDateForInput(dateString: string): string {
-      const date = new Date(dateString);
-      const offset = date.getTimezoneOffset(); // Décalage horaire
-      const localDate = new Date(date.getTime() - offset * 60000); // Ajustement au fuseau horaire local
-      return localDate.toISOString().slice(0, 16); // Format "YYYY-MM-DDTHH:MM"
-    }
+    this.addForm.addControl(
+      'titre',
+      this.formbuilder.control('', [Validators.required])
+    );
+    this.addForm.addControl(
+      'autre_nom',
+      this.formbuilder.control('', [Validators.required])
+    );
+    this.addForm.addControl(
+      'sygnopsis',
+      this.formbuilder.control('', [Validators.required])
+    );
+    this.addForm.addControl(
+      'date_sortie',
+      this.formbuilder.control(
+        this.formatDateForInput(new Date().toISOString()),
+        [Validators.required]
+      )
+    );
+    this.addForm.addControl(
+      'affiche',
+      this.formbuilder.control('', [Validators.required])
+    );
+    this.addForm.addControl(
+      'duree',
+      this.formbuilder.control(1, [Validators.required, Validators.min(1)])
+    );
+    this.addForm.addControl(
+      'id_auteur',
+      this.formbuilder.control(0, [Validators.required])
+    );
+    this.addForm.addControl(
+      'id_realisateur',
+      this.formbuilder.control(0, [Validators.required])
+    );
+    this.addForm.addControl(
+      'id_statut',
+      this.formbuilder.control(0, [Validators.required])
+    );
+    this.addForm.addControl(
+      'id_type',
+      this.formbuilder.control(0, [Validators.required])
+    );
+    this.addForm.addControl(
+      'id_studio',
+      this.formbuilder.control(0, [Validators.required])
+    );
+  }
 
-    onAddSubmit(): void {
-      console.log(this.addForm.value);
-    }
+  formatDateForInput(dateString: string): string {
+    const date = new Date(dateString);
+    const offset = date.getTimezoneOffset(); // Décalage horaire
+    const localDate = new Date(date.getTime() - offset * 60000); // Ajustement au fuseau horaire local
+    return localDate.toISOString().slice(0, 16); // Format "YYYY-MM-DDTHH:MM"
+  }
+
+  onAddSubmit(): void {
+    console.log(this.addForm.value);
+  }
 }
