@@ -133,7 +133,7 @@ export class MediaService {
             medias
           WHERE
             id_media = $1
-          RETURNING "nom_media"
+          RETURNING "titre"
           `,
       [mediaId],
     );
@@ -535,10 +535,11 @@ export class MediaService {
               JOIN statuts s ON m.id_statut = s.id_statut
               JOIN types t ON m.id_type = t.id_type
               JOIN studios st ON m.id_studio = st.id_studio 
-                LIMIT $1 OFFSET ($2 - 1) * $3
+              ORDER BY m.id_media DESC
+                LIMIT $1 OFFSET ($2 - 1) * $1
             ;
             `,
-      [sample, page, sample],
+      [sample, page],
     );
 
     return rows;

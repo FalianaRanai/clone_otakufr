@@ -76,6 +76,9 @@ export class MediasComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Le modal a été fermé', result);
+      if(result?.success) {
+        this.getPagination(); // Rafraîchir la liste après la fermeture du modal
+      }
     });
   }
 
@@ -88,6 +91,9 @@ export class MediasComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Le modal a été fermé', result);
+      if(result?.success) {
+        this.getPagination(); // Rafraîchir la liste après la fermeture du modal
+      }
     });
   }
 

@@ -5,6 +5,13 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Annuler</button>
-  <button mat-button>
+  <button mat-button class="btn btn-primary bg-primary text-white" (click)="deleteMedia()">
+    <div
+    class="spinner-border spinner-border-sm"
+    role="status"
+    *ngIf="isLoading"
+  >
+    <span class="visually-hidden">Loading...</span>
+  </div>
   Valider</button>
 </mat-dialog-actions>

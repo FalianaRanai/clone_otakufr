@@ -39,7 +39,7 @@ export class MediaController {
       }
 
       mediaData.affiche = file;
-      console.log(mediaData);
+      // console.log(mediaData);
 
       const createMediaData: Media = await this.media.createMedia(mediaData);
 

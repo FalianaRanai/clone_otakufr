@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ToastrService } from 'ngx-toastr';
@@ -73,7 +73,8 @@ export class ModalAjouterComponent {
     private typeService: TypesService,
     private formbuilder: FormBuilder,
     private mediaService: MediasService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialogRef: MatDialogRef<ModalAjouterComponent>
   ) {}
 
   ngOnInit(): void {
@@ -339,7 +340,7 @@ export class ModalAjouterComponent {
       formData.append('affiche', this.selectedFile, this.selectedFile.name);
     }
 
-    console.log('FormData:', formData);
+    // console.log('FormData:', formData);
 
     this.isLoading = true;
 
@@ -354,6 +355,10 @@ export class ModalAjouterComponent {
         this.isLoading = false;
 
         getAlertSuccessMessage(this.toastr, 'Media ajouté avec succès !');
+
+        this.dialogRef.close({
+          success: true,
+        }); // Ferme le modal et passe une valeur (true) au composant parent
       },
       error: (error: any) => {
         this.isLoading = false;
