@@ -535,7 +535,6 @@ export class MediaService {
               JOIN statuts s ON m.id_statut = s.id_statut
               JOIN types t ON m.id_type = t.id_type
               JOIN studios st ON m.id_studio = st.id_studio 
-              ORDER BY m.id_media DESC
                 LIMIT $1 OFFSET ($2 - 1) * $1
             ;
             `,

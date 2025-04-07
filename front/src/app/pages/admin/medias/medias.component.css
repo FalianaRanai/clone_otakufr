@@ -1,0 +1,6 @@
+
+
+tr:hover td, tr:hover th  {
+  background: var(--gray-hover-color);
+  transition: background 0.2s ease; /* Optionnel pour un effet smooth */
+}
