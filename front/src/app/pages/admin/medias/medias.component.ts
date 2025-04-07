@@ -10,7 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ToastrService } from 'ngx-toastr';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Media } from '../../../interfaces/medias.interface';
 import { MediasService } from '../../../services/medias/medias.service';
@@ -147,7 +147,6 @@ export class MediasComponent {
 
   getPaginationSearch(): void {
     this.isLoading = true;
-    this.liste = [];
 
     this.mediaService
       .search(this.searchControl.value, this.current_page)
@@ -190,6 +189,7 @@ export class MediasComponent {
     this.searchControl.valueChanges
       .pipe(
         debounceTime(500), // Attend 500ms après la dernière frappe
+        tap(() => this.isLoading = true),
         distinctUntilChanged(), // Ne déclenche que si la valeur a changé
         switchMap((query) => this.mediaService.search(query)) // Annule la requête précédente si nouvelle valeur
       )
@@ -210,6 +210,7 @@ export class MediasComponent {
             this.total_page
           );
         }
+        this.isLoading = false;
       });
   }
 }

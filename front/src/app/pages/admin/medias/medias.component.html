@@ -47,7 +47,7 @@
                 <td style="min-width: 400px">{{ element.titre }}</td>
                 <td style="min-width: 400px">{{ element.autre_nom }}</td>
                 <td style="min-width: 400px">{{ element.sygnopsis }}</td>
-                <td style="min-width: 400px">{{ element.date_sortie }}</td>
+                <td style="min-width: 400px">{{ element.date_sortie | date: 'dd MMMM y hh:mm:ss' }}</td>
                 <td style="min-width: 200px">
                   <div class="w-100" style="aspect-ratio: 16/9">
                     <img

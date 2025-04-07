@@ -1,0 +1,3 @@
+subscribe c'est prendre la requêteet exécuter un truc dans next et error
+tap c'est exécuter un truc sans changer la requête
+pipe c'est changé le contenu de la requête
