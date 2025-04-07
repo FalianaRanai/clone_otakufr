@@ -12,7 +12,7 @@ export class StatutsService {
 
   constructor(private http: HttpClient) { }
 
-    getPagination(page: number): Observable<any> {
+    getPagination(page: number = 1): Observable<any> {
       return this.http.get<any>(`${this.apiUrl}/statuts/page/${page}`);
     }
   

@@ -15,7 +15,7 @@ export class RealisateursService {
     return this.http.get<any>(`${this.apiUrl}/realisateurs`);
   }
 
-  getPagination(page: number): Observable<any> {
+  getPagination(page: number = 1): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/realisateurs/page/${page}`);
   }
 

@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Ajouter un auteur</h2>
+<h2 mat-dialog-title>Ajouter un média</h2>
 <form [formGroup]="addForm" (ngSubmit)="onAddSubmit()">
 <mat-dialog-content>
     <div class="mb-3">
@@ -148,6 +148,154 @@
         class="text-danger"
       >
         <span *ngIf="addForm.controls['id_auteur'].errors?.['required']"
+          >Le champ est requis.</span
+        >
+      </p>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">id_realisateur</label><br />
+
+      <mat-form-field class="w-100">
+        <mat-select
+          formControlName="id_realisateur"
+          placeholder="Realisateur"
+          #singleSelect
+        >
+          <mat-option>
+            <ngx-mat-select-search
+              [formControl]="realisateurSearchControl"
+              placeholderLabel="Search..."
+            ></ngx-mat-select-search>
+          </mat-option>
+          <mat-option
+            *ngFor="let realisateur of realisateurOptions"
+            [value]="realisateur.id_realisateur"
+          >
+            {{ realisateur.nom_realisateur }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <p
+        *ngIf="
+          addForm.controls['id_realisateur'].invalid &&
+          addForm.controls['id_realisateur'].touched
+        "
+        class="text-danger"
+      >
+        <span *ngIf="addForm.controls['id_realisateur'].errors?.['required']"
+          >Le champ est requis.</span
+        >
+      </p>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">id_statut</label><br />
+
+      <mat-form-field class="w-100">
+        <mat-select
+          formControlName="id_statut"
+          placeholder="Statut"
+          #singleSelect
+        >
+          <mat-option>
+            <ngx-mat-select-search
+              [formControl]="statutSearchControl"
+              placeholderLabel="Search..."
+            ></ngx-mat-select-search>
+          </mat-option>
+          <mat-option
+            *ngFor="let statut of statutOptions"
+            [value]="statut.id_statut"
+          >
+            {{ statut.nom_statut }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <p
+        *ngIf="
+          addForm.controls['id_statut'].invalid &&
+          addForm.controls['id_statut'].touched
+        "
+        class="text-danger"
+      >
+        <span *ngIf="addForm.controls['id_statut'].errors?.['required']"
+          >Le champ est requis.</span
+        >
+      </p>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">id_studio</label><br />
+
+      <mat-form-field class="w-100">
+        <mat-select
+          formControlName="id_studio"
+          placeholder="Studio"
+          #singleSelect
+        >
+          <mat-option>
+            <ngx-mat-select-search
+              [formControl]="studioSearchControl"
+              placeholderLabel="Search..."
+            ></ngx-mat-select-search>
+          </mat-option>
+          <mat-option
+            *ngFor="let studio of studioOptions"
+            [value]="studio.id_studio"
+          >
+            {{ studio.nom_studio }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <p
+        *ngIf="
+          addForm.controls['id_studio'].invalid &&
+          addForm.controls['id_studio'].touched
+        "
+        class="text-danger"
+      >
+        <span *ngIf="addForm.controls['id_studio'].errors?.['required']"
+          >Le champ est requis.</span
+        >
+      </p>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">id_type</label><br />
+
+      <mat-form-field class="w-100">
+        <mat-select
+          formControlName="id_type"
+          placeholder="Realisateur"
+          #singleSelect
+        >
+          <mat-option>
+            <ngx-mat-select-search
+              [formControl]="typeSearchControl"
+              placeholderLabel="Search..."
+            ></ngx-mat-select-search>
+          </mat-option>
+          <mat-option
+            *ngFor="let type of typeOptions"
+            [value]="type.id_type"
+          >
+            {{ type.nom_type }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <p
+        *ngIf="
+          addForm.controls['id_type'].invalid &&
+          addForm.controls['id_type'].touched
+        "
+        class="text-danger"
+      >
+        <span *ngIf="addForm.controls['id_type'].errors?.['required']"
           >Le champ est requis.</span
         >
       </p>
