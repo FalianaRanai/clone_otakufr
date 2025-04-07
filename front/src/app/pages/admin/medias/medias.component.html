@@ -72,22 +72,14 @@
                         class="btn btn-success"
                         data-bs-toggle="modal"
                         [attr.data-bs-target]="
-                          '#exampleModalUpdate' + element[listeColonne[0]]
+                          '#exampleModalUpdate'
                         "
                       >
                         <i class="fa fa-edit"></i>
                       </button>
                     </div>
                     <div>
-                      <button
-                        class="btn btn-danger"
-                        data-bs-toggle="modal"
-                        [attr.data-bs-target]="
-                          '#exampleModalDelete' + element[listeColonne[0]]
-                        "
-                      >
-                        <i class="fa fa-trash"></i>
-                      </button>
+                      <button class="btn btn-danger" mat-raised-button (click)="openModalSupprimer(element)"><i class="fa fa-trash"></i></button>
                     </div>
                   </div>
                 </td>

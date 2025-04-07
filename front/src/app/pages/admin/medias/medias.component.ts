@@ -12,6 +12,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { Media } from '../../../interfaces/medias.interface';
 import { MediasService } from '../../../services/medias/medias.service';
 import {
   getAlertErrorMessage,
@@ -19,6 +20,7 @@ import {
 } from '../../../utils/getAlertMessage.utils';
 import { getArrayPagination } from '../../../utils/getArrayPagination.utils';
 import { ModalAjouterComponent } from './modal-ajouter/modal-ajouter.component';
+import { ModalSupprimerComponent } from './modal-supprimer/modal-supprimer.component';
 
 
 @Component({
@@ -39,9 +41,6 @@ export class MediasComponent {
   isLoading: boolean = false;
 
   liste: any[] = [];
-
-  listeColonne: string[] = [];
-  listeColonneType: string[] = [];
 
   current_page: number = 1;
   total_page: number = 0;
@@ -73,6 +72,18 @@ export class MediasComponent {
     const dialogRef = this.dialog.open(ModalAjouterComponent, {
       width: '500px', 
       disableClose: false, 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Le modal a été fermé', result);
+    });
+  }
+
+  openModalSupprimer(media: Media) {
+    const dialogRef = this.dialog.open(ModalSupprimerComponent, {
+      width: '500px', 
+      disableClose: false, 
+      data: media
     });
 
     dialogRef.afterClosed().subscribe(result => {
