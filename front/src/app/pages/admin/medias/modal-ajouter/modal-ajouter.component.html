@@ -1,0 +1,164 @@
+<h2 mat-dialog-title>Ajouter un auteur</h2>
+<form [formGroup]="addForm" (ngSubmit)="onAddSubmit()">
+<mat-dialog-content>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">titre</label>
+      <input
+        type="text"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        formControlName="titre"
+      />
+
+      <p
+        *ngIf="
+          addForm.controls['titre'].invalid && addForm.controls['titre'].touched
+        "
+        class="text-danger"
+      >
+        <span *ngIf="addForm.controls['titre'].errors?.['required']"
+          >Le champ est requis.</span
+        >
+      </p>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">autre_nom</label>
+      <input
+        type="text"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        formControlName="autre_nom"
+      />
+
+      <p
+        *ngIf="
+          addForm.controls['autre_nom'].invalid &&
+          addForm.controls['autre_nom'].touched
+        "
+        class="text-danger"
+      >
+        <span *ngIf="addForm.controls['autre_nom'].errors?.['required']"
+          >Le champ est requis.</span
+        >
+      </p>
+    </div>
+
+    <div class="mb-3">
+      <div class="form-floating">
+        <textarea
+          class="form-control"
+          placeholder="Leave a comment here"
+          id="floatingTextarea2"
+          style="height: 100px"
+          formControlName="sygnopsis"
+        ></textarea>
+        <label for="floatingTextarea2">Sygnopsis</label>
+      </div>
+
+      <p
+        *ngIf="
+          addForm.controls['sygnopsis'].invalid &&
+          addForm.controls['sygnopsis'].touched
+        "
+        class="text-danger"
+      >
+        <span *ngIf="addForm.controls['sygnopsis'].errors?.['required']"
+          >Le champ est requis.</span
+        >
+      </p>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">date_sortie</label>
+      <input
+        type="datetime-local"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        formControlName="date_sortie"
+      />
+
+      <p
+        *ngIf="
+          addForm.controls['date_sortie'].invalid &&
+          addForm.controls['date_sortie'].touched
+        "
+        class="text-danger"
+      >
+        <span *ngIf="addForm.controls['date_sortie'].errors?.['required']"
+          >Le champ est requis.</span
+        >
+      </p>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">duree</label>
+      <input
+        type="number"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        formControlName="duree"
+      />
+
+      <p
+        *ngIf="
+          addForm.controls['duree'].invalid && addForm.controls['duree'].touched
+        "
+        class="text-danger"
+      >
+        <span *ngIf="addForm.controls['duree'].errors?.['required']"
+          >Le champ est requis.</span
+        >
+      </p>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">id_auteur</label><br />
+
+      <mat-form-field class="w-100">
+        <mat-select
+          formControlName="id_auteur"
+          placeholder="Auteur"
+          #singleSelect
+        >
+          <mat-option>
+            <ngx-mat-select-search
+              [formControl]="auteurSearchControl"
+              placeholderLabel="Search..."
+            ></ngx-mat-select-search>
+          </mat-option>
+          <mat-option
+            *ngFor="let auteur of auteurOptions"
+            [value]="auteur.id_auteur"
+          >
+            {{ auteur.nom_auteur }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <p
+        *ngIf="
+          addForm.controls['id_auteur'].invalid &&
+          addForm.controls['id_auteur'].touched
+        "
+        class="text-danger"
+      >
+        <span *ngIf="addForm.controls['id_auteur'].errors?.['required']"
+          >Le champ est requis.</span
+        >
+      </p>
+    </div>
+
+    <p *ngIf="errorMessage" class="error text-danger mt-3">
+      {{ errorMessage }}
+    </p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Annuler</button>
+    <button mat-button type="submit">Valider</button>
+  </mat-dialog-actions>
+</form>

@@ -1,26 +1,39 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
-  ReactiveFormsModule,
-  Validators,
+  ReactiveFormsModule
 } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { MediasService } from '../../../services/medias/medias.service';
-import { getAlertErrorMessage, getAlertSuccessMessage } from '../../../utils/getAlertMessage.utils';
+import {
+  getAlertErrorMessage,
+  getAlertSuccessMessage,
+} from '../../../utils/getAlertMessage.utils';
 import { getArrayPagination } from '../../../utils/getArrayPagination.utils';
+import { ModalAjouterComponent } from './modal-ajouter/modal-ajouter.component';
+
 
 @Component({
   selector: 'app-medias',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    NgxMatSelectSearchModule,
+    MatSelectModule,
+  ],
   templateUrl: './medias.component.html',
   styleUrl: './medias.component.css',
+  
 })
 export class MediasComponent {
   isLoading: boolean = false;
@@ -38,20 +51,33 @@ export class MediasComponent {
   errorMessage: string = '';
 
   updateForm!: FormGroup;
-  addForm!: FormGroup;
-
+  
   searchControl = new FormControl('');
+  
+  
 
   constructor(
-    private formbuilder: FormBuilder,
     private toastr: ToastrService,
-    private mediaService: MediasService
+    private mediaService: MediasService,
+    public dialog: MatDialog,
   ) {}
+
+  
 
   ngOnInit() {
     this.getPagination();
     this.initSearchForm();
-    this.initAddForm();
+  }
+
+  openModal() {
+    const dialogRef = this.dialog.open(ModalAjouterComponent, {
+      width: '500px', // Largeur personnalisée
+      disableClose: true, // Empêche la fermeture en cliquant à l'extérieur
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Le modal a été fermé', result);
+    });
   }
 
   getPagination(): void {
@@ -60,7 +86,6 @@ export class MediasComponent {
 
     this.mediaService.getPagination(this.current_page).subscribe({
       next: (data: any) => {
-
         this.liste = data.data;
 
         this.total_page = data.total_page;
@@ -144,6 +169,8 @@ export class MediasComponent {
       });
   }
 
+ 
+
   initSearchForm(): void {
     this.searchControl.valueChanges
       .pipe(
@@ -169,68 +196,5 @@ export class MediasComponent {
           );
         }
       });
-  }
-
-  initAddForm(): void {
-    this.addForm = this.formbuilder.group({});
-
-    this.addForm.addControl(
-      'titre',
-      this.formbuilder.control('', [Validators.required])
-    );
-    this.addForm.addControl(
-      'autre_nom',
-      this.formbuilder.control('', [Validators.required])
-    );
-    this.addForm.addControl(
-      'sygnopsis',
-      this.formbuilder.control('', [Validators.required])
-    );
-    this.addForm.addControl(
-      'date_sortie',
-      this.formbuilder.control(
-        this.formatDateForInput(new Date().toISOString()),
-        [Validators.required]
-      )
-    );
-    this.addForm.addControl(
-      'affiche',
-      this.formbuilder.control('', [Validators.required])
-    );
-    this.addForm.addControl(
-      'duree',
-      this.formbuilder.control(1, [Validators.required, Validators.min(1)])
-    );
-    this.addForm.addControl(
-      'id_auteur',
-      this.formbuilder.control(0, [Validators.required])
-    );
-    this.addForm.addControl(
-      'id_realisateur',
-      this.formbuilder.control(0, [Validators.required])
-    );
-    this.addForm.addControl(
-      'id_statut',
-      this.formbuilder.control(0, [Validators.required])
-    );
-    this.addForm.addControl(
-      'id_type',
-      this.formbuilder.control(0, [Validators.required])
-    );
-    this.addForm.addControl(
-      'id_studio',
-      this.formbuilder.control(0, [Validators.required])
-    );
-  }
-
-  formatDateForInput(dateString: string): string {
-    const date = new Date(dateString);
-    const offset = date.getTimezoneOffset(); // Décalage horaire
-    const localDate = new Date(date.getTime() - offset * 60000); // Ajustement au fuseau horaire local
-    return localDate.toISOString().slice(0, 16); // Format "YYYY-MM-DDTHH:MM"
-  }
-
-  onAddSubmit(): void {
-    console.log(this.addForm.value);
   }
 }
