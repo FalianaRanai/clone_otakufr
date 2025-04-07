@@ -46,7 +46,7 @@ export class MediaService {
     const nomFichier = `${basename}_${Date.now()}${extension}`; // Nom final du fichier
 
     // Chemin où tu vas enregistrer le fichier
-    const filePath = path.join(__dirname, '../uploads', nomFichier); // Change le dossier "uploads" selon ta configuration
+    const filePath = path.join(__dirname, '../../uploads', nomFichier); // Change le dossier "uploads" selon ta configuration
 
     // Sauvegarde le fichier sur le disque
     fs.writeFileSync(filePath, buffer); // Écrire le fichier dans le répertoire 'uploads'

@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { ToastrService } from 'ngx-toastr';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { AuteursService } from '../../../../services/auteurs/auteurs.service';
@@ -19,6 +20,10 @@ import { RealisateursService } from '../../../../services/realisateurs/realisate
 import { StatutsService } from '../../../../services/statuts/statuts.service';
 import { StudiosService } from '../../../../services/studios/studios.service';
 import { TypesService } from '../../../../services/types/types.service';
+import {
+  getAlertErrorMessage,
+  getAlertSuccessMessage,
+} from '../../../../utils/getAlertMessage.utils';
 
 @Component({
   selector: 'app-modal-ajouter',
@@ -58,6 +63,8 @@ export class ModalAjouterComponent {
   selectedFile: File | null = null;
   selectedFileName: string = '';
 
+  isLoading: boolean = false;
+
   constructor(
     private auteurService: AuteursService,
     private realisateurService: RealisateursService,
@@ -65,7 +72,8 @@ export class ModalAjouterComponent {
     private studioService: StudiosService,
     private typeService: TypesService,
     private formbuilder: FormBuilder,
-    private mediaService: MediasService
+    private mediaService: MediasService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -333,20 +341,30 @@ export class ModalAjouterComponent {
 
     console.log('FormData:', formData);
 
-    this.mediaService.add(formData).subscribe(
-      {
-        next: (data: any) => {
-          console.log('Media ajouté avec succès:', data);
-          this.addForm.reset();
+    this.isLoading = true;
 
-          this.selectedFile = null;
-          this.selectedFileName = '';
+    this.mediaService.add(formData).subscribe({
+      next: (data: any) => {
+        console.log('Media ajouté avec succès:', data);
+        this.addForm.reset();
 
-        },
-        error: (error: any) => {
-          console.error('Erreur lors de l\'ajout du media:', error);
-        },
-      }
-    );
+        this.selectedFile = null;
+        this.selectedFileName = '';
+
+        this.isLoading = false;
+
+        getAlertSuccessMessage(this.toastr, 'Media ajouté avec succès !');
+      },
+      error: (error: any) => {
+        this.isLoading = false;
+        console.error("Erreur lors de l'ajout du media:", error);
+        getAlertErrorMessage(
+          this.toastr,
+          error.error.message
+            ? error.error.message
+            : "Erreur lors de l'ajout du media"
+        );
+      },
+    });
   }
 }

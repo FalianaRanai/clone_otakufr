@@ -327,6 +327,13 @@
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Annuler</button>
-    <button mat-button type="submit">Valider</button>
+    <button mat-button type="submit" class="btn btn-primary bg-primary text-white"><div
+      class="spinner-border spinner-border-sm"
+      role="status"
+      *ngIf="isLoading"
+    >
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    Valider</button>
   </mat-dialog-actions>
 </form>
