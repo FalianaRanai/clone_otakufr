@@ -2,6 +2,8 @@ import { Media } from '@/interfaces/medias.interface';
 import { getDateIncremented } from '@/utils/getDateIncrementedEpisode.utils';
 import pg from '@database';
 import { HttpException } from '@exceptions/httpException';
+import * as fs from 'fs';
+import path from 'path';
 import { Service } from 'typedi';
 
 @Service()
@@ -36,6 +38,22 @@ export class MediaService {
   public async createMedia(mediaData: Media): Promise<Media> {
     const { titre, sygnopsis, autre_nom, id_auteur, id_realisateur, id_studio, date_sortie, duree, id_type, id_statut, affiche } = mediaData;
 
+    // Variables pour le fichier
+    const { originalname, buffer } = affiche;
+    const extension = path.extname(originalname); // Récupérer l'extension du fichier
+    let basename = path.basename(originalname, extension); // Récupérer le nom de base sans l'extension
+    basename = basename.replace(/[\s-]/g, '_'); // Remplacer les espaces et tirets par des underscores
+    const nomFichier = `${basename}_${Date.now()}${extension}`; // Nom final du fichier
+
+    // Chemin où tu vas enregistrer le fichier
+    const filePath = path.join(__dirname, '../uploads', nomFichier); // Change le dossier "uploads" selon ta configuration
+
+    // Sauvegarde le fichier sur le disque
+    fs.writeFileSync(filePath, buffer); // Écrire le fichier dans le répertoire 'uploads'
+
+    // URL relative que tu peux enregistrer en base de données
+    const fileUrl = `/uploads/${nomFichier}`;
+
     const { rows: createMediaData } = await pg.query(
       `
           INSERT INTO
@@ -45,7 +63,7 @@ export class MediaService {
           VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11)
           RETURNING "titre", "sygnopsis", "autre_nom", "id_auteur", "id_realisateur", "id_studio", "date_sortie", "duree", "id_type", "id_statut", "affiche"
           `,
-      [titre, sygnopsis, autre_nom, id_auteur, id_realisateur, id_studio, date_sortie, duree, id_type, id_statut, affiche],
+      [titre, sygnopsis, autre_nom, id_auteur, id_realisateur, id_studio, date_sortie, duree, id_type, id_statut, fileUrl],
     );
 
     return createMediaData[0];

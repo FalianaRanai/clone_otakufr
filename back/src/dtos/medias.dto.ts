@@ -43,8 +43,8 @@ export class CreateMediaDto {
   @IsNotEmpty()
   public id_statut: number;
 
-  @IsString()
-  public affiche: string;
+  // Optionnel si besoin, mais typé comme `any`
+  public affiche?: any;
 }
 
 export class UpdateMediaDto {

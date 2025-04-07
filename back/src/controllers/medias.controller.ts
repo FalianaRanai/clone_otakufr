@@ -1,6 +1,8 @@
+import { HttpException } from '@/exceptions/httpException';
 import { MediaService } from '@/services/medias.service';
 import { Media } from '@interfaces/medias.interface';
 import { NextFunction, Request, Response } from 'express';
+import { File } from 'multer';
 import { Container } from 'typedi';
 
 export class MediaController {
@@ -30,6 +32,15 @@ export class MediaController {
   public createMedia = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const mediaData: Media = req.body;
+      const file = (req as Request & { file: File }).file;
+
+      if (!file) {
+        throw new HttpException(400, 'File is required');
+      }
+
+      mediaData.affiche = file;
+      console.log(mediaData);
+
       const createMediaData: Media = await this.media.createMedia(mediaData);
 
       res.status(201).json({ data: createMediaData, message: 'created' });

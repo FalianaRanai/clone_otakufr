@@ -69,10 +69,10 @@ export class MediasComponent {
     this.initSearchForm();
   }
 
-  openModal() {
+  openModalAjouter() {
     const dialogRef = this.dialog.open(ModalAjouterComponent, {
-      width: '500px', // Largeur personnalisée
-      disableClose: true, // Empêche la fermeture en cliquant à l'extérieur
+      width: '500px', 
+      disableClose: false, 
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -168,8 +168,6 @@ export class MediasComponent {
         },
       });
   }
-
- 
 
   initSearchForm(): void {
     this.searchControl.valueChanges

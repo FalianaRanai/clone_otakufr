@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Ajouter un média</h2>
 <form [formGroup]="addForm" (ngSubmit)="onAddSubmit()">
-<mat-dialog-content>
+  <mat-dialog-content>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">titre</label>
       <input
@@ -154,7 +154,8 @@
     </div>
 
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">id_realisateur</label><br />
+      <label for="exampleInputEmail1" class="form-label">id_realisateur</label
+      ><br />
 
       <mat-form-field class="w-100">
         <mat-select
@@ -279,10 +280,7 @@
               placeholderLabel="Search..."
             ></ngx-mat-select-search>
           </mat-option>
-          <mat-option
-            *ngFor="let type of typeOptions"
-            [value]="type.id_type"
-          >
+          <mat-option *ngFor="let type of typeOptions" [value]="type.id_type">
             {{ type.nom_type }}
           </mat-option>
         </mat-select>
@@ -296,6 +294,28 @@
         class="text-danger"
       >
         <span *ngIf="addForm.controls['id_type'].errors?.['required']"
+          >Le champ est requis.</span
+        >
+      </p>
+    </div>
+
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="inputGroupFile01">Affiche</label>
+      <input
+        type="file"
+        class="form-control"
+        id="inputGroupFile01"
+        (change)="onFileSelected($event)"
+      />
+
+      <p
+        *ngIf="
+          addForm.controls['affiche'].invalid &&
+          addForm.controls['affiche'].touched
+        "
+        class="text-danger"
+      >
+        <span *ngIf="addForm.controls['affiche'].errors?.['required']"
           >Le champ est requis.</span
         >
       </p>

@@ -55,6 +55,7 @@
                       alt=""
                       class="w-100 rounded"
                       style="object-fit: contain"
+                      [crossOrigin]="element.crossOrigin ?? null"
                     />
                   </div>
                 </td>
@@ -108,7 +109,7 @@
               <td></td>
               <td>
                 <div class="d-flex justify-content-end">
-                  <button class="btn btn-primary" mat-raised-button (click)="openModal()"><i class="fa fa-plus"></i></button>
+                  <button class="btn btn-primary" mat-raised-button (click)="openModalAjouter()"><i class="fa fa-plus"></i></button>
                 </div>
               </td>
             </tr>

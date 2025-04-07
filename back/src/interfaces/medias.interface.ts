@@ -13,7 +13,7 @@ export interface Media {
   duree: string;
   id_type: number;
   id_statut: number;
-  affiche: string;
+  affiche?: any;
 
   // POUR LES JOIN
   nom_auteur?: string;
