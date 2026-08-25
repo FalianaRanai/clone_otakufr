@@ -67,16 +67,13 @@ export class AuthService {
       SELECT
         "id_user",
         "email",
-        "password",
-        "username"
+        "password"
       FROM
         users
       WHERE
         "email" = $1
-      OR 
-        "username" = $2
     `,
-      [email, email],
+      [email],
     );
     if (!rowCount) throw new HttpException(409, `This email ${email} was not found`);
 
@@ -118,8 +115,7 @@ export class AuthService {
         `
               SELECT
                 "email",
-                "password",
-                "username"
+                "password"
               FROM
                 users
               WHERE
