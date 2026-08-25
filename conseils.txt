@@ -1,0 +1,1 @@
+vérifie / fait CTRL + F ".env" dans le gitignore de back
